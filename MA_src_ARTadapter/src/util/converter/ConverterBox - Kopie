@@ -1,0 +1,68 @@
+package converter;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import source.Source;
+import source.SourceImpl;
+
+public class ConverterBox {
+	
+	private Set<Converter> converter = new HashSet<Converter>();
+	
+	private ConverterBox(){
+		
+	}
+	
+	public static ConverterBox instanceOf(){
+		return new ConverterBox();
+	}
+	
+	public static ConverterBox instanceOf(Set<Converter> converterSet){
+		ConverterBox converterBox = new ConverterBox();
+		for(Converter converter : converterSet){
+			converterBox.addConverter(converter);
+		}
+		return converterBox;
+	}
+
+	public Set<Source> convert(Set<Source> sourceSet){
+		Set<Source> result = new HashSet<Source>();
+		
+		for(Source source : sourceSet){
+			Source newSource = SourceImpl.getTemporalCopy(source);
+			for(Converter converter : getConverterSet()){
+				newSource = converter.convert(newSource);
+			}
+			result.add(newSource);
+		}
+		return result;
+	}
+	
+	public void addConverter(Converter converter){
+		this.converter.add(converter);
+	}
+	
+	public Set<Converter> getConverterSet(){
+		return converter;
+	}
+	
+//	public Source convert(Source source){
+//		return source;
+//	}
+	
+	/**
+	 * This strings purpose is to make the origin of consoleoutputs (for debugging) easier to allocate.
+	 */
+	private String deb = getClass().getName()+": ";
+	
+	/**
+	 * This methods only purpose is to give the programmer more comfortability in generating a 
+	 * System.out.println(Object), which in addition has the classpath and -name prepended.<br><br>
+	 * .toString() is called on all objects also.
+	 * @param obj - The object which's result of .toString() is to be printed on the console.
+	 */
+	private void out(Object obj){
+		System.out.println(deb+obj.toString());
+	}
+}
