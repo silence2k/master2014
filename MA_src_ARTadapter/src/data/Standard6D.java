@@ -4,6 +4,10 @@ import java.util.Arrays;
 
 import reciver.parser.DataParser;
 import util.Rotationmatrix;
+import util.angle.Angle2D;
+import util.converter.Converter;
+import util.converter.RotationMirror;
+import util.values.Degree180;
 
 public class Standard6D extends ARTartefakt implements DataParser {
 	
@@ -108,7 +112,14 @@ public class Standard6D extends ARTartefakt implements DataParser {
 		
 		rotM = Rotationmatrix.instanceOf(doub);
 		
+		Converter rm = RotationMirror.instanceOf(false, true,true);
+		
 		rotM = Rotationmatrix.instanceOf(rotM.getX(), rotM.getZ(), rotM.getY());
+		
+		double tmpAngel = Degree180.valueOf(rotM.getY().getValue()).getDouble();
+		rotM.rotateY(Angle2D.instanceOf(Degree180.valueOf(-tmpAngel*2)));
+		tmpAngel = Degree180.valueOf(rotM.getZ().getValue()).getDouble();
+		rotM.rotateZ(Angle2D.instanceOf(Degree180.valueOf(-tmpAngel*2)));
 		
 		Double tmp[] = rotM.getDataX();
 		
