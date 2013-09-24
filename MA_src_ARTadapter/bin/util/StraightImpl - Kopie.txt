@@ -1,0 +1,70 @@
+package utility;
+
+import utility.angle.Angle3D;
+import utility.position.Position3D;
+import values.Length;
+
+public class StraightImpl implements Straight {
+
+	private double m;
+	private Length b;
+	
+	private StraightImpl(Position3D point1, Position3D point2){
+		Length x1, x2, y1, y2;
+		
+		x1 = point1.getX();
+		x2 = point1.getY();
+		y1 = point2.getX();
+		y2 = point2.getY();
+		
+		this.m = (y2.sub(y1)).div(x2.sub(x1));
+		this.b = y1.sub(x1.mul(m));
+	}
+	
+	public static Straight instanceOf(Position3D point1, Position3D point2){
+		return new StraightImpl(point1, point2);
+	}
+	
+//	public static Straight instanceOf(Position3D point, Angle3D angle){
+//		
+//	}
+	
+//	public static Position3D getIntersection(Straight straigt1, Straight straight2){
+//		
+//	}
+	
+	@Override
+	public double getM(){
+		return m;
+	}
+	
+	@Override
+	public Length getB(){
+		return b;
+	}
+	
+	@Override
+	public Length getX(Length y) {
+		return y.sub(getB()).div(getM());
+	}
+
+	@Override
+	public Length getY(Length x) {
+		return x.mul(getM()).add(getB());
+	}
+	
+	/**
+	 * This strings purpose is to make the origin of consoleoutputs (for debugging) easier to allocate.
+	 */
+	private String deb = getClass().getName() + ": ";
+
+	/**
+	 * This methods only purpose is to give the programmer more comfortability in generating a 
+	 * System.out.println(Object), which in addition has the classpath and -name prepended.<br><br>
+	 * .toString() is called on all objects also.
+	 * @param obj - The object which's result of .toString() is to be printed on the console.
+	 */
+	private void out(Object obj) {
+		System.out.println(deb + obj.toString());
+	}
+}
