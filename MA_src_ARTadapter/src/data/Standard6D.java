@@ -108,19 +108,34 @@ public class Standard6D extends ARTartefakt implements DataParser {
 		
 		rotM = Rotationmatrix.instanceOf(doub);
 		
+		rotM = Rotationmatrix.instanceOf(rotM.getX(), rotM.getZ(), rotM.getY());
 		
+		Double tmp[] = rotM.getDataX();
 		
 		for(int i = 0; i < etaM.length; i++){
-			etaM[i] = Float.parseFloat(arr[i]);
+			etaM[i] = tmp[i].floatValue();
 		}
-		
+		tmp = rotM.getDataY();
 		for(int i = 0; i < thetaM.length; i++){
-			thetaM[i] = Float.parseFloat(arr[3+i]);
+			thetaM[i] = tmp[i].floatValue();
+		}
+		tmp = rotM.getDataZ();
+		for(int i = 0; i < phiM.length; i++){
+			phiM[i] = tmp[i].floatValue();
 		}
 		
-		for(int i = 0; i < phiM.length; i++){
-			phiM[i] = Float.parseFloat(arr[6+i]);
-		}
+		
+//		for(int i = 0; i < etaM.length; i++){
+//			etaM[i] = Float.parseFloat(arr[i]);
+//		}
+//		
+//		for(int i = 0; i < thetaM.length; i++){
+//			thetaM[i] = Float.parseFloat(arr[3+i]);
+//		}
+//		
+//		for(int i = 0; i < phiM.length; i++){
+//			phiM[i] = Float.parseFloat(arr[6+i]);
+//		}
 		
 	}
 
