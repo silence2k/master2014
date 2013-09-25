@@ -221,7 +221,7 @@ public class TerrainTest extends SimpleApplication {
 		pw.setMaterial(mat_tl);
 		rootNode.attachChild(pw);
 		
-		pw.setLocalTranslation(0, 10, -100);
+		pw.setLocalTranslation(0, 10, 100);
 	}
 	
 	private void buildFenster(){
@@ -232,7 +232,7 @@ public class TerrainTest extends SimpleApplication {
 		pw.setMaterial(mat_tl);
 		rootNode.attachChild(pw);
 		
-		pw.setLocalTranslation(-100, 10, 0);
+		pw.setLocalTranslation(100, 10, 0);
 	}
 	
 	private void buildWand(){
@@ -243,7 +243,7 @@ public class TerrainTest extends SimpleApplication {
 		pw.setMaterial(mat_tl);
 		rootNode.attachChild(pw);
 		
-		pw.setLocalTranslation(100, 10, 0);
+		pw.setLocalTranslation(-100, 10, 0);
 	}
 
     @Override
