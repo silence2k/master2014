@@ -82,9 +82,17 @@ public class Standard6D extends ARTartefakt implements DataParser {
 			arr[i] = arr[i].substring(1);
 		}
 		
-		parseIDandQuality(arr[0]);
-		parsePositionAndAngle(arr[1]);
-		parseRotationsMatrix(arr[2]);
+		int index = 0;
+		while(arr.length > index){
+			if(arr[index].startsWith("12 ")){
+				parseIDandQuality(arr[index]);
+				parsePositionAndAngle(arr[index+1]);
+				parseRotationsMatrix(arr[index+2]);
+			}
+			index += 3;
+		}
+		
+		
 		
 		
 	}
@@ -112,14 +120,31 @@ public class Standard6D extends ARTartefakt implements DataParser {
 		
 		rotM = Rotationmatrix.instanceOf(doub);
 		
-		Converter rm = RotationMirror.instanceOf(false, true,true);
 		
-		rotM = Rotationmatrix.instanceOf(rotM.getX(), rotM.getZ(), rotM.getY());
 		
-		double tmpAngel = Degree180.valueOf(rotM.getY().getValue()).getDouble();
-		rotM.rotateY(Angle2D.instanceOf(Degree180.valueOf(-tmpAngel*2)));
-		tmpAngel = Degree180.valueOf(rotM.getZ().getValue()).getDouble();
-		rotM.rotateZ(Angle2D.instanceOf(Degree180.valueOf(-tmpAngel*2)));
+		double angleY =  Degree180.valueOf(rotM.getZ().getValue()).getDouble();
+		angleY = -angleY;
+		
+		double angleZ =  Degree180.valueOf(rotM.getY().getValue()).getDouble();
+		angleZ = -angleZ;
+		
+//		System.out.println("vorher:  "+rotM);
+				
+		rotM = Rotationmatrix.instanceOf(rotM.getX(), Angle2D.instanceOf(Degree180.valueOf(angleY)), Angle2D.instanceOf(Degree180.valueOf(angleZ)));
+		
+//		rotM = Rotationmatrix.instanceOf(rotM.getX(), rotM.getZ(), rotM.getY());
+		
+		
+		
+		
+		
+		
+//		double tmpAngel = Degree180.valueOf(rotM.getY().getValue()).getDouble();
+//		rotM.rotateY(Angle2D.instanceOf(Degree180.valueOf(-tmpAngel*2)));
+//		tmpAngel = Degree180.valueOf(rotM.getZ().getValue()).getDouble();
+//		rotM.rotateZ(Angle2D.instanceOf(Degree180.valueOf(-tmpAngel*2)));
+		
+//		System.out.println("nachher: "+rotM);
 		
 		Double tmp[] = rotM.getDataX();
 		

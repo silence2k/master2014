@@ -192,7 +192,7 @@ public class TerrainTest extends SimpleApplication {
     	float tmpX = this.getCamera().getLocation().x + deltaX;
     	float tmpY = this.getCamera().getLocation().z + deltaY;
     	
-    	this.getCamera().setLocation(new Vector3f(tmpX, 150, tmpY));
+//    	this.getCamera().setLocation(new Vector3f(tmpX, 150, tmpY));
     	
     	Quaternion q = new Quaternion();
     	
