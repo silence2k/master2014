@@ -99,6 +99,19 @@ public class World
             
             modelList.add(newModel);
         }
+        
+        // load Bennys Cube 
+        
+        
+        Models newModel = new Models();
+        newModel.model = OBJLoader.load("src/object1.obj");
+        newModel.Yaw = (float)(0);
+        
+        newModel.Pt.x = 0f;
+        newModel.Pt.z = 0f;
+        newModel.Pt.y = 8f;
+        
+        modelList.add(newModel);
     }
     
     // Render the ship
