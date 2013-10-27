@@ -21,6 +21,8 @@ public class Main
     public static final int DISPLAY_HEIGHT = 900;
     public static final int DISPLAY_WIDTH = 1400;
     
+    boolean qReleased = true;
+    
     // Renderable items
     PlayerShip testShip;
     World testWorld;
@@ -219,8 +221,15 @@ public class Main
     public void update()
     {
         // Did the camera change?
-        if(Keyboard.isKeyDown(Keyboard.KEY_Q))
-            cameraType = !cameraType;
+    	if(!Keyboard.isKeyDown(Keyboard.KEY_Q)){
+    		qReleased = true;
+    	}
+        if(Keyboard.isKeyDown(Keyboard.KEY_Q) && qReleased){
+        	qReleased = false;
+        	cameraType = !cameraType;
+        }
+            
+        
         
         testShip.Update();
     }

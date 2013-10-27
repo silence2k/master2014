@@ -16,6 +16,20 @@ public class RemoteSteuerung implements Steuerung {
 	private Connection connection;
 	private Session session;
 	private MessageConsumer consumer;
+	private MyConsumer myConsumer;
+	
+	
+	
+
+	public RemoteSteuerung(){
+		super();
+		try {
+			initActiveMq();
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	private void initActiveMq() throws JMSException {
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
@@ -29,6 +43,9 @@ public class RemoteSteuerung implements Steuerung {
 
 		// Create a MessageConsumer from the Session to the Topic or Queue
 		consumer = session.createConsumer(destination);
+		
+		new Thread (new MyConsumer(consumer)).start();
+		
 	}
 
 	private void cleanUpActiveMq() throws JMSException {
@@ -39,19 +56,18 @@ public class RemoteSteuerung implements Steuerung {
 
 	}
 
-	public static class HelloWorldConsumer implements Runnable,
-			ExceptionListener {
+	public static class MyConsumer implements Runnable,ExceptionListener {
 		private MessageConsumer consumer;
 		
-		
-		public HelloWorldConsumer(MessageConsumer consumer) {
+		public MyConsumer(MessageConsumer consumer) {
 			super();
 			this.consumer = consumer;
 		}
 
 		public void run() {
+			boolean weiter = true;
 			try {
-
+				while(weiter){
 				// Create a ConnectionFactory
 
 				// Create a Connection
@@ -59,14 +75,18 @@ public class RemoteSteuerung implements Steuerung {
 				// Create the destination (Topic or Queue)
 
 				// Wait for a message
-				Message message = consumer.receive(1000);
+				Message message = consumer.receive();
 
 				if (message instanceof TextMessage) {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
 					System.out.println("Received: " + text);
+					if(text.toString() == "p"){
+						weiter = false;
+					}
 				} else {
 					System.out.println("Received: " + message);
+				}
 				}
 
 			} catch (Exception e) {
