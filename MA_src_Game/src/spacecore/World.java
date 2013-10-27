@@ -11,25 +11,23 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glVertex3f;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector3f;
 
 // Star point
-class StarPoint
+class StarPoint implements Collision
 {
     Vector3f Pt = new Vector3f();
     Vector3f Color = new Vector3f();
     float Scale;
-}
-
-// Models to render
-class Models
-{
-    Vector3f Pt = new Vector3f();
-    Model model;
-    float Yaw;
+    
+    @Override
+    public boolean hasCollision() {
+    	return false;
+    }
 }
 
 public class World
@@ -42,7 +40,7 @@ public class World
     ArrayList<StarPoint> starList;
     
     // Load a bunch of objects
-    ArrayList<Models> modelList;
+    List<WorldObject> modelList;
     
     public World()
     {
@@ -75,11 +73,11 @@ public class World
             starList.add(Star);
         }
         
-        // Load a bunch of models
+        // Load a bunch of WorldObject
         modelList = new ArrayList<>();
         
         // Load road strip
-        Models model = new Models();
+        WorldObject model = new WorldObject(Boolean.FALSE);
         model.model = OBJLoader.load("src/Road.obj");
         model.Yaw = 0f;
         modelList.add(model);
@@ -89,7 +87,7 @@ public class World
         {
             int Index = (int)(Math.random() * 5f) + 1;
             
-            Models newModel = new Models();
+            WorldObject newModel = new WorldObject(Boolean.FALSE);
             newModel.model = OBJLoader.load("src/Rock" + Index + ".obj");
             newModel.Yaw = (float)(Math.random() * 2.0 * Math.PI);
             
@@ -103,7 +101,7 @@ public class World
         // load Bennys Cube 
         
         
-        Models newModel = new Models();
+        WorldObject newModel = new WorldObject(Boolean.TRUE);
         newModel.model = OBJLoader.load("src/object1.obj");
         newModel.Yaw = (float)(0);
         
@@ -152,7 +150,7 @@ public class World
         GL11.glPopMatrix();
         
         // Render all the objects
-        for(Models model : modelList)
+        for(WorldObject model : modelList)
         {
             GL11.glPushMatrix();
             
