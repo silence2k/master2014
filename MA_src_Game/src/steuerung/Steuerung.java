@@ -17,5 +17,7 @@ public interface Steuerung {
 	public boolean isSchubGeben();
 	
 	public boolean isSchubWegnehmen();
+	
+	public void cleanUp();
 
 }

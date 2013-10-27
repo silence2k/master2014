@@ -47,4 +47,11 @@ public class KeyboardSteuerung implements Steuerung {
 		return Keyboard.isKeyDown(Keyboard.KEY_F);
 	}
 
+	@Override
+	public void cleanUp() {
+		// nichts tun
+	}
+	
+	
+
 }
