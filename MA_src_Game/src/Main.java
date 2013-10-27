@@ -120,6 +120,8 @@ public class Main {
 		collisionWordObjects = new ArrayList<WorldObject>();
 		for (WorldObject worldObject : testWorld.getModelList()) {
 			if (worldObject.hasCollision()) {
+				System.out.println("Collision able object: "
+						+ worldObject.getWorldObjectType().name());
 				collisionWordObjects.add(worldObject);
 			}
 		}

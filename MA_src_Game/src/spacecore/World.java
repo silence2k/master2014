@@ -74,7 +74,8 @@ public class World {
 		modelList = new ArrayList<>();
 
 		// Load road strip
-		WorldObject model = new WorldObject(Boolean.FALSE);
+		WorldObject model = new WorldObject(Boolean.TRUE,
+				WorldObjectType.AIRSTRIP);
 		model.model = OBJLoader.load("src/Road.obj");
 		model.Yaw = 0f;
 		modelList.add(model);
@@ -96,7 +97,8 @@ public class World {
 
 		// load Bennys Cube
 
-		WorldObject newModel = new WorldObject(Boolean.TRUE);
+		WorldObject newModel = new WorldObject(Boolean.TRUE,
+				WorldObjectType.CUBE);
 		newModel.model = OBJLoader.load("src/object1.obj");
 		newModel.Yaw = (float) (0);
 
