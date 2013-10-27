@@ -74,8 +74,10 @@ public class World {
 		modelList = new ArrayList<>();
 
 		// Load road strip
-		WorldObject model = new WorldObject(Boolean.FALSE);
-		model.model = OBJLoader.load("src/Road.obj");
+		WorldObject model = new WorldObject(Boolean.TRUE,
+				WorldObjectType.AIRSTRIP);
+		model.model = OBJLoader.loadModel("src/Road2");
+		model.Pt = new Vector3f(0f,0.01f,0f);
 		model.Yaw = 0f;
 		modelList.add(model);
 
@@ -84,7 +86,7 @@ public class World {
 			int Index = (int) (Math.random() * 5f) + 1;
 
 			WorldObject newModel = new WorldObject(Boolean.FALSE);
-			newModel.model = OBJLoader.load("src/Rock" + Index + ".obj");
+			newModel.model = OBJLoader.loadModel("src/Rock" + Index);
 			newModel.Yaw = (float) (Math.random() * 2.0 * Math.PI);
 
 			newModel.Pt.x = (float) (Math.random() * 2.0 - 1.0) * SkyboxSize;
@@ -96,8 +98,9 @@ public class World {
 
 		// load Bennys Cube
 
-		WorldObject newModel = new WorldObject(Boolean.TRUE);
-		newModel.model = OBJLoader.load("src/object1.obj");
+		WorldObject newModel = new WorldObject(Boolean.TRUE,
+				WorldObjectType.CUBE);
+		newModel.model = OBJLoader.loadModel("src/object1");
 		newModel.Yaw = (float) (0);
 
 		newModel.Pt.x = 0f;
@@ -288,12 +291,19 @@ public class World {
 			GL11.glBegin(GL11.GL_TRIANGLES);
 			for (Face face : model.faces) {
 				// Always make black when in line mode)
+				
+				if(face.mtl.name == "grau"){
+				
 				if (i == 0)
 					GL11.glColor3f(0.8f, 0.8f,
 							0.5f + 0.5f * (SurfaceRand.nextFloat()));
 				else
 					GL11.glColor3f(0.4f, 0.4f,
 							0.2f + 0.2f * (SurfaceRand.nextFloat()));
+				}else{
+					GL11.glColor3f(face.mtl.getRed(),face.mtl.getGreen(),face.mtl.getBlue());
+				}
+				
 
 				// Randomize the color a tiny bit
 				Vector3f v1 = model.vertices.get((int) face.vertex.x - 1);

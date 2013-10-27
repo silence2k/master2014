@@ -49,14 +49,7 @@ public class PlayerShip {
 		this.steuerung = steuerung;
 		// Default data
 		InitShip();
-
-		try {
-			model = OBJLoader.loadModel(new File("src/Sample.obj"));
-		} catch (FileNotFoundException e) {
-			System.exit(1);
-		} catch (IOException e) {
-			System.exit(1);
-		}
+		model = OBJLoader.loadModel("src/Sample");
 	}
 
 	public void InitShip() {
