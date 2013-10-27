@@ -418,6 +418,8 @@ public class PlayerShip
         pMatrix[ 6] = 2.0f * ( q.y * q.z - q.w * q.x );
         pMatrix[ 7] = 0.0f;
 
+        
+        
         // Third row
 
         pMatrix[ 8] = 2.0f * ( q.x * q.z - q.w * q.y );
