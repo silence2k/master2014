@@ -315,9 +315,9 @@ public class PlayerShip
         }
         
         // Physics check: did we crash, or did we bounce
-        /*if(Math.abs(MaxD) > 0.02)
+        if(Math.abs(MaxD) > 0.02)
             Crashed = true;
-        else*/ if(Math.abs(MaxD) > 0.0f)
+        else if(Math.abs(MaxD) > 0.0f)
         {
             Position.y += Math.abs(MaxD);
             Bounced = true;
