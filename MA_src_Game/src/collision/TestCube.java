@@ -1,12 +1,11 @@
 package collision;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import obj.loader.CollisionDetection;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -25,8 +24,8 @@ public class TestCube {
 	Steuerung steuerung;
 
 	// Global position and local vectors
-	private Vector3f Position;
-	private Vector3f Forward, vNeigung, vRollen, vQuer;
+	public Vector3f Position;
+	public Vector3f Forward, vNeigung, vRollen, vQuer;
 
 	// Pitch and rolls
 	private float neigung, rollen, quer;
@@ -81,10 +80,9 @@ public class TestCube {
 	// Check for user events
 	public void Update(List<WorldObject> collisionWorldObjects) {
 		// If we ever crash, reset everything
-		
-		
-		
-		
+
+		CollisionDetection collisionDetection = new CollisionDetection();
+		collisionDetection.detectColliosion(this, collisionWorldObjects);
 		if (Crashed) {
 			System.out.println("Crashed!");
 			InitShip();
@@ -98,33 +96,33 @@ public class TestCube {
 		// Changing pitch and roll (Pitch is on Z axis)
 
 		if (steuerung.isNaseRunter())
-		TargetVelocity += VEL_dMAX;
-		
+			TargetVelocity += VEL_dMAX;
+
 		if (steuerung.isNaseHoch())
 			TargetVelocity -= VEL_dMAX;
-//
-//		// Roll is on post-pitch X acis
-//		if (steuerung.isRollenLinks())
-//			dRollen += 0.05;
-//		if (steuerung.isRollenRechts())
-//			dRollen -= 0.05;
-//
-//		// Update velocities
-//		if (steuerung.isSchubGeben())
-//			TargetVelocity += VEL_dMAX;
-//		if (steuerung.isSchubWegnehmen())
-//			TargetVelocity -= VEL_dMAX;
-//
-//		if (steuerung.isSeitenruderLinks())
-//			dQuer += 0.05;
-//		if (steuerung.isSeitenruderRechts())
-//			dQuer -= 0.05;
+		//
+		// // Roll is on post-pitch X acis
+		// if (steuerung.isRollenLinks())
+		// dRollen += 0.05;
+		// if (steuerung.isRollenRechts())
+		// dRollen -= 0.05;
+		//
+		// // Update velocities
+		// if (steuerung.isSchubGeben())
+		// TargetVelocity += VEL_dMAX;
+		// if (steuerung.isSchubWegnehmen())
+		// TargetVelocity -= VEL_dMAX;
+		//
+		// if (steuerung.isSeitenruderLinks())
+		// dQuer += 0.05;
+		// if (steuerung.isSeitenruderRechts())
+		// dQuer -= 0.05;
 
 		// Bounds check the target velocity
 		if (TargetVelocity > VEL_MAX)
 			TargetVelocity = VEL_MAX;
-//		else if (TargetVelocity < 0.0f)
-//			TargetVelocity = 0;
+		// else if (TargetVelocity < 0.0f)
+		// TargetVelocity = 0;
 
 		// Update the real velocity over time
 		// NOTE: The delta has to be smaller than the target velocity
@@ -201,7 +199,7 @@ public class TestCube {
 		Quaternion.mul(QResult, qRollen, QResult);
 		Quaternion.mul(QResult, qNeigung, QResult);
 		QResult.normalise();
-		
+
 		TargetVelocity = 0;
 	}
 
