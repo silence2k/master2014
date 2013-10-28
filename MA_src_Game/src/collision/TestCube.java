@@ -1,4 +1,4 @@
-package spacecore;
+package collision;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,9 +14,13 @@ import org.lwjgl.util.vector.Quaternion;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
+import spacecore.Face;
+import spacecore.Model;
+import spacecore.OBJLoader;
+import spacecore.WorldObject;
 import steuerung.Steuerung;
 
-public class PlayerShip {
+public class TestCube {
 
 	Steuerung steuerung;
 
@@ -37,7 +41,7 @@ public class PlayerShip {
 	float RealVelocity, TargetVelocity;
 
 	// Velocities
-	public static float VEL_dMAX = 0.005f;
+	public static float VEL_dMAX = 0.1f;
 	public static float VEL_MAX = 0.15f;
 
 	// Did we crash or bounce?
@@ -45,16 +49,16 @@ public class PlayerShip {
 	boolean Crashed;
 
 	// Constructor does nothign
-	public PlayerShip(Steuerung steuerung) {
+	public TestCube(Steuerung steuerung) {
 		this.steuerung = steuerung;
 		// Default data
 		InitShip();
-		model = OBJLoader.loadModel("src/Sample");
+		model = OBJLoader.loadModel("src/Cube1");
 	}
 
 	public void InitShip() {
 		// Default position slight above ground
-		Position = new Vector3f(0, 0.1f, 0);
+		Position = new Vector3f(-0.5f, 4.5f, 0);
 
 		// Set forward to Z+
 		Forward = new Vector3f(0, 0, 1);
@@ -94,32 +98,33 @@ public class PlayerShip {
 		// Changing pitch and roll (Pitch is on Z axis)
 
 		if (steuerung.isNaseRunter())
-			dNeigen -= 0.03;
+		TargetVelocity += VEL_dMAX;
+		
 		if (steuerung.isNaseHoch())
-			dNeigen += 0.03;
-
-		// Roll is on post-pitch X acis
-		if (steuerung.isRollenLinks())
-			dRollen += 0.05;
-		if (steuerung.isRollenRechts())
-			dRollen -= 0.05;
-
-		// Update velocities
-		if (steuerung.isSchubGeben())
-			TargetVelocity += VEL_dMAX;
-		if (steuerung.isSchubWegnehmen())
 			TargetVelocity -= VEL_dMAX;
-
-		if (steuerung.isSeitenruderLinks())
-			dQuer += 0.05;
-		if (steuerung.isSeitenruderRechts())
-			dQuer -= 0.05;
+//
+//		// Roll is on post-pitch X acis
+//		if (steuerung.isRollenLinks())
+//			dRollen += 0.05;
+//		if (steuerung.isRollenRechts())
+//			dRollen -= 0.05;
+//
+//		// Update velocities
+//		if (steuerung.isSchubGeben())
+//			TargetVelocity += VEL_dMAX;
+//		if (steuerung.isSchubWegnehmen())
+//			TargetVelocity -= VEL_dMAX;
+//
+//		if (steuerung.isSeitenruderLinks())
+//			dQuer += 0.05;
+//		if (steuerung.isSeitenruderRechts())
+//			dQuer -= 0.05;
 
 		// Bounds check the target velocity
 		if (TargetVelocity > VEL_MAX)
 			TargetVelocity = VEL_MAX;
-		else if (TargetVelocity < 0.0f)
-			TargetVelocity = 0;
+//		else if (TargetVelocity < 0.0f)
+//			TargetVelocity = 0;
 
 		// Update the real velocity over time
 		// NOTE: The delta has to be smaller than the target velocity
@@ -196,6 +201,8 @@ public class PlayerShip {
 		Quaternion.mul(QResult, qRollen, QResult);
 		Quaternion.mul(QResult, qNeigung, QResult);
 		QResult.normalise();
+		
+		TargetVelocity = 0;
 	}
 
 	// Render the ship

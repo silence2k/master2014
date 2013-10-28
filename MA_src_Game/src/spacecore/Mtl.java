@@ -16,7 +16,7 @@ import spacecore.Color;
 
 public class Mtl 
 {
-	protected String name;
+	public String name;
 	
 	/*
 	 * newmtl wall_L
