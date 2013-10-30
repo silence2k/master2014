@@ -1,4 +1,4 @@
-package spacecore;
+package ui;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
@@ -8,14 +8,23 @@ import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glVertex2f;
+import spacecore.Hand;
 
 public class UserInterface
 {
-    // Constructor
-    public UserInterface()
-    {
-        
-    }
+
+	
+    
+    public UserInterface(Hand leftHand, Hand rightHand) {
+		super();
+		this.leftHand = leftHand;
+		this.rightHand = rightHand;
+	}
+
+	Hand leftHand;
+    Hand rightHand;
+    
+    JoystickUI jui = new JoystickUI();
     
     // Render
     public void Render(float RealVelocity, float TargetVelocity, float MaxVelocity)
@@ -54,8 +63,13 @@ public class UserInterface
                 glVertex2f(59f, 37f + 158f * TScale);
                 glVertex2f(50f, 37f + 158f * TScale);
             glEnd();
+            
+            jui.draw();
         
         // Pop off the matrix
         glPopMatrix();
     }
+    
+    
+   
 }

@@ -18,7 +18,9 @@ public class RemoteSteuerung implements Steuerung {
 	private MessageConsumer consumer;
 	private MyConsumer myConsumer;
 	
+
 	
+	boolean schubGeben = false;
 	
 
 	public RemoteSteuerung(){
@@ -32,7 +34,7 @@ public class RemoteSteuerung implements Steuerung {
 	}
 
 	private void initActiveMq() throws JMSException {
-		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
+		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
 		connection = connectionFactory.createConnection();
 		connection.start();
 
@@ -56,8 +58,20 @@ public class RemoteSteuerung implements Steuerung {
 
 	}
 
-	public static class MyConsumer implements Runnable,ExceptionListener {
+	public class MyConsumer implements Runnable,ExceptionListener {
 		private MessageConsumer consumer;
+		
+		String hoch = "s";
+		String runter = "w";
+		String links = "a";
+		String rechts = "d";
+		
+		String gas = "r";
+		
+		String notHoch = "-s";
+		String notRunter = "-w";
+		String notLinks = "-a";
+		String notRechts = "-d";
 		
 		public MyConsumer(MessageConsumer consumer) {
 			super();
@@ -65,6 +79,7 @@ public class RemoteSteuerung implements Steuerung {
 		}
 
 		public void run() {
+			System.out.println("Consumer started!!!");
 			boolean weiter = true;
 			try {
 				while(weiter){
@@ -75,17 +90,23 @@ public class RemoteSteuerung implements Steuerung {
 				// Create the destination (Topic or Queue)
 
 				// Wait for a message
-				Message message = consumer.receive();
+				Message message = consumer.receive(1000);
 
 				if (message instanceof TextMessage) {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
-					System.out.println("Received: " + text);
+					System.out.println("Received1: " + text);
 					if(text.toString() == "p"){
 						weiter = false;
 					}
+					
+					if(gas.equalsIgnoreCase(text.toString())){
+						schubGeben = true;
+					}
+					
+					
 				} else {
-					System.out.println("Received: " + message);
+					System.out.println("Received2: " + message);
 				}
 				}
 
@@ -138,8 +159,7 @@ public class RemoteSteuerung implements Steuerung {
 
 	@Override
 	public boolean isSchubGeben() {
-		// TODO Auto-generated method stub
-		return false;
+		return schubGeben;
 	}
 
 	@Override

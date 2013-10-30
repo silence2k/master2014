@@ -1,3 +1,4 @@
+package starter;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
@@ -27,6 +28,7 @@ import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
+import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,11 +40,13 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.vector.Vector3f;
 
+import spacecore.Hand;
 import spacecore.PlayerShip;
-import spacecore.UserInterface;
 import spacecore.World;
 import spacecore.WorldObject;
 import steuerung.KeyboardSteuerung;
+import steuerung.RemoteSteuerung;
+import ui.UserInterface;
 
 // Simple main application entry point
 public class Main {
@@ -53,6 +57,8 @@ public class Main {
 
 	// All Objects which can have a collision in the world
 	public List<WorldObject> collisionWordObjects;
+	
+	boolean ferngesteuert;
 
 	// Renderable items
 	PlayerShip testShip;
@@ -72,6 +78,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		Main main = null;
+		boolean ferngesteuert = false;
+		if(args.length > 0){
+			ferngesteuert = true;
+		}
 		try {
 			System.out.println("Keys:");
 			System.out.println("down  - Shrink");
@@ -79,7 +89,7 @@ public class Main {
 			System.out.println("left  - Rotate left");
 			System.out.println("right - Rotate right");
 			System.out.println("esc   - Exit");
-			main = new Main();
+			main = new Main(ferngesteuert);
 			main.create();
 			main.run();
 		} catch (Exception ex) {
@@ -91,8 +101,8 @@ public class Main {
 		}
 	}
 
-	public Main() {
-		// Do nothing...
+	public Main(boolean ferngesteuert) {
+		this.ferngesteuert = ferngesteuert;
 	}
 
 	public void create() throws LWJGLException {
@@ -125,8 +135,13 @@ public class Main {
 				collisionWordObjects.add(worldObject);
 			}
 		}
-		testShip = new PlayerShip(new KeyboardSteuerung());
-		UI = new UserInterface();
+		if(ferngesteuert){
+			testShip = new PlayerShip(new RemoteSteuerung());
+		}else{
+			testShip = new PlayerShip(new KeyboardSteuerung());
+		}
+		
+		UI = new UserInterface(Hand.instanceLeftHand(),Hand.instanceRightHand());
 
 		// Setup fog
 		glFogi(GL_FOG_MODE, GL_EXP);

@@ -39,11 +39,12 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.vector.Vector3f;
 
+import spacecore.Hand;
 import spacecore.PlayerShip;
-import spacecore.UserInterface;
 import spacecore.World;
 import spacecore.WorldObject;
 import steuerung.KeyboardSteuerung;
+import ui.UserInterface;
 
 // Simple main application entry point
 public class CollisionTest {
@@ -122,7 +123,7 @@ public class CollisionTest {
 			}
 		}
 		testShip = new TestCube(new KeyboardSteuerung());
-		UI = new UserInterface();
+		UI = new UserInterface(Hand.instanceLeftHand(),Hand.instanceRightHand());
 
 		// Setup fog
 		glFogi(GL_FOG_MODE, GL_EXP);
