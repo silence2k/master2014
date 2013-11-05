@@ -32,7 +32,7 @@ class StarPoint implements Collision {
 public class World {
 
 	// Box size
-	public static float SkyboxSize = 32.0f;
+	public static float SkyboxSize = 40.0f;
 	public static float WorldSize = 1024.0f;
 
 	// List of stars (list of Vector3f)

@@ -49,12 +49,12 @@ public class PlayerShip {
 		this.steuerung = steuerung;
 		// Default data
 		InitShip();
-		model = OBJLoader.loadModel("src/Sample");
+		model = OBJLoader.loadModel("src/Fighter1");
 	}
 
 	public void InitShip() {
 		// Default position slight above ground
-		Position = new Vector3f(0, 0.1f, 0);
+		Position = new Vector3f(0, 0.5f, 0);
 
 		// Set forward to Z+
 		Forward = new Vector3f(0, 0, 1);
@@ -231,6 +231,7 @@ public class PlayerShip {
 
 		// Set width to a single line
 		GL11.glLineWidth(1);
+		
 
 		// Change rendermode
 		for (int i = 0; i < 2; i++) {
@@ -245,14 +246,16 @@ public class PlayerShip {
 			GL11.glBegin(GL11.GL_TRIANGLES);
 			for (Face face : model.faces) {
 				// Always make black when in line mode)
-				if (i == 0)
-					GL11.glColor3f(0.8f, 0.8f,
-							0.5f + 0.5f * (SurfaceRand.nextFloat()));
-				else
-					GL11.glColor3f(0.4f, 0.4f,
-							0.2f + 0.2f * (SurfaceRand.nextFloat()));
+//				if (i == 0)
+//					GL11.glColor3f(0.8f, 0.8f,
+//							0.5f + 0.5f * (SurfaceRand.nextFloat()));
+//				else
+//					GL11.glColor3f(0.4f, 0.4f,
+//							0.2f + 0.2f * (SurfaceRand.nextFloat()));
 				// GL11.glColor3f(0.7f, 0.7f, 0.7f);
 
+				GL11.glColor3f(face.mtl.getRed(), face.mtl.getGreen(), face.mtl.getBlue());
+				
 				// Randomize the color a tiny bit
 				Vector3f v1 = model.vertices.get((int) face.vertex.x - 1);
 				GL11.glVertex3f(v1.x, v1.y, v1.z);
