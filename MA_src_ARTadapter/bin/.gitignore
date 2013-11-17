@@ -1,4 +1,6 @@
-/gui
-/filereader
-/reciver
 /data
+/filereader
+/gui
+/reciver
+/start
+/util
