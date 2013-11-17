@@ -249,7 +249,7 @@ public class CollisionTest {
 
 		// Render all elements
 		testWorld.Render(cameraPos, Yaw);
-		testShip.Render();
+		testShip.renderOhneGL();
 
 		// 2D GUI
 		resizeGL2D();

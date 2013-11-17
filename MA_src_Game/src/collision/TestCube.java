@@ -2,7 +2,9 @@ package collision;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import obj.loader.CollisionDetection;
@@ -13,6 +15,8 @@ import org.lwjgl.util.vector.Quaternion;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
+import physik.RotationMatrix;
+import bastel2.Physics_old;
 import spacecore.Face;
 import spacecore.Model;
 import spacecore.OBJLoader;
@@ -46,6 +50,8 @@ public class TestCube {
 	// Did we crash or bounce?
 	boolean Bounced;
 	boolean Crashed;
+	
+	public Map<Vector3f, Vector3f> aktuellePunktPosition = new HashMap<>();
 
 	// Constructor does nothign
 	public TestCube(Steuerung steuerung) {
@@ -102,10 +108,10 @@ public class TestCube {
 			TargetVelocity -= VEL_dMAX;
 		//
 		// // Roll is on post-pitch X acis
-		// if (steuerung.isRollenLinks())
-		// dRollen += 0.05;
-		// if (steuerung.isRollenRechts())
-		// dRollen -= 0.05;
+		 if (steuerung.isRollenLinks())
+		 dRollen += 0.05;
+		 if (steuerung.isRollenRechts())
+		 dRollen -= 0.05;
 		//
 		// // Update velocities
 		// if (steuerung.isSchubGeben())
@@ -201,6 +207,190 @@ public class TestCube {
 		QResult.normalise();
 
 		TargetVelocity = 0;
+	}
+	
+	public void renderOhneGL() {
+		// Translate to position
+		GL11.glPushMatrix();
+
+
+		GL11.glLineWidth(2.0f);
+		GL11.glBegin(GL11.GL_LINES);
+		GL11.glColor3f(1, 0.5f, 0.5f);
+		GL11.glVertex3f(0, 0, 0);
+		GL11.glVertex3f(1, 0, 0);
+
+		GL11.glColor3f(0.5f, 1, 0.5f);
+		GL11.glVertex3f(0, 0, 0);
+		GL11.glVertex3f(0, 1, 0);
+
+		GL11.glColor3f(0.5f, 0.5f, 1);
+		GL11.glVertex3f(0, 0, 0);
+		GL11.glVertex3f(0, 0, 1);
+		GL11.glEnd();
+
+		// Set width to a single line
+		GL11.glLineWidth(1);
+
+		// Change rendermode
+		for (int i = 0; i < 2; i++) {
+			if (i == 0)
+				GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+			else
+				GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+
+			// Randomize surface color a bit
+			Random SurfaceRand = new Random(123456);
+
+			GL11.glBegin(GL11.GL_TRIANGLES);
+			for (Face face : model.faces) {
+				// Always make black when in line mode)
+				if (i == 0)
+					GL11.glColor3f(0.8f, 0.8f,
+							0.5f + 0.5f * (SurfaceRand.nextFloat()));
+				else
+					GL11.glColor3f(0.4f, 0.4f,
+							0.2f + 0.2f * (SurfaceRand.nextFloat()));
+				// GL11.glColor3f(0.7f, 0.7f, 0.7f);
+				
+				Vector3f v = model.vertices.get((int) face.vertex.x - 1);
+				v = RotationMatrix.rotate(v, Position, rollen, neigung, quer);
+				GL11.glVertex3f(v.x, v.y, v.z);
+				v = model.vertices.get((int) face.vertex.y - 1);
+				v = RotationMatrix.rotate(v, Position, rollen, neigung, quer);
+				GL11.glVertex3f(v.x, v.y, v.z);
+				v = model.vertices.get((int) face.vertex.z - 1);
+				v = RotationMatrix.rotate(v, Position, rollen, neigung, quer);
+				GL11.glVertex3f(v.x, v.y, v.z);
+				
+			}
+			GL11.glEnd();
+		}
+
+		// Reset back to regular faces
+		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+
+		// Done
+		GL11.glPopMatrix();
+
+		// Render the shadow (view-volume)
+		// Note: we render the shadow independant of the model's translation and
+		// rotation
+		// THOUGH NOTE: we do translate the shadow up a tiny bit off the ground
+		// so it doesnt z-fight
+		GL11.glPushMatrix();
+
+		GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);
+		GL11.glPolygonOffset(-1.0f, -1.0f);
+
+		GL11.glTranslatef(0, 0.001f, 0);
+		renderShadow(Position);
+
+		GL11.glDisable(GL11.GL_POLYGON_OFFSET_FILL);
+
+		GL11.glPopMatrix();
+	}
+
+	
+	public void renderTest() {
+		// Translate to position
+		GL11.glPushMatrix();
+		//GL11.glTranslatef(Position.x, Position.y, Position.z);
+
+		// Why isn't this a built-in feature of LWJGL
+//		float[] QMatrix = new float[16];
+//		createMatrix(QMatrix, QResult);
+//
+//		FloatBuffer Buffer = BufferUtils.createFloatBuffer(16);
+//		Buffer.put(QMatrix);
+//		Buffer.position(0);
+
+		//GL11.glMultMatrix(Buffer);
+
+		GL11.glLineWidth(2.0f);
+		GL11.glBegin(GL11.GL_LINES);
+		GL11.glColor3f(1, 0.5f, 0.5f);
+		GL11.glVertex3f(0, 0, 0);
+		GL11.glVertex3f(1, 0, 0);
+
+		GL11.glColor3f(0.5f, 1, 0.5f);
+		GL11.glVertex3f(0, 0, 0);
+		GL11.glVertex3f(0, 1, 0);
+
+		GL11.glColor3f(0.5f, 0.5f, 1);
+		GL11.glVertex3f(0, 0, 0);
+		GL11.glVertex3f(0, 0, 1);
+		GL11.glEnd();
+
+		// Set width to a single line
+		GL11.glLineWidth(1);
+
+		// Change rendermode
+		for (int i = 0; i < 2; i++) {
+			if (i == 0)
+				GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+			else
+				GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+
+			// Randomize surface color a bit
+			Random SurfaceRand = new Random(123456);
+
+			GL11.glBegin(GL11.GL_TRIANGLES);
+			for (Face face : model.faces) {
+				// Always make black when in line mode)
+				if (i == 0)
+					GL11.glColor3f(0.8f, 0.8f,
+							0.5f + 0.5f * (SurfaceRand.nextFloat()));
+				else
+					GL11.glColor3f(0.4f, 0.4f,
+							0.2f + 0.2f * (SurfaceRand.nextFloat()));
+				// GL11.glColor3f(0.7f, 0.7f, 0.7f);
+
+				// Randomize the color a tiny bit
+				Vector3f v1 = model.vertices.get((int) face.vertex.x - 1);
+				GL11.glVertex3f(
+				Physics_old.RotationMatrix("x", v1.x, v1.y, v1.z, Position.x, Position.y, Position.z, rollen, neigung, quer),
+				Physics_old.RotationMatrix("y", v1.x, v1.y, v1.z, Position.x, Position.y, Position.z, rollen, neigung, quer),
+				Physics_old.RotationMatrix("z",v1.x, v1.y, v1.z, Position.x, Position.y, Position.z, rollen, neigung, quer));
+				//GL11.glVertex3f(v1.x, v1.y, v1.z);
+				Vector3f v2 = model.vertices.get((int) face.vertex.y - 1);
+				//GL11.glVertex3f(v2.x, v2.y, v2.z);
+				GL11.glVertex3f(
+				Physics_old.RotationMatrix("x", v2.x, v2.y, v2.z, Position.x, Position.y, Position.z, rollen, neigung, quer),
+				Physics_old.RotationMatrix("y", v2.x, v2.y, v2.z, Position.x, Position.y, Position.z, rollen, neigung, quer),
+				Physics_old.RotationMatrix("z",v2.x, v2.y, v2.z, Position.x, Position.y, Position.z, rollen, neigung, quer));
+				Vector3f v3 = model.vertices.get((int) face.vertex.z - 1);
+				//GL11.glVertex3f(v3.x, v3.y, v3.z);
+				GL11.glVertex3f(
+				Physics_old.RotationMatrix("x", v3.x, v3.y, v3.z, Position.x, Position.y, Position.z, rollen, neigung, quer),
+				Physics_old.RotationMatrix("y", v3.x, v3.y, v3.z, Position.x, Position.y, Position.z, rollen, neigung, quer),
+				Physics_old.RotationMatrix("z",v3.x, v3.y, v3.z, Position.x, Position.y, Position.z, rollen, neigung, quer));
+			}
+			GL11.glEnd();
+		}
+
+		// Reset back to regular faces
+		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+
+		// Done
+		GL11.glPopMatrix();
+
+		// Render the shadow (view-volume)
+		// Note: we render the shadow independant of the model's translation and
+		// rotation
+		// THOUGH NOTE: we do translate the shadow up a tiny bit off the ground
+		// so it doesnt z-fight
+		GL11.glPushMatrix();
+
+		GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);
+		GL11.glPolygonOffset(-1.0f, -1.0f);
+
+		GL11.glTranslatef(0, 0.001f, 0);
+		renderShadow(Position);
+
+		GL11.glDisable(GL11.GL_POLYGON_OFFSET_FILL);
+
+		GL11.glPopMatrix();
 	}
 
 	// Render the ship
@@ -463,5 +653,21 @@ public class TestCube {
 
 	public float GetTargetVelocity() {
 		return TargetVelocity;
+	}
+	
+	
+	public Vector3f getAktuellePunktPostion(Vector3f punkt){
+		if(!aktuellePunktPosition.containsKey(punkt)){
+			aktuellePunktPosition.put(punkt, RotationMatrix.rotate(punkt, Position, rollen, neigung, quer));
+		}
+		return aktuellePunktPosition.get(punkt);
+	}
+	
+	public void clearAktuellePunkte(){
+		aktuellePunktPosition.clear();
+	}
+	
+	public List<Face> getFaces(){
+		return model.faces;
 	}
 }

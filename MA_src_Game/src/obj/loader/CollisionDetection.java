@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.lwjgl.util.vector.Vector3f;
 
+import spacecore.Face;
+import spacecore.Model;
 import spacecore.WorldObject;
 import collision.TestCube;
 
@@ -16,15 +18,14 @@ public class CollisionDetection {
 		int collision = 0;
 		Vector3f v0 = test.Position;
 		Vector3f v1 = null;
-
-		List<Vector3f> verticesFlight = Arrays.asList(test.Forward,
-				test.vNeigung, test.vRollen);
+		
+		List<Face> faces = test.getFaces();
 
 		for (WorldObject worldObject : obj2) {
-			List<Vector3f> verticesObj2 = worldObject.getModel().vertices;
+			List<Vector3f> woPolygone = worldObject.getModel().vertices;
 			for (Vector3f verticelFlight : verticesFlight) {
 				v1 = worldObject.getPt();
-				for (Vector3f vectorObj2 : verticesObj2) {
+				for (Vector3f vectorObj2 : woPolygone) {
 					collision = collision(verticelFlight, v0, vectorObj2, v1);
 					if (collision == 1) {
 						System.err.println("Collision with : "
