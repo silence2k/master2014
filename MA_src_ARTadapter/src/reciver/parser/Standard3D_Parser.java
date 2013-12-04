@@ -11,13 +11,16 @@ public class Standard3D_Parser {
 	public static Standard3D parse(String s){
 		// 5 1.000][2137.712 2761.494 1013.095
 		String tmp[] = s.split("\\]\\[");
-		String t = tmp[1].trim();
-		if(t.endsWith("]")){
-			t = t.substring(0, t.length()-1);
+		String t1 = tmp[0].trim();
+		String tmp2[] = t1.split(" ");
+
+		String t2 = tmp[1].trim();
+		if(t2.endsWith("]")){
+			t2 = t2.substring(0, t2.length()-1);
 		}
-		String tmp3[] = t.split(" ");
+		String tmp3[] = t2.split(" ");
 		
-		return new Standard3D(Double.parseDouble(tmp3[0]),Double.parseDouble(tmp3[1]),Double.parseDouble(tmp3[2]));
+		return new Standard3D(tmp2[0],Double.parseDouble(tmp3[0]),Double.parseDouble(tmp3[1]),Double.parseDouble(tmp3[2]));
 	}
 	
 	public static List<Standard3D> parseList(String s){

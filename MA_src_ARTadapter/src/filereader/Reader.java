@@ -19,6 +19,7 @@ public class Reader implements DataSource{
 	
 	private int index = 0;
 	private long lastTime;
+	private int bufferSize = 5;
 	
 	protected long warteZeit = 50; // 50ms
 	
@@ -33,12 +34,17 @@ public class Reader implements DataSource{
 	
 	@Override
 	public List<Standard3D> getStandard3dList() {
-//		long tmp = System.currentTimeMillis();
-//		if((lastTime+warteZeit) < tmp){
-//			lastTime = tmp;
-			index = (index+1)%list.size();
-//		}
-		return list.get(index);
+		List<Standard3D> result = new ArrayList<>();
+		index = (index+1)%list.size();
+		int tmp = 0;
+		for(int i = 0; i < bufferSize; i++){
+			tmp = index-i;
+			if(tmp < 0){
+				tmp = list.size()+tmp;
+			}
+			result.addAll(list.get(tmp));
+		}
+		return result;
 	}
 	
 	public static Reader instance(File dataFile) throws FileNotFoundException, IOException {

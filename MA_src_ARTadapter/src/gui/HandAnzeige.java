@@ -18,7 +18,9 @@ import reciver.UdpReciver;
 import reciver.parser.ParserSimpleGui;
 
 
+import data.Berechne;
 import data.DataSource;
+import data.Hand;
 import data.Standard3D;
 import data.Standard6D;
 import filereader.Reader;
@@ -35,15 +37,14 @@ public class HandAnzeige extends JPanel{
 	
 	DataSource ds;
 	
-	List<Standard3D> list = new ArrayList<>();
-	
+	Berechne berechne;
 	
 
 	public HandAnzeige(DataSource ds) {
 		super();
 		this.ds = ds;
 		
-		list = ds.getStandard3dList();
+		berechne = new Berechne(ds);
 	}
 	
 	
@@ -63,18 +64,41 @@ public class HandAnzeige extends JPanel{
 
 
 	public void paint(Graphics g) {
-		    Dimension d = this.getPreferredSize();
+		   printPoints(g);
+//		   printHands(g);
+		  }
+	
+	private void printPoints(Graphics g){
+		 Dimension d = this.getPreferredSize();
 		    g.setColor(Color.black);
 		    g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		     
+		    berechne.update();
+
 		    g.setColor(Color.red);
-		    
-		    list = ds.getStandard3dList();
-		    for(Standard3D s3d : list){
+		    for(Standard3D s3d : berechne.getListAll()){
 		    	g.fillRect(getX(s3d), getY(s3d), 2, 2);
 		    }
 		    
-		  }
+		    g.setColor(Color.green);
+		    for(Standard3D s3d : berechne.getListClean()){
+		    	g.fillRect(getX(s3d), getY(s3d), 2, 2);
+		    }
+		    
+	}
+	
+	private void printHands(Graphics g){
+		printHand(berechne.getRechteHand(), g);
+		printHand(berechne.getLinkeHand(), g);
+	}
+	
+	private void printHand(Hand hand, Graphics g){
+		
+		g.setColor(Color.green);
+		g.fillRect(getX(hand.getMittelPunkt()), getY(hand.getMittelPunkt()), 2, 2);
+		int tmp = (int)hand.ausdehnung();
+		g.drawOval(getX(hand.getMittelPunkt()), getY(hand.getMittelPunkt()), tmp, tmp);
+	}
 
 	private int getX(Standard3D s3d){
 		double x = s3d.getX()* faktor+verschiebung;
