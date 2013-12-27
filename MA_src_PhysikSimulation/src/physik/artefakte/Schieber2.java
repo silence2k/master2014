@@ -48,15 +48,15 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 
-public class Rad1 extends SimpleApplication implements AnalogListener {
+public class Schieber2 extends SimpleApplication implements AnalogListener {
     private BulletAppState bulletAppState;
     private HingeJoint joint;
     
     boolean verbunden = false;
     float bremsen = 0.01f;
     
-    private  Node hammerNode;
-    private  Node griffNode;
+//    private  Node hammerNode;
+//    private  Node griffNode;
     
     private Node hand;
     
@@ -69,7 +69,7 @@ public class Rad1 extends SimpleApplication implements AnalogListener {
     String lastBinding = "";
 
     public static void main(String[] args) {
-        Rad1 app = new Rad1();
+        Schieber2 app = new Schieber2();
         app.start();
     }
 
@@ -87,53 +87,91 @@ public class Rad1 extends SimpleApplication implements AnalogListener {
     }
 
     public void onAnalog(String binding, float value, float tpf) {
-    	hammerNode.getControl(RigidBodyControl.class).activate();
+    //	hammerNode.getControl(RigidBodyControl.class).activate();
     	hand.getControl(RigidBodyControl.class).activate();
     	
-		if (!lastBinding.equals(binding)) {
-			lastBinding = binding;
-			if (binding.equals("Left")) {
-				joint.enableMotor(true, 1, .1f);
-			} else if (binding.equals("Right")) {
-				joint.enableMotor(true, -1, .1f);
-			} else if (binding.equals("Swing")) {
-				if (verbunden) {
-					if (getPhysicsSpace().getJointList().contains(slider)) {
-						getPhysicsSpace().remove(slider);
-					}
-					slider.destroy();
-					joint.enableMotor(false, 0, 0);
-					verbunden = false;
-				} else {
-					slider = new SixDofJoint(hand.getControl(RigidBodyControl.class),
-							hammerNode.getControl(RigidBodyControl.class), new Vector3f(), new Vector3f(0, 0, 0), true);
+//		if (!lastBinding.equals(binding)) {
+//			lastBinding = binding;
+//			if (binding.equals("Left")) {
+//				joint.enableMotor(true, 1, .1f);
+//			} else if (binding.equals("Right")) {
+//				joint.enableMotor(true, -1, .1f);
+//			} else if (binding.equals("Swing")) {
+//				if (verbunden) {
+//					if (getPhysicsSpace().getJointList().contains(slider)) {
+//						getPhysicsSpace().remove(slider);
+//					}
+//					slider.destroy();
+//					joint.enableMotor(false, 0, 0);
+//					verbunden = false;
+//				} else {
+//					slider = new SixDofJoint(hand.getControl(RigidBodyControl.class),
+//							hammerNode.getControl(RigidBodyControl.class), new Vector3f(), new Vector3f(0, 0, 0), true);
+//
+//					if (!getPhysicsSpace().getJointList().contains(slider)) {
+//						getPhysicsSpace().add(slider);
+//					}
+//					joint.enableMotor(true, 0, .1f);
+//					verbunden = true;
+//				}
 
-					if (!getPhysicsSpace().getJointList().contains(slider)) {
-						getPhysicsSpace().add(slider);
-					}
-					joint.enableMotor(true, 0, .1f);
-					verbunden = true;
+//			} else 
+    		Vector3f v = null;
+				if (binding.equals("hoch")) {
+				v = hand.getControl(RigidBodyControl.class).getPhysicsLocation(null);
+				v.y = v.y + dx;
+				
+			} else if (binding.equals("runter")) {
+				v = hand.getControl(RigidBodyControl.class).getPhysicsLocation(null);
+				v.y = v.y - dx;
+				//hand.getControl(RigidBodyControl.class).setPhysicsLocation(v);
+			} else if (binding.equals("links")) {
+				v = hand.getControl(RigidBodyControl.class).getPhysicsLocation(null);
+				v.x = v.x - dx;
+				//hand.getControl(RigidBodyControl.class).setPhysicsLocation(v);
+			} else if (binding.equals("rechts")) {
+				v = hand.getControl(RigidBodyControl.class).getPhysicsLocation(null);
+				v.x = v.x + dx;
+				//hand.getControl(RigidBodyControl.class).setPhysicsLocation(v);
+			}
+			
+				if (v != null) {
+					v = checkPosition(v);
+					hand.getControl(RigidBodyControl.class).setPhysicsLocation(v);
 				}
 
-			} else if (binding.equals("hoch")) {
-				Vector3f v = hand.getControl(RigidBodyControl.class).getPhysicsLocation(null);
-				v.y = v.y + dx;
-				hand.getControl(RigidBodyControl.class).setPhysicsLocation(v);
-			} else if (binding.equals("runter")) {
-				Vector3f v = hand.getControl(RigidBodyControl.class).getPhysicsLocation(null);
-				v.y = v.y - dx;
-				hand.getControl(RigidBodyControl.class).setPhysicsLocation(v);
-			} else if (binding.equals("links")) {
-				Vector3f v = hand.getControl(RigidBodyControl.class).getPhysicsLocation(null);
-				v.x = v.x - dx;
-				hand.getControl(RigidBodyControl.class).setPhysicsLocation(v);
-			} else if (binding.equals("rechts")) {
-				Vector3f v = hand.getControl(RigidBodyControl.class).getPhysicsLocation(null);
-				v.x = v.x + dx;
-				hand.getControl(RigidBodyControl.class).setPhysicsLocation(v);
-			}
-		}
+//		}
     	
+    }
+    
+    private Vector3f checkPosition(Vector3f v){
+    	
+    	float xMax = 2;
+    	float yMax = 2;
+    	float zMax = 0;
+    	
+    	Vector3f neu = new Vector3f();
+    	neu.x = inRange(v.x, xMax, xMax);
+    	neu.y = inRange(v.y, 0,2);
+    	neu.z = inRange(v.z, zMax);
+    	
+    	return neu;
+    }
+    
+    private float inRange(float wert, float grenze){
+    	return inRange(wert, -grenze, grenze);
+    }
+    
+    private float inRange(float wert, float grenzeMin, float grenzeMax){
+    	float result;
+    	if(wert > grenzeMax){
+    		result = grenzeMax;
+    	}else if(wert < grenzeMin){
+    		result = grenzeMin;
+    	}else{
+    		result = wert;
+    	}
+    	return result;
     }
 
     @Override
@@ -142,7 +180,7 @@ public class Rad1 extends SimpleApplication implements AnalogListener {
         stateManager.attach(bulletAppState);
         bulletAppState.getPhysicsSpace().enableDebug(assetManager);
         setupKeys();
-        setupJoint();
+//        setupJoint();
         setupHand();
     }
 
@@ -158,37 +196,37 @@ public class Rad1 extends SimpleApplication implements AnalogListener {
         
     }
 
-    public void setupJoint() {
-        Node holderNode=PhysicsTestHelper.createPhysicsTestNode(assetManager, new BoxCollisionShape(new Vector3f( .1f, .1f, .1f)),0);
-        holderNode.getControl(RigidBodyControl.class).setPhysicsLocation(new Vector3f(0f,0,0f));
-        rootNode.attachChild(holderNode);
-        getPhysicsSpace().add(holderNode);
-        
-        
-
-        hammerNode=PhysicsTestHelper.createPhysicsTestNode(assetManager, new BoxCollisionShape(new Vector3f( .5f, .3f, .5f)),1);
-        hammerNode.getControl(RigidBodyControl.class).setPhysicsLocation(new Vector3f(0f,0,-1f));
-        rootNode.attachChild(hammerNode);
-        getPhysicsSpace().add(hammerNode);
-       // hammerNode.getControl(RigidBodyControl.class).setSleepingThresholds(0.001f, 0.001f);
-
-        joint=new HingeJoint(holderNode.getControl(RigidBodyControl.class), hammerNode.getControl(RigidBodyControl.class), Vector3f.ZERO, new Vector3f(0f,-1,0f), Vector3f.UNIT_Z, Vector3f.UNIT_Y);
-        getPhysicsSpace().add(joint);
-        
-        
-        griffNode=PhysicsTestHelper.createPhysicsTestNode(assetManager, new BoxCollisionShape(new Vector3f( .1f, .1f, .1f)),0.01f);
-        griffNode.getControl(RigidBodyControl.class).setPhysicsLocation(new Vector3f(1f,-1f,1f));
-        rootNode.attachChild(griffNode);
-        getPhysicsSpace().add(griffNode);
-        
-        
-//        //joint
-        ghJoint=new SliderJoint(hammerNode.getControl(RigidBodyControl.class), griffNode.getControl(RigidBodyControl.class), Vector3f.UNIT_Y.negate(), Vector3f.UNIT_Y, false);
-        ghJoint.setUpperLinLimit(.1f);
-        ghJoint.setLowerLinLimit(-.1f);
-
-        getPhysicsSpace().add(ghJoint);
-    }
+//    public void setupJoint() {
+//        Node holderNode=PhysicsTestHelper.createPhysicsTestNode(assetManager, new BoxCollisionShape(new Vector3f( .1f, .1f, .1f)),0);
+//        holderNode.getControl(RigidBodyControl.class).setPhysicsLocation(new Vector3f(0f,0,0f));
+//        rootNode.attachChild(holderNode);
+//        getPhysicsSpace().add(holderNode);
+//        
+//        
+//
+//        hammerNode=PhysicsTestHelper.createPhysicsTestNode(assetManager, new BoxCollisionShape(new Vector3f( .5f, .3f, .5f)),1);
+//        hammerNode.getControl(RigidBodyControl.class).setPhysicsLocation(new Vector3f(0f,0,-1f));
+//        rootNode.attachChild(hammerNode);
+//        getPhysicsSpace().add(hammerNode);
+//       // hammerNode.getControl(RigidBodyControl.class).setSleepingThresholds(0.001f, 0.001f);
+//
+//        joint=new HingeJoint(holderNode.getControl(RigidBodyControl.class), hammerNode.getControl(RigidBodyControl.class), Vector3f.ZERO, new Vector3f(0f,-1,0f), Vector3f.UNIT_Z, Vector3f.UNIT_Y);
+//        getPhysicsSpace().add(joint);
+//        
+//        
+//        griffNode=PhysicsTestHelper.createPhysicsTestNode(assetManager, new BoxCollisionShape(new Vector3f( .1f, .1f, .1f)),0.01f);
+//        griffNode.getControl(RigidBodyControl.class).setPhysicsLocation(new Vector3f(1f,-1f,1f));
+//        rootNode.attachChild(griffNode);
+//        getPhysicsSpace().add(griffNode);
+//        
+//        
+////        //joint
+//        ghJoint=new SliderJoint(hammerNode.getControl(RigidBodyControl.class), griffNode.getControl(RigidBodyControl.class), Vector3f.UNIT_Y.negate(), Vector3f.UNIT_Y, false);
+//        ghJoint.setUpperLinLimit(.1f);
+//        ghJoint.setLowerLinLimit(-.1f);
+//
+//        getPhysicsSpace().add(ghJoint);
+//    }
 
     @Override
     public void simpleUpdate(float tpf) {
