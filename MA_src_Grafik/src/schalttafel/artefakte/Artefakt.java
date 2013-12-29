@@ -1,14 +1,32 @@
 package schalttafel.artefakte;
 
+import aktor.Aktor;
+
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.util.TangentBinormalGenerator;
 
-public abstract class Artefakt {
+public abstract class Artefakt implements Greifbar{
+	
+	protected Node graficObject;
+	
+	
+	
+	protected Aktor aktor;
+	
+	protected Material griffmaterial;
+	
+	protected boolean greifbar = true;
+	
+	
+	
+	
+	public abstract Node init(AssetManager assetManager);
 	
 	
 	

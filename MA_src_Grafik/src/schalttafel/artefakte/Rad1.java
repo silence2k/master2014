@@ -14,16 +14,11 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.util.TangentBinormalGenerator;
 
-public class Rad1 extends Rad implements Greifbar{
+public class Rad1 extends Rad{
 	
-	Node graficObject;
-	private boolean greifbar = true;
+
 	
-	float rotation = 0.01f;
-	
-	Material griffmaterial;
-	
-	Aktor aktor;
+
 	
 	
 	public Node init(AssetManager assetManager){
@@ -48,25 +43,6 @@ public class Rad1 extends Rad implements Greifbar{
         g.setMaterial(griffmaterial);
         
         
-        /* TEST */
-        
-//		Sphere rock = new Sphere(8, 8, 0.05f);
-//		Geometry test = new Geometry("griff1", rock);
-//		rock.setTextureMode(Sphere.TextureMode.Projected); // better quality on
-//															// spheres
-//		TangentBinormalGenerator.generate(rock); // for lighting effect
-//		Material mat_lit = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
-//		mat_lit.setTexture("DiffuseMap", assetManager.loadTexture("Textures/Terrain/Pond/Pond.jpg"));
-//		mat_lit.setTexture("NormalMap", assetManager.loadTexture("Textures/Terrain/Pond/Pond_normal.png"));
-//		mat_lit.setBoolean("UseMaterialColors", true);
-//		mat_lit.setColor("Specular", ColorRGBA.Yellow);
-//		mat_lit.setColor("Diffuse", ColorRGBA.Yellow);
-//		mat_lit.setFloat("Shininess", 5f); // [0,128]
-//		test.setMaterial(mat_lit);
-//		test.setLocalTranslation(0, 0.2f, 0); // Move it a bit
-//		test.rotate(0, 0, 0); // Rotate it a bit
-		
-//		0, 0.2f, 0
         
 		graficObject.attachChild(buildGriff("griff1", new Vector3f(0, 0.2f, 0), assetManager));
 
