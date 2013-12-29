@@ -1,7 +1,14 @@
 
 package anzeige;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import schalttafel.artefakte.Artefakt;
+import schalttafel.artefakte.Greifbar;
+import schalttafel.artefakte.Hebel1;
 import schalttafel.artefakte.Rad1;
+import schalttafel.artefakte.Rad2;
 import aktor.Aktor;
 
 import com.jme3.app.SimpleApplication;
@@ -19,9 +26,16 @@ import com.jme3.scene.Node;
 
 public class Anzeige1 extends SimpleApplication implements AnalogListener {
 	
-	Rad1 rad = new Rad1();
+	Rad1 rad1 = new Rad1();
+	Rad1 rad2 = new Rad1();
+	Rad1 rad3 = new Rad1();
+	Rad1 rad4 = new Rad1();
+	Hebel1 hebel1 = new Hebel1();
+	//Rad2 rad2 = new Rad2();
 	
 	Aktor handRechts = new Aktor();
+	
+	List<Artefakt> artefakte = new ArrayList<>();
 	
 	
 	
@@ -44,9 +58,20 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
     	setupKeys();
 
 
-        rootNode.attachChild(rad.init(assetManager));
+        rootNode.attachChild(rad1.init(assetManager, new Vector3f(0.8f,0.5f,0)));
+        rootNode.attachChild(rad2.init(assetManager, new Vector3f(-0.8f,0.5f,0)));
+        rootNode.attachChild(rad3.init(assetManager, new Vector3f(0.8f,-0.5f,0)));
+        rootNode.attachChild(rad4.init(assetManager, new Vector3f(-0.8f,-0.5f,0)));
+        rootNode.attachChild(hebel1.init(assetManager, new Vector3f(0,0,0)));
+    //	rootNode.attachChild(rad2.init(assetManager));
         rootNode.attachChild(handRechts.init(assetManager));
 
+        
+        artefakte.add(rad1);
+        artefakte.add(rad2);
+        artefakte.add(rad3);
+        artefakte.add(rad4);
+        artefakte.add(hebel1);
 
 
         /** You must add a light to make the model visible */
@@ -74,7 +99,11 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
 		
 		//rad.rotate(deltaTime);
 		
-		rad.update();
+		//rad1.update();
+		
+		for(Artefakt arte: artefakte){
+			arte.update();
+		}
 	}
 	
 	private void refreshTime(){
@@ -124,14 +153,28 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
 			handRechts.rechts(deltaTime);
 			break;
 		case "greifen":
-			handRechts.toggleGreifen(rad);
+			handRechts.toggleGreifen(dichtesterGriff(handRechts));
 			break;
-
 		default:
 			break;
 		}
+    }
 
 
+    
+    
+    private Artefakt dichtesterGriff(Aktor aktor){
+    	Artefakt result = null;
+    	float distance = Float.MAX_VALUE;
+    	float tmp;
+    	for(Artefakt arte: artefakte){
+    		tmp = arte.distanceFreierGriff(aktor);
+    		if(tmp < distance){
+    			result = arte;
+    			distance = tmp;
+    		}
+    	}
     	
+    	return result;
     }
 }

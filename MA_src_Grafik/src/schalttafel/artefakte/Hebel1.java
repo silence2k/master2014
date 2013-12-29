@@ -11,26 +11,36 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Sphere;
-import com.jme3.util.TangentBinormalGenerator;
 
-public class Rad1 extends Rad {
+public class Hebel1 extends Hebel {
 
+	@Override
+	public void setGreifbar(boolean greifbar) {
+		this.greifbar = greifbar;
+		if (this.greifbar) {
+			griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
+		} else {
+			griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
+		}
+
+	}
+
+	@Override
 	public Node init(AssetManager assetManager, Vector3f position) {
 		/** Load a teapot model (OBJ file from test-data) */
-		graficObject = (Node) assetManager.loadModel("obj/rad1/rad1.obj");
+		graficObject = (Node) assetManager.loadModel("obj/hebel1/hebel1.obj");
 
 		List<Spatial> childs = graficObject.getChildren();
 		for (Spatial spatial : childs) {
 			System.out.println(spatial);
 		}
 
-		Geometry g = (Geometry) graficObject.getChild("rad1-geom-0");
+		Geometry g = (Geometry) graficObject.getChild("hebel1-geom-0");
 		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
 		g.setMaterial(mat_default);
 
-		g = (Geometry) graficObject.getChild("rad1-geom-1");
+		g = (Geometry) graficObject.getChild("hebel1-geom-1");
 		// mat_default = new Material( assetManager,
 		// "Common/MatDefs/Misc/ShowNormals.j3md");
 		griffmaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
@@ -44,33 +54,31 @@ public class Rad1 extends Rad {
 		return graficObject;
 	}
 
+	@Override
 	public void update() {
-
 		if (aktor != null) {
 
-			Geometry g = (Geometry) graficObject.getChild("griff1");
+			float distance = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
 
-			float distance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+			graficObject.rotate(rotation, 0, 0);
 
-			graficObject.rotate(0, 0, rotation);
+			float distanceRechts = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
 
-			float distanceRechts = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+			graficObject.rotate(-2f * rotation, 0, 0);
 
-			graficObject.rotate(0, 0, -2f * rotation);
-
-			float distanceLinks = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+			float distanceLinks = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
 
 			if (distance < distanceRechts) {
 				if (distance < distanceLinks) {
 					// nichts tun
 				} else {
-					myRotate(g, distance, -rotation);
+					myRotate(griff1, distance, -rotation);
 				}
 			} else {
 				if (distanceRechts < distanceLinks) {
-					myRotate(g, distance, rotation);
+					myRotate(griff1, distance, rotation);
 				} else {
-					myRotate(g, distance, -rotation);
+					myRotate(griff1, distance, -rotation);
 				}
 			}
 		}
@@ -81,7 +89,7 @@ public class Rad1 extends Rad {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {
-			graficObject.rotate(0, 0, rotation);
+			graficObject.rotate(rotation, 0, 0);
 			newDistance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
 			if (newDistance > oldDistance) {
 				break;
@@ -89,23 +97,6 @@ public class Rad1 extends Rad {
 			oldDistance = newDistance;
 		}
 
-	}
-
-	public void rotate(long deltaTime) {
-
-		float f = (float) (-0.5f * deltaTime / 1000.0);
-
-		graficObject.rotate(0, 0, f);
-	}
-
-	@Override
-	public void setGreifbar(boolean greifbar) {
-		this.greifbar = greifbar;
-		if (this.greifbar) {
-			griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
-		} else {
-			griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
-		}
 	}
 
 }

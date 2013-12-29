@@ -1,5 +1,6 @@
 package aktor;
 
+import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Greifbar;
 
 import com.jme3.asset.AssetManager;
@@ -39,7 +40,7 @@ public class Aktor {
 
 	private Material mat_lit = null;
 	
-	
+	private Artefakt gegriffenesArtefakt;
 	
 	
 	
@@ -64,7 +65,7 @@ public class Aktor {
 		mat_lit.setColor("Diffuse", ColorRGBA.White);
 		mat_lit.setFloat("Shininess", 5f); // [0,128]
 		graficObject.setMaterial(mat_lit);
-		graficObject.setLocalTranslation(1, 0, -0); // Move it a bit
+		graficObject.setLocalTranslation(1, 0, 0.2f); // Move it a bit
 		graficObject.rotate(1.6f, 0, 0); // Rotate it a bit
 		return graficObject;
 	}
@@ -94,42 +95,51 @@ public class Aktor {
 	}
 
 	private boolean isGreifbar(Greifbar greifbaresObject) {
-		float distance = greifbaresObject.getGreifbarePostion().distance(graficObject.getLocalTranslation());
-		System.out.println("distance: "+distance);
-		return greifbaresObject.isGreifbar()&& distance < maxgreifen;
+		if (greifbaresObject != null) {
+			float distance = greifbaresObject.getGreifbarePostion().distance(graficObject.getLocalTranslation());
+			System.out.println("distance: " + distance);
+			return greifbaresObject.isGreifbar() && distance < maxgreifen;
+		}
+		return false;
 	}
 	
+	private void setColor(ColorRGBA color){
+		mat_lit.setColor("Specular", color);
+		mat_lit.setColor("Diffuse", color);
+	}
 	
 
-	public void toggleGreifen(Greifbar greifbaresObject) {
+	public void toggleGreifen(Artefakt greifbaresObject) {
 		if (System.currentTimeMillis() - toggleTime > lastToggle) {
 			lastToggle = System.currentTimeMillis();
 
 			if (zustand == Zustand.offen) {
 				if (isGreifbar(greifbaresObject)) {
-					mat_lit.setColor("Specular", ColorRGBA.Green);
-					mat_lit.setColor("Diffuse", ColorRGBA.Green);
+					setColor(ColorRGBA.Green);
 					zustand = Zustand.gegriffen;
+					
+					gegriffenesArtefakt = greifbaresObject;
 					greifbaresObject.setGreifbar(false);
 					greifbaresObject.setAktor(this);
 				} else {
-					mat_lit.setColor("Specular", ColorRGBA.Red);
-					mat_lit.setColor("Diffuse", ColorRGBA.Red);
+					setColor(ColorRGBA.Red);
 					zustand = Zustand.nichtsgegriffen;
 				}
 
 			} else {
-				mat_lit.setColor("Specular", ColorRGBA.White);
-				mat_lit.setColor("Diffuse", ColorRGBA.White);
+				setColor(ColorRGBA.White);
 				zustand = Zustand.offen;
-				greifbaresObject.setGreifbar(true);
-				greifbaresObject.setAktor(null);
+				if(gegriffenesArtefakt!= null){
+					gegriffenesArtefakt.setGreifbar(true);
+					gegriffenesArtefakt.setAktor(null);
+				}
+
 			}
 		}
 
 	}
 
-	public Vector3f getTranslation(){
+	public Vector3f getLocalTranslation(){
 		return graficObject.getLocalTranslation();
 	}
 }

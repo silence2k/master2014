@@ -14,32 +14,46 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.util.TangentBinormalGenerator;
 
-public class Rad1 extends Rad {
+public class Rad2 extends Rad {
+
+	private Aktor aktor2;
+
+	private Material griffmaterial2;
+
+	private boolean greifbar2 = true;
 
 	public Node init(AssetManager assetManager, Vector3f position) {
 		/** Load a teapot model (OBJ file from test-data) */
-		graficObject = (Node) assetManager.loadModel("obj/rad1/rad1.obj");
+		graficObject = (Node) assetManager.loadModel("obj/rad2/rad2.obj");
 
 		List<Spatial> childs = graficObject.getChildren();
 		for (Spatial spatial : childs) {
 			System.out.println(spatial);
 		}
 
-		Geometry g = (Geometry) graficObject.getChild("rad1-geom-0");
-		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
-		g.setMaterial(mat_default);
+		// Geometry g = (Geometry)graficObject.getChild("rad2-geom-0");
+		// Material mat_default = new Material(assetManager,
+		// "Common/MatDefs/Misc/Unshaded.j3md");
+		// mat_default.setColor("Color", new ColorRGBA(0.5f,0.5f,0.5f, 1f));
+		// g.setMaterial(mat_default);
 
-		g = (Geometry) graficObject.getChild("rad1-geom-1");
+		Geometry g = (Geometry) graficObject.getChild("rad2-geom-0");
 		// mat_default = new Material( assetManager,
 		// "Common/MatDefs/Misc/ShowNormals.j3md");
 		griffmaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
+		griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
 		g.setMaterial(griffmaterial);
 
-		buildGriff1(new Vector3f(0, 0.2f, 0), assetManager);
+		g = (Geometry) graficObject.getChild("rad2-geom-1");
+		// mat_default = new Material( assetManager,
+		// "Common/MatDefs/Misc/ShowNormals.j3md");
+		griffmaterial2 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		griffmaterial2.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
+		g.setMaterial(griffmaterial2);
 
-		graficObject.setLocalTranslation(position);
+		graficObject.attachChild(buildGriff("griff1", new Vector3f(0.2f, 0, 0), assetManager));
+		// graficObject.attachChild(buildGriff("griff2", new Vector3f(-0.2f, 0,
+		// 0), assetManager));
 
 		return graficObject;
 	}
@@ -99,6 +113,11 @@ public class Rad1 extends Rad {
 	}
 
 	@Override
+	public boolean isGreifbar() {
+		return greifbar;
+	}
+
+	@Override
 	public void setGreifbar(boolean greifbar) {
 		this.greifbar = greifbar;
 		if (this.greifbar) {
@@ -106,6 +125,16 @@ public class Rad1 extends Rad {
 		} else {
 			griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
 		}
+	}
+
+	@Override
+	public Vector3f getGreifbarePostion() {
+		Geometry g = (Geometry) graficObject.getChild("griff1");
+		return g.getWorldTranslation();
+	}
+
+	public void setAktor(Aktor aktor) {
+		this.aktor = aktor;
 	}
 
 }
