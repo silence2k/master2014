@@ -46,6 +46,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
+import com.jme3.system.AppSettings;
 
 /** Sample 3 - how to load an OBJ model, and OgreXML model, 
  * a material/texture, or text. */
@@ -63,7 +64,16 @@ public class Anzeige2 extends SimpleApplication {
 
     public static void main(String[] args) {
         Anzeige2 app = new Anzeige2();
+
+        
         app.start();
+    }
+    
+    public Anzeige2(){
+    	super();
+        AppSettings newSetting = new AppSettings(true);
+        newSetting.setFrameRate(100);
+        setSettings(newSetting);
     }
 
     @Override

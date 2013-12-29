@@ -17,6 +17,7 @@ import com.jme3.util.TangentBinormalGenerator;
 public class Rad1 extends Rad {
 
 	public Node init(AssetManager assetManager, Vector3f position) {
+		init();
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/rad1/rad1.obj");
 
@@ -52,43 +53,47 @@ public class Rad1 extends Rad {
 
 			float distance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
 
-			graficObject.rotate(0, 0, rotation);
+			graficObject.rotate(0, 0, rotationDX);
 
 			float distanceRechts = g.getWorldTranslation().distance(aktor.getLocalTranslation());
 
-			graficObject.rotate(0, 0, -2f * rotation);
+			graficObject.rotate(0, 0, -2f * rotationDX);
 
 			float distanceLinks = g.getWorldTranslation().distance(aktor.getLocalTranslation());
-
+			
+			// wieder zurueckstellen
+			graficObject.rotate(0, 0, rotationDX);
+			
 			if (distance < distanceRechts) {
 				if (distance < distanceLinks) {
 					// nichts tun
 				} else {
-					myRotate(g, distance, -rotation);
+					myRotate(g, distance, -rotationDX);
 				}
 			} else {
 				if (distanceRechts < distanceLinks) {
-					myRotate(g, distance, rotation);
+					myRotate(g, distance, rotationDX);
 				} else {
-					myRotate(g, distance, -rotation);
+					myRotate(g, distance, -rotationDX);
 				}
 			}
 		}
 
 	}
 
-	private void myRotate(Geometry g, float distance, float rotation) {
+	private void myRotate(Geometry g, float distance, float rotationDX) {
 		float oldDistance = distance;
 		float newDistance = 0;
-		while (true) {
-			graficObject.rotate(0, 0, rotation);
+		while (isBeweglich(rotationDX, rotation)) {
+			this.rotation+= rotationDX;
+			graficObject.rotate(0, 0, rotationDX);
 			newDistance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
 			if (newDistance > oldDistance) {
 				break;
 			}
 			oldDistance = newDistance;
 		}
-
+		System.out.println("roation: "+ rotation);
 	}
 
 	public void rotate(long deltaTime) {
@@ -107,5 +112,9 @@ public class Rad1 extends Rad {
 			griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
 		}
 	}
+
+
+	
+	
 
 }

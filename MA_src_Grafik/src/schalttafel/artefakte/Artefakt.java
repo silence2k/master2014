@@ -12,6 +12,15 @@ import com.jme3.scene.shape.Sphere;
 import com.jme3.util.TangentBinormalGenerator;
 
 public abstract class Artefakt implements Greifbar {
+	
+	
+	// grenze min
+	float minRot;
+	
+	// grenze max
+	float maxRot;
+	
+	
 
 	protected Node graficObject;
 
@@ -26,6 +35,8 @@ public abstract class Artefakt implements Greifbar {
 	public abstract Node init(AssetManager assetManager, Vector3f position);
 
 	public abstract void update();
+	
+	protected abstract void init();
 
 	public float distanceFreierGriff(Aktor aktor) {
 		return griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
@@ -75,6 +86,18 @@ public abstract class Artefakt implements Greifbar {
 
 	public Vector3f getGreifbarePostion() {
 		return griff1.getWorldTranslation();
+	}
+	
+	
+	protected boolean isBeweglich(float dx, float aktuelleRotation){
+		float tmp = aktuelleRotation + dx;
+		
+		System.out.println("tmp: "+tmp+" max: "+maxRot+" min: "+minRot);
+		
+		if(tmp <= maxRot && tmp >= minRot){
+			return true;
+		}
+		return false;
 	}
 
 }

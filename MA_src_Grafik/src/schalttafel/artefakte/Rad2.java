@@ -66,11 +66,11 @@ public class Rad2 extends Rad {
 
 			float distance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
 
-			graficObject.rotate(0, 0, rotation);
+			graficObject.rotate(0, 0, rotationDX);
 
 			float distanceRechts = g.getWorldTranslation().distance(aktor.getLocalTranslation());
 
-			graficObject.rotate(0, 0, -2f * rotation);
+			graficObject.rotate(0, 0, -2f * rotationDX);
 
 			float distanceLinks = g.getWorldTranslation().distance(aktor.getLocalTranslation());
 
@@ -78,13 +78,13 @@ public class Rad2 extends Rad {
 				if (distance < distanceLinks) {
 					// nichts tun
 				} else {
-					myRotate(g, distance, -rotation);
+					myRotate(g, distance, -rotationDX);
 				}
 			} else {
 				if (distanceRechts < distanceLinks) {
-					myRotate(g, distance, rotation);
+					myRotate(g, distance, rotationDX);
 				} else {
-					myRotate(g, distance, -rotation);
+					myRotate(g, distance, -rotationDX);
 				}
 			}
 		}
