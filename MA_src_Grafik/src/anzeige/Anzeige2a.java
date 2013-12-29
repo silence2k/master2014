@@ -30,7 +30,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package schalttafel;
+package anzeige;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ import com.jme3.scene.shape.Box;
 
 /** Sample 3 - how to load an OBJ model, and OgreXML model, 
  * a material/texture, or text. */
-public class Anzeige2b extends SimpleApplication {
+public class Anzeige2a extends SimpleApplication {
 	
 	Node teapot;
 	long lasttime = System.currentTimeMillis();
@@ -61,7 +61,7 @@ public class Anzeige2b extends SimpleApplication {
 	float dRotation = 0.02f;
 
     public static void main(String[] args) {
-        Anzeige2b app = new Anzeige2b();
+        Anzeige2a app = new Anzeige2a();
         app.start();
     }
 
