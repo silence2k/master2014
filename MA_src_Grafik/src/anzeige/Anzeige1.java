@@ -8,6 +8,7 @@ import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Hebel1;
 import schalttafel.artefakte.Rad1;
 import schalttafel.artefakte.Schieber1;
+import schalttafel.artefakte.Schieber2;
 import aktor.Aktor;
 
 import com.jme3.app.SimpleApplication;
@@ -29,6 +30,9 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
 	Hebel1 hebel1 = new Hebel1();
 	
 	Schieber1 schieber1 = new Schieber1();
+	Schieber2 schieber2 = new Schieber2();
+	
+	
 	//Rad2 rad2 = new Rad2();
 	
 	Aktor handRechts = new Aktor();
@@ -62,6 +66,7 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
       //  rootNode.attachChild(rad4.init(assetManager, new Vector3f(-0.8f,-0.5f,0)));
         
         rootNode.attachChild(schieber1.init(assetManager, new Vector3f(-0.8f,-0.5f,0)));
+        rootNode.attachChild(schieber2.init(assetManager, new Vector3f(-0.8f,-1.0f,0)));
         
         rootNode.attachChild(hebel1.init(assetManager, new Vector3f(0,0,0)));
     //	rootNode.attachChild(rad2.init(assetManager));
@@ -74,7 +79,7 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
         //artefakte.add(rad4);
         artefakte.add(hebel1);
         artefakte.add(schieber1);
-
+        artefakte.add(schieber2);
 
         /** You must add a light to make the model visible */
         DirectionalLight sun = new DirectionalLight();
