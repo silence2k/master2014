@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import schalttafel.artefakte.Artefakt;
-import schalttafel.artefakte.Greifbar;
 import schalttafel.artefakte.Hebel1;
 import schalttafel.artefakte.Rad1;
-import schalttafel.artefakte.Rad2;
+import schalttafel.artefakte.Schieber1;
 import aktor.Aktor;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.bullet.joints.SixDofJoint;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -21,7 +18,6 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Node;
 
 
 public class Anzeige1 extends SimpleApplication implements AnalogListener {
@@ -31,6 +27,8 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
 	Rad1 rad3 = new Rad1();
 	Rad1 rad4 = new Rad1();
 	Hebel1 hebel1 = new Hebel1();
+	
+	Schieber1 schieber1 = new Schieber1();
 	//Rad2 rad2 = new Rad2();
 	
 	Aktor handRechts = new Aktor();
@@ -61,7 +59,10 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
         rootNode.attachChild(rad1.init(assetManager, new Vector3f(0.8f,0.5f,0)));
         rootNode.attachChild(rad2.init(assetManager, new Vector3f(-0.8f,0.5f,0)));
         rootNode.attachChild(rad3.init(assetManager, new Vector3f(0.8f,-0.5f,0)));
-        rootNode.attachChild(rad4.init(assetManager, new Vector3f(-0.8f,-0.5f,0)));
+      //  rootNode.attachChild(rad4.init(assetManager, new Vector3f(-0.8f,-0.5f,0)));
+        
+        rootNode.attachChild(schieber1.init(assetManager, new Vector3f(-0.8f,-0.5f,0)));
+        
         rootNode.attachChild(hebel1.init(assetManager, new Vector3f(0,0,0)));
     //	rootNode.attachChild(rad2.init(assetManager));
         rootNode.attachChild(handRechts.init(assetManager));
@@ -70,8 +71,9 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
         artefakte.add(rad1);
         artefakte.add(rad2);
         artefakte.add(rad3);
-        artefakte.add(rad4);
+        //artefakte.add(rad4);
         artefakte.add(hebel1);
+        artefakte.add(schieber1);
 
 
         /** You must add a light to make the model visible */

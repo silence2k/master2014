@@ -2,8 +2,6 @@ package schalttafel.artefakte;
 
 import java.util.List;
 
-import aktor.Aktor;
-
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
 import com.jme3.material.Material;
@@ -12,8 +10,6 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Sphere;
-import com.jme3.util.TangentBinormalGenerator;
 
 public class Rad1 extends Rad {
 	
@@ -30,7 +26,7 @@ public class Rad1 extends Rad {
 		audioRadende.setLooping(false);
 		
 		
-		/** Load a teapot model (OBJ file from test-data) */
+		
 		graficObject = (Node) assetManager.loadModel("obj/rad1/rad1.obj");
 
 		List<Spatial> childs = graficObject.getChildren();
@@ -98,7 +94,7 @@ public class Rad1 extends Rad {
 		float newDistance = 0;
 		
 		while (true) {
-			if(!isBeweglich(rotationDX, rotation)){
+			if(!isBeweglichRotation(rotationDX, rotation)){
 				audioRadende.play();
 				break;
 			}

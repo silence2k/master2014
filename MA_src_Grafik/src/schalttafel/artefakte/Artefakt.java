@@ -14,11 +14,17 @@ import com.jme3.util.TangentBinormalGenerator;
 public abstract class Artefakt implements Greifbar {
 	
 	
-	// grenze min
+	// grenze min rotation
 	float minRot;
 	
-	// grenze max
+	// grenze max rotation
 	float maxRot;
+	
+	// grenze min translation
+	float minTrans;
+	
+	// grenze max translation
+	float maxTrans;
 	
 	
 
@@ -89,12 +95,23 @@ public abstract class Artefakt implements Greifbar {
 	}
 	
 	
-	protected boolean isBeweglich(float dx, float aktuelleRotation){
+	protected boolean isBeweglichRotation(float dx, float aktuelleRotation){
 		float tmp = aktuelleRotation + dx;
 		
 		System.out.println("tmp: "+tmp+" max: "+maxRot+" min: "+minRot);
 		
 		if(tmp <= maxRot && tmp >= minRot){
+			return true;
+		}
+		return false;
+	}
+	
+	protected boolean isBeweglichTranslation(float dx, float aktuelleTranslation){
+		float tmp = aktuelleTranslation + dx;
+		
+		System.out.println("tmp: "+tmp+" max: "+maxTrans+" min: "+minTrans);
+		
+		if(tmp <= maxTrans && tmp >= minTrans){
 			return true;
 		}
 		return false;
