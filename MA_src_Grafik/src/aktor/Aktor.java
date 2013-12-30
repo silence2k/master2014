@@ -105,6 +105,18 @@ public class Aktor {
 		Vector3f v3 = graficObject.getLocalTranslation();
 		graficObject.setLocalTranslation(v3.x + delta(deltaTime), v3.y, v3.z);
 	}
+	
+	public void rein(long deltaTime) {
+		Vector3f v3 = graficObject.getLocalTranslation();
+		graficObject.setLocalTranslation(v3.x, v3.y, v3.z - delta(deltaTime));
+	}
+	
+	public void raus(long deltaTime) {
+		Vector3f v3 = graficObject.getLocalTranslation();
+		graficObject.setLocalTranslation(v3.x, v3.y, v3.z + delta(deltaTime) );
+	}
+	
+	
 
 	private boolean isGreifbar(Greifbar greifbaresObject) {
 		if (greifbaresObject != null) {

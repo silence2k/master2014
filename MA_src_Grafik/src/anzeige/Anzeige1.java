@@ -140,7 +140,10 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
         inputManager.addMapping("rechts", new KeyTrigger(KeyInput.KEY_H));
         inputManager.addMapping("greifen", new KeyTrigger(KeyInput.KEY_SPACE));
         
-        inputManager.addListener(this, "hoch","runter","links","rechts","greifen");
+        inputManager.addMapping("rein", new KeyTrigger(KeyInput.KEY_I));
+        inputManager.addMapping("raus", new KeyTrigger(KeyInput.KEY_K));
+        
+        inputManager.addListener(this, "hoch","runter","links","rechts","greifen", "rein", "raus");
     }
 
     public void onAnalog(String binding, float value, float tpf) {
@@ -157,6 +160,12 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
 			break;
 		case "rechts":
 			handRechts.rechts(deltaTime);
+			break;
+		case "rein":
+			handRechts.rein(deltaTime);
+			break;
+		case "raus":
+			handRechts.raus(deltaTime);
 			break;
 		case "greifen":
 			handRechts.toggleGreifen(dichtesterGriff(handRechts));

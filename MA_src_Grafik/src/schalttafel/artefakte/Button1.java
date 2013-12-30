@@ -16,16 +16,18 @@ public class Button1 extends Artefakt {
 	protected float translationDX = 0.01f;
 
 	protected float translation = 0;
+	
+	private boolean pressed = false;
 		
 		protected AudioNode audioButtonPress;
 			
 		
 		
 		protected void init(){
-			// Heben oben max
+			// Button draussen
 			minTrans= 0f;
 			
-			// Heben unten max
+			// Button gedrueckt
 			maxTrans = 0.2f;
 		}
 	
@@ -103,8 +105,11 @@ public class Button1 extends Artefakt {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {
-			if(!isBeweglichTranslation(translationDX, translation)){
+			if(!isBeweglichMaxTrans(translationDX, translation)&&!pressed){
 				audioButtonPress.play();
+				break;
+			}else if(!isBeweglichMinTrans(translationDX, translation)){
+				pressed = false;
 				break;
 			}
 			
@@ -116,6 +121,19 @@ public class Button1 extends Artefakt {
 				break;
 			}
 			oldDistance = newDistance;
+		}
+
+	}
+	
+	public void setGreifbar(boolean greifbar) {
+		this.greifbar = greifbar;
+		if (this.greifbar) {
+			griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
+			graficObject.setLocalTranslation(graficObject.getLocalTranslation().x, graficObject.getLocalTranslation().y, minTrans);
+			translation = 0;
+			pressed = false;
+		} else {
+			griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
 		}
 
 	}

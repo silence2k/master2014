@@ -98,7 +98,7 @@ public abstract class Artefakt implements Greifbar {
 	protected boolean isBeweglichRotation(float dx, float aktuelleRotation){
 		float tmp = aktuelleRotation + dx;
 		
-		System.out.println("tmp: "+tmp+" max: "+maxRot+" min: "+minRot);
+		//System.out.println("tmp: "+tmp+" max: "+maxRot+" min: "+minRot);
 		
 		if(tmp <= maxRot && tmp >= minRot){
 			return true;
@@ -107,14 +107,15 @@ public abstract class Artefakt implements Greifbar {
 	}
 	
 	protected boolean isBeweglichTranslation(float dx, float aktuelleTranslation){
-		float tmp = aktuelleTranslation + dx;
-		
-		System.out.println("tmp: "+tmp+" max: "+maxTrans+" min: "+minTrans);
-		
-		if(tmp <= maxTrans && tmp >= minTrans){
-			return true;
-		}
-		return false;
+		return isBeweglichMaxTrans(dx, aktuelleTranslation) && isBeweglichMinTrans(dx, aktuelleTranslation);
+	}
+	
+	protected boolean isBeweglichMaxTrans(float dx, float aktuelleTranslation){
+		return (aktuelleTranslation + dx) <= maxTrans;
+	}
+	
+	protected boolean isBeweglichMinTrans(float dx, float aktuelleTranslation){
+		return (aktuelleTranslation + dx) >= minTrans;
 	}
 	
 	public void setGreifbar(boolean greifbar) {
