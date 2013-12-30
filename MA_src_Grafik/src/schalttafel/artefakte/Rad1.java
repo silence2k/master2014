@@ -5,6 +5,7 @@ import java.util.List;
 import aktor.Aktor;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.audio.AudioNode;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -15,9 +16,20 @@ import com.jme3.scene.shape.Sphere;
 import com.jme3.util.TangentBinormalGenerator;
 
 public class Rad1 extends Rad {
+	
+	private AudioNode audioRaddreh;
+	private AudioNode audioRadende;
 
 	public Node init(AssetManager assetManager, Vector3f position) {
 		init();
+		
+		audioRaddreh = new AudioNode(assetManager, "sound/raddreh.wav", false);
+		audioRaddreh.setLooping(false);
+		
+		audioRadende = new AudioNode(assetManager, "sound/radende.wav", false);
+		audioRadende.setLooping(false);
+		
+		
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/rad1/rad1.obj");
 
@@ -84,14 +96,22 @@ public class Rad1 extends Rad {
 	private void myRotate(Geometry g, float distance, float rotationDX) {
 		float oldDistance = distance;
 		float newDistance = 0;
-		while (isBeweglich(rotationDX, rotation)) {
+		
+		while (true) {
+			if(!isBeweglich(rotationDX, rotation)){
+				audioRadende.play();
+				break;
+			}
+			
 			this.rotation+= rotationDX;
 			graficObject.rotate(0, 0, rotationDX);
 			newDistance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
 			if (newDistance > oldDistance) {
+				//audioRaddreh.pause();
 				break;
 			}
 			oldDistance = newDistance;
+			audioRaddreh.play();
 		}
 		System.out.println("roation: "+ rotation);
 	}

@@ -4,6 +4,7 @@ import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Greifbar;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.audio.AudioNode;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -42,7 +43,9 @@ public class Aktor {
 	
 	private Artefakt gegriffenesArtefakt;
 	
+	private AudioNode audioGreifen;
 	
+	private AudioNode audioNichtGreifen;
 	
 	
 	
@@ -52,6 +55,15 @@ public class Aktor {
 		 * A bumpy rock with a shiny light effect. To make bumpy objects you
 		 * must create a NormalMap.
 		 */
+		
+		 audioGreifen = new AudioNode(assetManager, "sound/greifen.wav", false);
+		 audioGreifen.setLooping(false);
+		 
+		 audioNichtGreifen = new AudioNode(assetManager, "sound/nichtgreifen.wav", false);
+		 audioNichtGreifen.setLooping(false);
+		
+		
+		
 		Sphere rock = new Sphere(16, 16, 0.15f);
 		graficObject = new Geometry("Aktor", rock);
 		rock.setTextureMode(Sphere.TextureMode.Projected); // better quality on
@@ -121,9 +133,14 @@ public class Aktor {
 					gegriffenesArtefakt = greifbaresObject;
 					greifbaresObject.setGreifbar(false);
 					greifbaresObject.setAktor(this);
+					
+					audioGreifen.playInstance();
+					
 				} else {
 					setColor(ColorRGBA.Red);
 					zustand = Zustand.nichtsgegriffen;
+					
+					audioNichtGreifen.playInstance();
 				}
 
 			} else {
