@@ -26,13 +26,11 @@ public class Schieber2 extends Schieber {
 		if (aktor != null) {
 
 			float distance = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
-
+			
 			graficObject.move(translationDX,0, 0);
-
 			float distanceRechts = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
 
 			graficObject.move(-2f * translationDX,0, 0);
-
 			float distanceLinks = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
 			
 			graficObject.move(translationDX, 0 , 0);
