@@ -115,15 +115,6 @@ public class Rad2 extends Rad {
 		return greifbar;
 	}
 
-	@Override
-	public void setGreifbar(boolean greifbar) {
-		this.greifbar = greifbar;
-		if (this.greifbar) {
-			griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
-		} else {
-			griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
-		}
-	}
 
 	@Override
 	public Vector3f getGreifbarePostion() {

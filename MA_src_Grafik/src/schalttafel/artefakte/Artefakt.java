@@ -116,5 +116,15 @@ public abstract class Artefakt implements Greifbar {
 		}
 		return false;
 	}
+	
+	public void setGreifbar(boolean greifbar) {
+		this.greifbar = greifbar;
+		if (this.greifbar) {
+			griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
+		} else {
+			griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
+		}
+
+	}
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import schalttafel.artefakte.Artefakt;
+import schalttafel.artefakte.Button1;
 import schalttafel.artefakte.Hebel1;
 import schalttafel.artefakte.Rad1;
 import schalttafel.artefakte.Schieber1;
@@ -26,11 +27,14 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
 	Rad1 rad1 = new Rad1();
 	Rad1 rad2 = new Rad1();
 	Rad1 rad3 = new Rad1();
-	Rad1 rad4 = new Rad1();
+	
 	Hebel1 hebel1 = new Hebel1();
 	
 	Schieber1 schieber1 = new Schieber1();
 	Schieber2 schieber2 = new Schieber2();
+	
+	Button1 button1 = new Button1();
+	Button1 button2 = new Button1();
 	
 	
 	//Rad2 rad2 = new Rad2();
@@ -63,12 +67,17 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
         rootNode.attachChild(rad1.init(assetManager, new Vector3f(0.8f,0.5f,0)));
         rootNode.attachChild(rad2.init(assetManager, new Vector3f(-0.8f,0.5f,0)));
         rootNode.attachChild(rad3.init(assetManager, new Vector3f(0.8f,-0.5f,0)));
-      //  rootNode.attachChild(rad4.init(assetManager, new Vector3f(-0.8f,-0.5f,0)));
         
         rootNode.attachChild(schieber1.init(assetManager, new Vector3f(-0.8f,-0.5f,0)));
         rootNode.attachChild(schieber2.init(assetManager, new Vector3f(-0.8f,-1.0f,0)));
         
         rootNode.attachChild(hebel1.init(assetManager, new Vector3f(0,0,0)));
+        
+        rootNode.attachChild(button1.init(assetManager, new Vector3f(1.3f,0,0)));
+        rootNode.attachChild(button2.init(assetManager, new Vector3f(1.7f,0,0)));		
+        
+        
+        
     //	rootNode.attachChild(rad2.init(assetManager));
         rootNode.attachChild(handRechts.init(assetManager));
 
@@ -76,10 +85,13 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
         artefakte.add(rad1);
         artefakte.add(rad2);
         artefakte.add(rad3);
-        //artefakte.add(rad4);
+        
         artefakte.add(hebel1);
         artefakte.add(schieber1);
         artefakte.add(schieber2);
+        
+        artefakte.add(button1);
+        artefakte.add(button2);
 
         /** You must add a light to make the model visible */
         DirectionalLight sun = new DirectionalLight();
@@ -94,19 +106,6 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
 		refreshTime();
 		
 		
-//        Geometry g = (Geometry)teapot.getChild("rad1-geom-0");
-//        Material mat_default = g.getMaterial();
-//        if(lasttime < System.currentTimeMillis()-1000){
-//        	lasttime = System.currentTimeMillis();
-//        	toggle(mat_default);
-//   
-//        	
-//        }
-//        teapot.rotate(0, 0, -0.002f);
-		
-		//rad.rotate(deltaTime);
-		
-		//rad1.update();
 		
 		for(Artefakt arte: artefakte){
 			arte.update();

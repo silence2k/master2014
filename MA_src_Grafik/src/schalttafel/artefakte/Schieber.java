@@ -35,16 +35,6 @@ public abstract class Schieber extends Artefakt {
 			maxTrans = 0.5f;
 		}
 	
-	@Override
-	public void setGreifbar(boolean greifbar) {
-		this.greifbar = greifbar;
-		if (this.greifbar) {
-			griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
-		} else {
-			griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
-		}
-
-	}
 	
 	@Override
 	public Node init(AssetManager assetManager, Vector3f position) {
