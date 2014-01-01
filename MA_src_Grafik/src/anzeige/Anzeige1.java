@@ -8,6 +8,7 @@ import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Button1;
 import schalttafel.artefakte.Hebel1;
 import schalttafel.artefakte.Rad1;
+import schalttafel.artefakte.Schalter2;
 import schalttafel.artefakte.Schieber1;
 import schalttafel.artefakte.Schieber2;
 import aktor.Aktor;
@@ -36,10 +37,13 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
 	Button1 button1 = new Button1();
 	Button1 button2 = new Button1();
 	
+	Schalter2 schalter1 = new Schalter2();
+	
 	
 	//Rad2 rad2 = new Rad2();
 	
 	Aktor handRechts = new Aktor();
+	Aktor handLinks = new Aktor();
 	
 	List<Artefakt> artefakte = new ArrayList<>();
 	
@@ -74,12 +78,15 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
         rootNode.attachChild(hebel1.init(assetManager, new Vector3f(0,0,0)));
         
         rootNode.attachChild(button1.init(assetManager, new Vector3f(1.3f,0,0)));
-        rootNode.attachChild(button2.init(assetManager, new Vector3f(1.7f,0,0)));		
+        rootNode.attachChild(button2.init(assetManager, new Vector3f(1.7f,0,0)));
+        
+        rootNode.attachChild(schalter1.init(assetManager, new Vector3f(1.3f,-1f,0)));
         
         
         
     //	rootNode.attachChild(rad2.init(assetManager));
-        rootNode.attachChild(handRechts.init(assetManager));
+        rootNode.attachChild(handRechts.init(assetManager, new Vector3f(1, 0, 0.2f)));
+        rootNode.attachChild(handLinks.init(assetManager, new Vector3f(-1, 0, 0.2f)));
 
         
         artefakte.add(rad1);
@@ -92,6 +99,8 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
         
         artefakte.add(button1);
         artefakte.add(button2);
+        
+        artefakte.add(schalter1);
 
         /** You must add a light to make the model visible */
         DirectionalLight sun = new DirectionalLight();
@@ -119,57 +128,75 @@ public class Anzeige1 extends SimpleApplication implements AnalogListener {
 	}
     
     
-	private void toggle(Material mat_default){
-		if(toggle){
-			toggle = false;
-			mat_default.setColor("Color", new ColorRGBA(1f,0f,0f, 1f));
-		}else{
-			toggle = true;
-			mat_default.setColor("Color", new ColorRGBA(1f,0f,1f, 1f));
-		}
-	}
 	
 	private void setupKeys() {
-//        inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_J));
-//        inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_K));
-//        inputManager.addMapping("Swing", new KeyTrigger(KeyInput.KEY_SPACE));
         
-        inputManager.addMapping("hoch", new KeyTrigger(KeyInput.KEY_T));
-        inputManager.addMapping("runter", new KeyTrigger(KeyInput.KEY_G));
-        inputManager.addMapping("links", new KeyTrigger(KeyInput.KEY_F));
-        inputManager.addMapping("rechts", new KeyTrigger(KeyInput.KEY_H));
-        inputManager.addMapping("greifen", new KeyTrigger(KeyInput.KEY_SPACE));
+        inputManager.addMapping("la_hoch", new KeyTrigger(KeyInput.KEY_T));
+        inputManager.addMapping("la_runter", new KeyTrigger(KeyInput.KEY_G));
+        inputManager.addMapping("la_links", new KeyTrigger(KeyInput.KEY_F));
+        inputManager.addMapping("la_rechts", new KeyTrigger(KeyInput.KEY_H));
+        inputManager.addMapping("la_greifen", new KeyTrigger(KeyInput.KEY_B));   
+        inputManager.addMapping("la_rein", new KeyTrigger(KeyInput.KEY_R));
+        inputManager.addMapping("la_raus", new KeyTrigger(KeyInput.KEY_Z));
         
-        inputManager.addMapping("rein", new KeyTrigger(KeyInput.KEY_I));
-        inputManager.addMapping("raus", new KeyTrigger(KeyInput.KEY_K));
+        inputManager.addMapping("ra_hoch", new KeyTrigger(KeyInput.KEY_I));
+        inputManager.addMapping("ra_runter", new KeyTrigger(KeyInput.KEY_K));
+        inputManager.addMapping("ra_links", new KeyTrigger(KeyInput.KEY_J));
+        inputManager.addMapping("ra_rechts", new KeyTrigger(KeyInput.KEY_L));
+        inputManager.addMapping("ra_greifen", new KeyTrigger(KeyInput.KEY_M));
+        inputManager.addMapping("ra_rein", new KeyTrigger(KeyInput.KEY_U));
+        inputManager.addMapping("ra_raus", new KeyTrigger(KeyInput.KEY_O));
         
-        inputManager.addListener(this, "hoch","runter","links","rechts","greifen", "rein", "raus");
+        inputManager.addListener(this, "la_hoch","la_runter","la_links","la_rechts","la_greifen", "la_rein", "la_raus",
+        		"ra_hoch","ra_runter","ra_links","ra_rechts","ra_greifen", "ra_rein", "ra_raus");
     }
 
     public void onAnalog(String binding, float value, float tpf) {
     	
     	switch (binding) {
-		case "hoch":
+		case "la_hoch":
+			handLinks.hoch(deltaTime);
+			break;
+		case "la_runter":
+			handLinks.runter(deltaTime);
+			break;
+		case "la_links":
+			handLinks.links(deltaTime);
+			break;
+		case "la_rechts":
+			handLinks.rechts(deltaTime);
+			break;
+		case "la_rein":
+			handLinks.rein(deltaTime);
+			break;
+		case "la_raus":
+			handLinks.raus(deltaTime);
+			break;
+		case "la_greifen":
+			handLinks.toggleGreifen(dichtesterGriff(handLinks));
+			break;
+		case "ra_hoch":
 			handRechts.hoch(deltaTime);
 			break;
-		case "runter":
+		case "ra_runter":
 			handRechts.runter(deltaTime);
 			break;
-		case "links":
+		case "ra_links":
 			handRechts.links(deltaTime);
 			break;
-		case "rechts":
+		case "ra_rechts":
 			handRechts.rechts(deltaTime);
 			break;
-		case "rein":
+		case "ra_rein":
 			handRechts.rein(deltaTime);
 			break;
-		case "raus":
+		case "ra_raus":
 			handRechts.raus(deltaTime);
 			break;
-		case "greifen":
+		case "ra_greifen":
 			handRechts.toggleGreifen(dichtesterGriff(handRechts));
 			break;
+		
 		default:
 			break;
 		}

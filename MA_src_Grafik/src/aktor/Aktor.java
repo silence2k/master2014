@@ -25,7 +25,7 @@ public class Aktor {
 		final float speed = 1f;
 	
 		// entfernung ab wann ein objekt von der hand gegriffen werden kann
-		final float maxgreifen = 0.5f;
+		final float maxgreifen = 0.3f;
 	
 		// nach welcher zeit kann man den zustand der hand aendern
 		final long toggleTime = 400;
@@ -50,7 +50,7 @@ public class Aktor {
 	
 	
 
-	public Geometry init(AssetManager assetManager) {
+	public Geometry init(AssetManager assetManager, Vector3f position) {
 		/**
 		 * A bumpy rock with a shiny light effect. To make bumpy objects you
 		 * must create a NormalMap.
@@ -77,7 +77,7 @@ public class Aktor {
 		mat_lit.setColor("Diffuse", ColorRGBA.White);
 		mat_lit.setFloat("Shininess", 5f); // [0,128]
 		graficObject.setMaterial(mat_lit);
-		graficObject.setLocalTranslation(1, 0, 0.2f); // Move it a bit
+		graficObject.setLocalTranslation(position); // Move it a bit
 		graficObject.rotate(1.6f, 0, 0); // Rotate it a bit
 		return graficObject;
 	}
