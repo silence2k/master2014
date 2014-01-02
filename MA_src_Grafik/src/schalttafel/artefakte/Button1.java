@@ -25,10 +25,10 @@ public class Button1 extends Artefakt {
 		
 		protected void init(){
 			// Button draussen
-			minTrans= 0f;
+			minTrans= -0.1f;
 			
 			// Button gedrueckt
-			maxTrans = 0.2f;
+			maxTrans = 0.0f;
 		}
 	
 
@@ -105,22 +105,29 @@ public class Button1 extends Artefakt {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {
-			if(!isBeweglichMaxTrans(translationDX, translation)&&!pressed){
-				audioButtonPress.play();
-				break;
-			}else if(!isBeweglichMinTrans(translationDX, translation)){
+			if(!isBeweglichMaxTrans(translationDX, translation)){
 				pressed = false;
 				break;
-			}
-			
-			this.translation+= translationDX;
-			
-			graficObject.move(0,0 , translationDX);
-			newDistance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
-			if (newDistance > oldDistance) {
+			}else if(!isBeweglichMinTrans(translationDX, translation)&&!pressed){
+				audioButtonPress.play();
+				pressed = true;
 				break;
 			}
-			oldDistance = newDistance;
+			else if(isBeweglichTranslation(translationDX, translation)){
+				this.translation+= translationDX;
+				graficObject.move(0,0 , translationDX);
+				newDistance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+				if (newDistance > oldDistance) {
+					break;
+				}
+				oldDistance = newDistance;
+			}else{
+				break;
+			}
+			
+			
+			
+
 		}
 
 	}
@@ -129,7 +136,7 @@ public class Button1 extends Artefakt {
 		this.greifbar = greifbar;
 		if (this.greifbar) {
 			griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
-			graficObject.setLocalTranslation(graficObject.getLocalTranslation().x, graficObject.getLocalTranslation().y, minTrans);
+			graficObject.setLocalTranslation(graficObject.getLocalTranslation().x, graficObject.getLocalTranslation().y, maxTrans);
 			translation = 0;
 			pressed = false;
 		} else {

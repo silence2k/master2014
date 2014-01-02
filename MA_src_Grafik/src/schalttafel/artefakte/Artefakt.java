@@ -34,9 +34,18 @@ public abstract class Artefakt implements Greifbar {
 
 	protected Material griffmaterial;
 
-	protected boolean greifbar = true;
-
 	protected Geometry griff1 = null;
+	
+	
+	protected Material griffmaterial2;
+
+	protected Geometry griff2 = null;
+	
+	
+	protected boolean greifbar = true;
+	
+	
+	
 
 	public abstract Node init(AssetManager assetManager, Vector3f position);
 
@@ -50,6 +59,10 @@ public abstract class Artefakt implements Greifbar {
 
 	protected void buildGriff1(Vector3f position, AssetManager assetManager) {
 		griff1 = buildGriff("griff1", position, assetManager);
+	}
+	
+	protected void buildGriff2(Vector3f position, AssetManager assetManager) {
+		griff2 = buildGriff("griff2", position, assetManager);
 	}
 
 	protected Geometry buildGriff(String name, Vector3f position, AssetManager assetManager) {
@@ -96,14 +109,17 @@ public abstract class Artefakt implements Greifbar {
 	
 	
 	protected boolean isBeweglichRotation(float dx, float aktuelleRotation){
-		float tmp = aktuelleRotation + dx;
-		
-		//System.out.println("tmp: "+tmp+" max: "+maxRot+" min: "+minRot);
-		
-		if(tmp <= maxRot && tmp >= minRot){
-			return true;
-		}
-		return false;
+		return isBeweglichMaxRot(dx, aktuelleRotation) && isBeweglichMinRot(dx, aktuelleRotation);
+	}
+	
+	protected boolean isBeweglichMaxRot(float dx, float aktuelleRotation){
+		System.out.println("MaxRot dx: "+dx+" aktuelleRotation: " +aktuelleRotation+" maxRot: "+maxRot+" =>> "+((aktuelleRotation + dx) <= maxRot));
+		return (aktuelleRotation + dx) <= maxRot;
+	}
+	
+	protected boolean isBeweglichMinRot(float dx, float aktuelleRotation){
+		System.out.println("MinRot dx: "+dx+" aktuelleRotation: " +aktuelleRotation+" minRot: "+minRot+" =>> "+((aktuelleRotation + dx) >= minRot));
+		return (aktuelleRotation + dx) >= minRot;
 	}
 	
 	protected boolean isBeweglichTranslation(float dx, float aktuelleTranslation){

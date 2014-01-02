@@ -149,8 +149,7 @@ public class Aktor {
 					audioGreifen.playInstance();
 					
 				} else {
-					setColor(ColorRGBA.Red);
-					zustand = Zustand.nichtsgegriffen;
+					setNichtgreifen();
 					
 					audioNichtGreifen.playInstance();
 				}
@@ -166,6 +165,11 @@ public class Aktor {
 			}
 		}
 
+	}
+	
+	public void setNichtgreifen(){
+		zustand = Zustand.nichtsgegriffen;
+		setColor(ColorRGBA.Red);
 	}
 
 	public Vector3f getLocalTranslation(){
