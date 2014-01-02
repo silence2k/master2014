@@ -5,7 +5,6 @@ import java.util.List;
 import aktor.Aktor;
 
 import com.jme3.asset.AssetManager;
-import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
@@ -14,9 +13,6 @@ import com.jme3.scene.Spatial;
 
 public class Rad2 extends Rad {
 
-	private Aktor aktor2;
-
-	private Material griffmaterial2;
 
 	private boolean greifbar2 = true;
 
@@ -29,29 +25,19 @@ public class Rad2 extends Rad {
 			System.out.println(spatial);
 		}
 
-		// Geometry g = (Geometry)graficObject.getChild("rad2-geom-0");
-		// Material mat_default = new Material(assetManager,
-		// "Common/MatDefs/Misc/Unshaded.j3md");
-		// mat_default.setColor("Color", new ColorRGBA(0.5f,0.5f,0.5f, 1f));
-		// g.setMaterial(mat_default);
-
 		Geometry g = (Geometry) graficObject.getChild("rad2-geom-0");
-		// mat_default = new Material( assetManager,
-		// "Common/MatDefs/Misc/ShowNormals.j3md");
-		griffmaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
-		g.setMaterial(griffmaterial);
+		griffmaterial = new MyMaterial(g.getMaterial());
+		griffmaterial.setColor(new ColorRGBA(0f, 1f, 0f, 1f));
 
+		
+		buildGriff1(new Vector3f(0.2f, 0, 0), assetManager);
+		
 		g = (Geometry) graficObject.getChild("rad2-geom-1");
-		// mat_default = new Material( assetManager,
-		// "Common/MatDefs/Misc/ShowNormals.j3md");
-		griffmaterial2 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		griffmaterial2.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
-		g.setMaterial(griffmaterial2);
+		griffmaterial2 = new MyMaterial(g.getMaterial());
+		griffmaterial2.setColor(new ColorRGBA(0f, 1f, 0f, 1f));
 
-		graficObject.attachChild(buildGriff("griff1", new Vector3f(0.2f, 0, 0), assetManager));
-		// graficObject.attachChild(buildGriff("griff2", new Vector3f(-0.2f, 0,
-		// 0), assetManager));
+
+		buildGriff2(new Vector3f(0.1f, 0, 0.05f), assetManager);
 
 		return graficObject;
 	}

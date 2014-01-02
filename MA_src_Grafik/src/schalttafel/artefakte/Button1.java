@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
-import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
@@ -49,17 +48,17 @@ public class Button1 extends Artefakt {
 			System.out.println(spatial);
 		}
 
-		Geometry g = (Geometry) graficObject.getChild("button1-geom-1");
-		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
-		g.setMaterial(mat_default);
+//		Geometry g = (Geometry) graficObject.getChild("button1-geom-1");
+//		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+//		mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
+//		g.setMaterial(mat_default);
 
-		g = (Geometry) graficObject.getChild("button1-geom-0");
+		Geometry g = (Geometry) graficObject.getChild("button1-geom-0");
 		// mat_default = new Material( assetManager,
 		// "Common/MatDefs/Misc/ShowNormals.j3md");
-		griffmaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
-		g.setMaterial(griffmaterial);
+		griffmaterial = new MyMaterial(g.getMaterial());
+		griffmaterial.setColor(new ColorRGBA(0f, 1f, 0f, 1f));
+
 
 		buildGriff1(new Vector3f(0, 0, 0.2f), assetManager);
 		
@@ -135,12 +134,12 @@ public class Button1 extends Artefakt {
 	public void setGreifbar(boolean greifbar) {
 		this.greifbar = greifbar;
 		if (this.greifbar) {
-			griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
+			griffmaterial.setColor(Greifbar);
 			graficObject.setLocalTranslation(graficObject.getLocalTranslation().x, graficObject.getLocalTranslation().y, maxTrans);
 			translation = 0;
 			pressed = false;
 		} else {
-			griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
+			griffmaterial.setColor(Gegriffen);
 		}
 
 	}

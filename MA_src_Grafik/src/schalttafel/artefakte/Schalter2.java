@@ -3,8 +3,6 @@ package schalttafel.artefakte;
 import java.util.List;
 
 import com.jme3.asset.AssetManager;
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -43,24 +41,22 @@ public class Schalter2 extends Artefakt {
 			System.out.println(spatial);
 		}
 
-		Geometry g = (Geometry) graficObject.getChild("schalter2-geom-1");
-		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
-		g.setMaterial(mat_default);
+//		Geometry g = (Geometry) graficObject.getChild("schalter2-geom-1");
+//		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+//		mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
+//		g.setMaterial(mat_default);
 
-		g = (Geometry) graficObject.getChild("schalter2-geom-0");
-		griffmaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
-		g.setMaterial(griffmaterial);
+		Geometry g = (Geometry) graficObject.getChild("schalter2-geom-0");
+		griffmaterial = new MyMaterial(g.getMaterial());
+		griffmaterial.setColor(Greifbar);
 
 		buildGriff1(new Vector3f(-0.1f, 0, 0.05f), assetManager);
 		
 		
 		
 		g = (Geometry) graficObject.getChild("schalter2-geom-2");
-		griffmaterial2 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		griffmaterial2.setColor("Color", new ColorRGBA(1f, 1f, 1f, 1f));
-		g.setMaterial(griffmaterial2);
+		griffmaterial2 = new MyMaterial(g.getMaterial());
+		griffmaterial2.setColor(Inaktiv);
 
 		buildGriff2(new Vector3f(0.1f, 0, 0.05f), assetManager);
 		
@@ -114,16 +110,16 @@ public class Schalter2 extends Artefakt {
 			
 			if(!isBeweglichMaxRot(rotationDx, rotation)&&g.equals(griff2)){
 				on = false;
-				griffmaterial2.setColor("Color", new ColorRGBA(1f, 1f, 1f, 1f));
-				griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
+				griffmaterial2.setColor(Inaktiv);
+				griffmaterial.setColor(Greifbar);
 				aktor.setNichtgreifen();
 				aktor = null;
 				break;
 			}
 			if(!isBeweglichMinRot(rotationDx, rotation)&&g.equals(griff1)){
 				on = true;
-				griffmaterial.setColor("Color", new ColorRGBA(1f, 1f, 1f, 1f));
-				griffmaterial2.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
+				griffmaterial.setColor(Inaktiv);
+				griffmaterial2.setColor(Greifbar);
 				aktor.setNichtgreifen();
 				aktor = null;
 				break;

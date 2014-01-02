@@ -13,6 +13,10 @@ import com.jme3.util.TangentBinormalGenerator;
 
 public abstract class Artefakt implements Greifbar {
 	
+	protected final ColorRGBA Greifbar = new ColorRGBA(0f, 1f, 0f, 1f);
+	protected final ColorRGBA Gegriffen = new ColorRGBA(1f, 0f, 0f, 1f);
+	protected final ColorRGBA Inaktiv = new ColorRGBA(1f, 1f, 1f, 1f);
+	
 	
 	// grenze min rotation
 	float minRot;
@@ -32,12 +36,12 @@ public abstract class Artefakt implements Greifbar {
 
 	protected Aktor aktor;
 
-	protected Material griffmaterial;
+	protected MyMaterial griffmaterial;
 
 	protected Geometry griff1 = null;
 	
 	
-	protected Material griffmaterial2;
+	protected MyMaterial griffmaterial2;
 
 	protected Geometry griff2 = null;
 	
@@ -137,9 +141,9 @@ public abstract class Artefakt implements Greifbar {
 	public void setGreifbar(boolean greifbar) {
 		this.greifbar = greifbar;
 		if (this.greifbar) {
-			griffmaterial.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
+			griffmaterial.setColor(new ColorRGBA(0f, 1f, 0f, 1f));
 		} else {
-			griffmaterial.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
+			griffmaterial.setColor(new ColorRGBA(1f, 0f, 0f, 1f));
 		}
 
 	}
