@@ -57,10 +57,6 @@ public abstract class Artefakt implements Greifbar {
 	
 	protected abstract void init();
 
-	public float distanceFreierGriff(Aktor aktor) {
-		return griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
-	}
-
 	protected void buildGriff1(Vector3f position, AssetManager assetManager) {
 		griff1 = buildGriff("griff1", position, assetManager);
 	}
@@ -78,19 +74,7 @@ public abstract class Artefakt implements Greifbar {
 
 		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		mat_default.setColor("Color", new ColorRGBA(1f, 1f, 0f, 1f));
-
-		// Material mat_lit = new Material(assetManager,
-		// "Common/MatDefs/Light/Lighting.j3md");
-		// mat_lit.setTexture("DiffuseMap",
-		// assetManager.loadTexture("Textures/Terrain/Pond/Pond.jpg"));
-		// mat_lit.setTexture("NormalMap",
-		// assetManager.loadTexture("Textures/Terrain/Pond/Pond_normal.png"));
-		// mat_lit.setBoolean("UseMaterialColors", true);
-		// mat_lit.setColor("Specular", ColorRGBA.Yellow);
-		// mat_lit.setColor("Diffuse", ColorRGBA.Yellow);
-		// mat_lit.setFloat("Shininess", 5f); // [0,128]
 		geo.setMaterial(mat_default);
-		// test.setLocalTranslation(0, 0.2f, 0); // Move it a bit
 
 		geo.setLocalTranslation(position);
 
@@ -110,6 +94,16 @@ public abstract class Artefakt implements Greifbar {
 	public Vector3f getGreifbarePostion() {
 		return griff1.getWorldTranslation();
 	}
+	
+	
+	public float distanceFreierGriff(Aktor aktor) {
+		float distance = Float.MAX_VALUE;
+		if(greifbar){
+			distance = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
+		}
+		return distance;
+	}
+
 	
 	
 	protected boolean isBeweglichRotation(float dx, float aktuelleRotation){

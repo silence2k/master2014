@@ -12,6 +12,8 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 public class Rad2 extends Rad {
+	
+	protected Aktor aktor2;
 
 
 	private boolean greifbar2 = true;
@@ -28,23 +30,20 @@ public class Rad2 extends Rad {
 		Geometry g = (Geometry) graficObject.getChild("rad2-geom-0");
 		griffmaterial = new MyMaterial(g.getMaterial());
 		griffmaterial.setColor(new ColorRGBA(0f, 1f, 0f, 1f));
-
-		
 		buildGriff1(new Vector3f(0.2f, 0, 0), assetManager);
+		
 		
 		g = (Geometry) graficObject.getChild("rad2-geom-1");
 		griffmaterial2 = new MyMaterial(g.getMaterial());
-		griffmaterial2.setColor(new ColorRGBA(0f, 1f, 0f, 1f));
-
-
-		buildGriff2(new Vector3f(0.1f, 0, 0.05f), assetManager);
+		griffmaterial2.setColor(new ColorRGBA(0f, 1f, 1f, 1f));
+		buildGriff2(new Vector3f(-0.2f, 0, 0), assetManager);
 
 		return graficObject;
 	}
 
 	public void update() {
 
-		if (aktor != null) {
+		if (aktor != null && aktor2 != null) {
 
 			Geometry g = (Geometry) graficObject.getChild("griff1");
 
@@ -57,6 +56,8 @@ public class Rad2 extends Rad {
 			graficObject.rotate(0, 0, -2f * rotationDX);
 
 			float distanceLinks = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+			
+			graficObject.rotate(0, 0, rotationDX);
 
 			if (distance < distanceRechts) {
 				if (distance < distanceLinks) {
@@ -89,23 +90,24 @@ public class Rad2 extends Rad {
 
 	}
 
-	public void rotate(long deltaTime) {
-
-		float f = (float) (-0.5f * deltaTime / 1000.0);
-
-		graficObject.rotate(0, 0, f);
-	}
 
 	@Override
 	public boolean isGreifbar() {
 		return greifbar;
 	}
-
-
+	
 	@Override
-	public Vector3f getGreifbarePostion() {
-		Geometry g = (Geometry) graficObject.getChild("griff1");
-		return g.getWorldTranslation();
+	public float distanceFreierGriff(Aktor aktor) {
+		float distance = Float.MAX_VALUE;
+		float distance2 = Float.MAX_VALUE;
+		if(greifbar){
+			distance = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
+		}
+		if(greifbar2){
+			distance2 = griff2.getWorldTranslation().distance(aktor.getLocalTranslation());
+		}
+		
+		return Math.min(distance, distance2);
 	}
 
 	public void setAktor(Aktor aktor) {

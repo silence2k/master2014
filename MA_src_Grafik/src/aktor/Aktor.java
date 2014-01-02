@@ -120,8 +120,7 @@ public class Aktor {
 
 	private boolean isGreifbar(Greifbar greifbaresObject) {
 		if (greifbaresObject != null) {
-			float distance = greifbaresObject.getGreifbarePostion().distance(graficObject.getLocalTranslation());
-			System.out.println("distance: " + distance);
+			float distance = greifbaresObject.distanceFreierGriff(this);
 			return greifbaresObject.isGreifbar() && distance < maxgreifen;
 		}
 		return false;
