@@ -10,38 +10,32 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 public abstract class Schieber extends Artefakt {
-	
+
 	protected float translationDX = 0.01f;
 
 	protected float translation = 0;
-		
-		protected AudioNode audioSchieberEnde;
-		
-		
-		
-		float grenzeOben = 0.6f;
-		
-		float grenzeUnten = 2.6f;
-		
-		
-		
-		protected void init(){
-			// Heben oben max
-			minTrans= 0f;
-			
-			// Heben unten max
-			maxTrans = 0.5f;
-		}
-	
-	
+
+	protected AudioNode audioSchieberEnde;
+
+	float grenzeOben = 0.6f;
+
+	float grenzeUnten = 2.6f;
+
+	protected void init() {
+		// Heben oben max
+		minTrans = 0f;
+
+		// Heben unten max
+		maxTrans = 0.5f;
+	}
+
 	@Override
 	public Node init(AssetManager assetManager, Vector3f position) {
 		init();
-		
-		
+
 		audioSchieberEnde = new AudioNode(assetManager, "sound/radende.wav", false);
 		audioSchieberEnde.setLooping(false);
-		
+
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/schieber1/schieber1.obj");
 
@@ -50,19 +44,13 @@ public abstract class Schieber extends Artefakt {
 			System.out.println(spatial);
 		}
 
-//		Geometry g = (Geometry) graficObject.getChild("schieber1-geom-1");
-//		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-//		mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
-//		g.setMaterial(mat_default);
-
 		Geometry g = (Geometry) graficObject.getChild("schieber1-geom-0");
 
-		griffmaterial = new MyMaterial(g.getMaterial());
-		griffmaterial.setColor(Greifbar);
+		MyMaterial m = new MyMaterial(g.getMaterial());
+		m.setColor(Greifbar);
 
+		buildGriff1(new Vector3f(0, 0, 0.2f), m, assetManager);
 
-		buildGriff1(new Vector3f(0, 0, 0.2f), assetManager);
-		
 		graficObject.setLocalTranslation(position);
 
 		return graficObject;

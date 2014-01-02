@@ -11,9 +11,8 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 public class Hebel2 extends Hebel {
-	
-	protected Aktor aktor2;
 
+	protected Aktor aktor2;
 
 	@Override
 	public Node init(AssetManager assetManager, Vector3f position) {
@@ -26,10 +25,10 @@ public class Hebel2 extends Hebel {
 		}
 
 		Geometry g = (Geometry) graficObject.getChild("hebel1-geom-0");
-		griffmaterial = new MyMaterial(g.getMaterial());
-		griffmaterial.setColor(Greifbar);
+		MyMaterial m = new MyMaterial(g.getMaterial());
+		m.setColor(Greifbar);
 
-		buildGriff1(new Vector3f(0, 0.2f, 0), assetManager);
+		buildGriff1(new Vector3f(0, 0.2f, 0), m, assetManager);
 
 		graficObject.setLocalTranslation(position);
 
@@ -38,17 +37,17 @@ public class Hebel2 extends Hebel {
 
 	@Override
 	public void update() {
-		if (aktor != null && aktor2 != null) {
+		if (griff1.isGegriffen() && griff2.isGegriffen()) {
 
-			float distance = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
+			float distance = griff1.distanceToActor();
 
 			graficObject.rotate(rotation, 0, 0);
 
-			float distanceRechts = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
+			float distanceRechts = griff1.distanceToActor();
 
 			graficObject.rotate(-2f * rotation, 0, 0);
 
-			float distanceLinks = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
+			float distanceLinks = griff1.distanceToActor();
 
 			if (distance < distanceRechts) {
 				if (distance < distanceLinks) {
@@ -67,12 +66,12 @@ public class Hebel2 extends Hebel {
 
 	}
 
-	private void myRotate(Geometry g, float distance, float rotation) {
+	private void myRotate(Griff griff, float distance, float rotation) {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {
 			graficObject.rotate(rotation, 0, 0);
-			newDistance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+			newDistance = griff.distanceToActor();
 			if (newDistance > oldDistance) {
 				break;
 			}

@@ -11,35 +11,30 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 public class Button1 extends Artefakt {
-	
+
 	protected float translationDX = 0.01f;
 
 	protected float translation = 0;
-	
-	private boolean pressed = false;
-		
-		protected AudioNode audioButtonPress;
-			
-		
-		
-		protected void init(){
-			// Button draussen
-			minTrans= -0.1f;
-			
-			// Button gedrueckt
-			maxTrans = 0.0f;
-		}
-	
 
-	
+	private boolean pressed = false;
+
+	protected AudioNode audioButtonPress;
+
+	protected void init() {
+		// Button draussen
+		minTrans = -0.1f;
+
+		// Button gedrueckt
+		maxTrans = 0.0f;
+	}
+
 	@Override
 	public Node init(AssetManager assetManager, Vector3f position) {
 		init();
-		
-		
+
 		audioButtonPress = new AudioNode(assetManager, "sound/buttonpress.wav", false);
 		audioButtonPress.setLooping(false);
-		
+
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/button1/button1.obj");
 
@@ -48,20 +43,18 @@ public class Button1 extends Artefakt {
 			System.out.println(spatial);
 		}
 
-//		Geometry g = (Geometry) graficObject.getChild("button1-geom-1");
-//		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-//		mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
-//		g.setMaterial(mat_default);
+		// Geometry g = (Geometry) graficObject.getChild("button1-geom-1");
+		// Material mat_default = new Material(assetManager,
+		// "Common/MatDefs/Misc/Unshaded.j3md");
+		// mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
+		// g.setMaterial(mat_default);
 
 		Geometry g = (Geometry) graficObject.getChild("button1-geom-0");
-		// mat_default = new Material( assetManager,
-		// "Common/MatDefs/Misc/ShowNormals.j3md");
-		griffmaterial = new MyMaterial(g.getMaterial());
-		griffmaterial.setColor(new ColorRGBA(0f, 1f, 0f, 1f));
 
+		MyMaterial m = new MyMaterial(g.getMaterial());
+		m.setColor(new ColorRGBA(0f, 1f, 0f, 1f));
+		buildGriff1(new Vector3f(0, 0, 0.2f), m, assetManager);
 
-		buildGriff1(new Vector3f(0, 0, 0.2f), assetManager);
-		
 		graficObject.setLocalTranslation(position);
 
 		return graficObject;
@@ -69,19 +62,19 @@ public class Button1 extends Artefakt {
 
 	@Override
 	public void update() {
-		if (aktor != null) {
+		if (griff1.isGegriffen()) {
 
-			float distance = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
+			float distance = griff1.distanceToActor();
 
-			graficObject.move(0,0, translationDX);
+			graficObject.move(0, 0, translationDX);
 
-			float distanceRechts = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
+			float distanceRechts = griff1.distanceToActor();
 
-			graficObject.move(0,0,-2f * translationDX);
+			graficObject.move(0, 0, -2f * translationDX);
 
-			float distanceLinks = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
-			
-			graficObject.move(0, 0,translationDX);
+			float distanceLinks = griff1.distanceToActor();
+
+			graficObject.move(0, 0, translationDX);
 
 			if (distance < distanceRechts) {
 				if (distance < distanceLinks) {
@@ -100,48 +93,45 @@ public class Button1 extends Artefakt {
 
 	}
 
-	private void myTranslate(Geometry g, float distance, float translationDX) {
+	private void myTranslate(Griff griff, float distance, float translationDX) {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {
-			if(!isBeweglichMaxTrans(translationDX, translation)){
+			if (!isBeweglichMaxTrans(translationDX, translation)) {
 				pressed = false;
 				break;
-			}else if(!isBeweglichMinTrans(translationDX, translation)&&!pressed){
+			} else if (!isBeweglichMinTrans(translationDX, translation) && !pressed) {
 				audioButtonPress.play();
 				pressed = true;
 				break;
-			}
-			else if(isBeweglichTranslation(translationDX, translation)){
-				this.translation+= translationDX;
-				graficObject.move(0,0 , translationDX);
-				newDistance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+			} else if (isBeweglichTranslation(translationDX, translation)) {
+				this.translation += translationDX;
+				graficObject.move(0, 0, translationDX);
+				newDistance = griff.distanceToActor();
 				if (newDistance > oldDistance) {
 					break;
 				}
 				oldDistance = newDistance;
-			}else{
+			} else {
 				break;
 			}
-			
-			
-			
 
 		}
 
 	}
-	
-	public void setGreifbar(boolean greifbar) {
-		this.greifbar = greifbar;
-		if (this.greifbar) {
-			griffmaterial.setColor(Greifbar);
-			graficObject.setLocalTranslation(graficObject.getLocalTranslation().x, graficObject.getLocalTranslation().y, maxTrans);
-			translation = 0;
-			pressed = false;
-		} else {
-			griffmaterial.setColor(Gegriffen);
-		}
 
-	}
+	// public void setGreifbar(boolean greifbar) {
+	// this.greifbar = greifbar;
+	// if (this.greifbar) {
+	// griffmaterial.setColor(Greifbar);
+	// graficObject.setLocalTranslation(graficObject.getLocalTranslation().x,
+	// graficObject.getLocalTranslation().y, maxTrans);
+	// translation = 0;
+	// pressed = false;
+	// } else {
+	// griffmaterial.setColor(Gegriffen);
+	// }
+	//
+	// }
 
 }

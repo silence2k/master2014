@@ -1,35 +1,17 @@
 package anzeige;
 
 import schalttafel.artefakte.Artefakt;
-import schalttafel.artefakte.Button1;
-import schalttafel.artefakte.Hebel1;
 import schalttafel.artefakte.Rad1;
-import schalttafel.artefakte.Schalter2;
-import schalttafel.artefakte.Schieber1;
-import schalttafel.artefakte.Schieber2;
+import schalttafel.artefakte.Rad2;
 
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 
-public class Anzeige1 extends Anzeige {
+public class Anzeige_Rad1 extends Anzeige {
 
-	Rad1 rad1 = new Rad1();
-	Rad1 rad2 = new Rad1();
-	Rad1 rad3 = new Rad1();
-
-	Hebel1 hebel1 = new Hebel1();
-
-	Schieber1 schieber1 = new Schieber1();
-	Schieber2 schieber2 = new Schieber2();
-
-	Button1 button1 = new Button1();
-	Button1 button2 = new Button1();
-
-	Schalter2 schalter1 = new Schalter2();
-
-	// Rad2 rad2 = new Rad2();
+	Rad1 rad = new Rad1();
 
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
@@ -37,7 +19,7 @@ public class Anzeige1 extends Anzeige {
 	boolean toggle = false;
 
 	public static void main(String[] args) {
-		Anzeige1 app = new Anzeige1();
+		Anzeige_Rad1 app = new Anzeige_Rad1();
 		app.start();
 	}
 
@@ -48,36 +30,12 @@ public class Anzeige1 extends Anzeige {
 
 		setupKeys();
 
-		rootNode.attachChild(rad1.init(assetManager, new Vector3f(0.8f, 0.5f, 0)));
-		rootNode.attachChild(rad2.init(assetManager, new Vector3f(-0.8f, 0.5f, 0)));
-		rootNode.attachChild(rad3.init(assetManager, new Vector3f(0.8f, -0.5f, 0)));
+		rootNode.attachChild(rad.init(assetManager, new Vector3f(0, 0, 0)));
 
-		rootNode.attachChild(schieber1.init(assetManager, new Vector3f(-0.8f, -0.5f, 0)));
-		rootNode.attachChild(schieber2.init(assetManager, new Vector3f(-0.8f, -1.0f, 0)));
-
-		rootNode.attachChild(hebel1.init(assetManager, new Vector3f(0, 0, 0)));
-
-		rootNode.attachChild(button1.init(assetManager, new Vector3f(1.3f, 0, 0)));
-		rootNode.attachChild(button2.init(assetManager, new Vector3f(1.7f, 0, 0)));
-
-		rootNode.attachChild(schalter1.init(assetManager, new Vector3f(1.3f, -1f, 0)));
-
-		// rootNode.attachChild(rad2.init(assetManager));
 		rootNode.attachChild(handRechts.init(assetManager, new Vector3f(1, 0, 0.2f)));
 		rootNode.attachChild(handLinks.init(assetManager, new Vector3f(-1, 0, 0.2f)));
 
-		artefakte.add(rad1);
-		artefakte.add(rad2);
-		artefakte.add(rad3);
-
-		artefakte.add(hebel1);
-		artefakte.add(schieber1);
-		artefakte.add(schieber2);
-
-		artefakte.add(button1);
-		artefakte.add(button2);
-
-		artefakte.add(schalter1);
+		artefakte.add(rad);
 
 		/** You must add a light to make the model visible */
 		DirectionalLight sun = new DirectionalLight();

@@ -1,25 +1,21 @@
 package schalttafel.artefakte;
 
-import com.jme3.scene.Geometry;
-
 public class Schieber1 extends Schieber {
-	
-	
 
 	@Override
 	public void update() {
-		if (aktor != null) {
+		if (griff1.isGegriffen()) {
 
-			float distance = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
+			float distance = griff1.distanceToActor();
 
 			graficObject.move(0, translationDX, 0);
 
-			float distanceRechts = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
+			float distanceRechts = griff1.distanceToActor();
 
-			graficObject.move(0,-2f * translationDX, 0);
+			graficObject.move(0, -2f * translationDX, 0);
 
-			float distanceLinks = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
-			
+			float distanceLinks = griff1.distanceToActor();
+
 			graficObject.move(0, translationDX, 0);
 
 			if (distance < distanceRechts) {
@@ -39,19 +35,19 @@ public class Schieber1 extends Schieber {
 
 	}
 
-	private void myTranslate(Geometry g, float distance, float translationDX) {
+	private void myTranslate(Griff griff, float distance, float translationDX) {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {
-			if(!isBeweglichTranslation(translationDX, translation)){
+			if (!isBeweglichTranslation(translationDX, translation)) {
 				audioSchieberEnde.play();
 				break;
 			}
-			
-			this.translation+= translationDX;
-			
+
+			this.translation += translationDX;
+
 			graficObject.move(0, translationDX, 0);
-			newDistance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+			newDistance = griff.distanceToActor();
 			if (newDistance > oldDistance) {
 				break;
 			}

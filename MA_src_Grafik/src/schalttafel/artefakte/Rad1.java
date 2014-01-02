@@ -10,21 +10,19 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 public class Rad1 extends Rad {
-	
+
 	private AudioNode audioRaddreh;
 	private AudioNode audioRadende;
 
 	public Node init(AssetManager assetManager, Vector3f position) {
 		init();
-		
+
 		audioRaddreh = new AudioNode(assetManager, "sound/raddreh.wav", false);
 		audioRaddreh.setLooping(false);
-		
+
 		audioRadende = new AudioNode(assetManager, "sound/radende.wav", false);
 		audioRadende.setLooping(false);
-		
-		
-		
+
 		graficObject = (Node) assetManager.loadModel("obj/rad1/rad1.obj");
 
 		List<Spatial> childs = graficObject.getChildren();
@@ -32,17 +30,16 @@ public class Rad1 extends Rad {
 			System.out.println(spatial);
 		}
 
-//		Geometry g = (Geometry) graficObject.getChild("rad1-geom-0");
-//		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-//		mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
-//		g.setMaterial(mat_default);
+		// Geometry g = (Geometry) graficObject.getChild("rad1-geom-0");
+		// Material mat_default = new Material(assetManager,
+		// "Common/MatDefs/Misc/Unshaded.j3md");
+		// mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
+		// g.setMaterial(mat_default);
 
 		Geometry g = (Geometry) graficObject.getChild("rad1-geom-1");
-		griffmaterial = new MyMaterial(g.getMaterial());
-		griffmaterial.setColor(Greifbar);
-		buildGriff1(new Vector3f(0, 0.2f, 0), assetManager);
-		
-		
+		MyMaterial m = new MyMaterial(g.getMaterial());
+		m.setColor(Greifbar);
+		buildGriff1(new Vector3f(0, 0.2f, 0), m, assetManager);
 
 		graficObject.setLocalTranslation(position);
 
@@ -51,61 +48,59 @@ public class Rad1 extends Rad {
 
 	public void update() {
 
-		if (aktor != null) {
+		if (griff1.isGegriffen()) {
 
-			Geometry g = (Geometry) graficObject.getChild("griff1");
-
-			float distance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+			float distance = griff1.distanceToActor();
 
 			graficObject.rotate(0, 0, rotationDX);
 
-			float distanceRechts = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+			float distanceRechts = griff1.distanceToActor();
 
 			graficObject.rotate(0, 0, -2f * rotationDX);
 
-			float distanceLinks = g.getWorldTranslation().distance(aktor.getLocalTranslation());
-			
+			float distanceLinks = griff1.distanceToActor();
+
 			// wieder zurueckstellen
 			graficObject.rotate(0, 0, rotationDX);
-			
+
 			if (distance < distanceRechts) {
 				if (distance < distanceLinks) {
 					// nichts tun
 				} else {
-					myRotate(g, distance, -rotationDX);
+					myRotate(griff1, distance, -rotationDX);
 				}
 			} else {
 				if (distanceRechts < distanceLinks) {
-					myRotate(g, distance, rotationDX);
+					myRotate(griff1, distance, rotationDX);
 				} else {
-					myRotate(g, distance, -rotationDX);
+					myRotate(griff1, distance, -rotationDX);
 				}
 			}
 		}
 
 	}
 
-	private void myRotate(Geometry g, float distance, float rotationDX) {
+	private void myRotate(Griff griff, float distance, float rotationDX) {
 		float oldDistance = distance;
 		float newDistance = 0;
-		
+
 		while (true) {
-			if(!isBeweglichRotation(rotationDX, rotation)){
+			if (!isBeweglichRotation(rotationDX, rotation)) {
 				audioRadende.play();
 				break;
 			}
-			
-			this.rotation+= rotationDX;
+
+			this.rotation += rotationDX;
 			graficObject.rotate(0, 0, rotationDX);
-			newDistance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+			newDistance = griff.distanceToActor();
 			if (newDistance > oldDistance) {
-				//audioRaddreh.pause();
+				// audioRaddreh.pause();
 				break;
 			}
 			oldDistance = newDistance;
 			audioRaddreh.play();
 		}
-		System.out.println("roation: "+ rotation);
+		System.out.println("roation: " + rotation);
 	}
 
 	public void rotate(long deltaTime) {
@@ -114,10 +109,5 @@ public class Rad1 extends Rad {
 
 		graficObject.rotate(0, 0, f);
 	}
-
-
-
-	
-	
 
 }

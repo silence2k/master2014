@@ -1,27 +1,16 @@
 package anzeige;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Rad2;
-import aktor.Aktor;
 
-import com.jme3.app.SimpleApplication;
 import com.jme3.input.KeyInput;
-import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 
-public class Anzeige_Rad2 extends SimpleApplication implements AnalogListener {
+public class Anzeige_Rad2 extends Anzeige {
 
 	Rad2 rad2 = new Rad2();
-
-	Aktor handRechts = new Aktor();
-	Aktor handLinks = new Aktor();
-
-	List<Artefakt> artefakte = new ArrayList<>();
 
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
@@ -143,18 +132,4 @@ public class Anzeige_Rad2 extends SimpleApplication implements AnalogListener {
 		}
 	}
 
-	private Artefakt dichtesterGriff(Aktor aktor) {
-		Artefakt result = null;
-		float distance = Float.MAX_VALUE;
-		float tmp;
-		for (Artefakt arte : artefakte) {
-			tmp = arte.distanceFreierGriff(aktor);
-			if (tmp < distance) {
-				result = arte;
-				distance = tmp;
-			}
-		}
-
-		return result;
-	}
 }

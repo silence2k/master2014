@@ -1,7 +1,7 @@
 package aktor;
 
-import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Greifbar;
+import schalttafel.artefakte.Griff;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
@@ -13,24 +13,22 @@ import com.jme3.scene.shape.Sphere;
 import com.jme3.util.TangentBinormalGenerator;
 
 public class Aktor {
-	
+
 	private enum Zustand {
 		offen, gegriffen, nichtsgegriffen
 	}
-	
-	
-	/* config  */
-	
+
+	/* config */
+
 	// geschwindigkeit pro sekunde
-		final float speed = 1f;
-	
-		// entfernung ab wann ein objekt von der hand gegriffen werden kann
-		final float maxgreifen = 0.3f;
-	
-		// nach welcher zeit kann man den zustand der hand aendern
-		final long toggleTime = 400;
-		
-		
+	final float speed = 1f;
+
+	// entfernung ab wann ein objekt von der hand gegriffen werden kann
+	final float maxgreifen = 0.3f;
+
+	// nach welcher zeit kann man den zustand der hand aendern
+	final long toggleTime = 400;
+
 	/* ******************** */
 
 	private Geometry graficObject;
@@ -40,30 +38,25 @@ public class Aktor {
 	private long lastToggle = System.currentTimeMillis();
 
 	private Material mat_lit = null;
-	
-	private Artefakt gegriffenesArtefakt;
-	
+
+	private Griff griff;
+
 	private AudioNode audioGreifen;
-	
+
 	private AudioNode audioNichtGreifen;
-	
-	
-	
 
 	public Geometry init(AssetManager assetManager, Vector3f position) {
 		/**
 		 * A bumpy rock with a shiny light effect. To make bumpy objects you
 		 * must create a NormalMap.
 		 */
-		
-		 audioGreifen = new AudioNode(assetManager, "sound/greifen.wav", false);
-		 audioGreifen.setLooping(false);
-		 
-		 audioNichtGreifen = new AudioNode(assetManager, "sound/nichtgreifen.wav", false);
-		 audioNichtGreifen.setLooping(false);
-		
-		
-		
+
+		audioGreifen = new AudioNode(assetManager, "sound/greifen.wav", false);
+		audioGreifen.setLooping(false);
+
+		audioNichtGreifen = new AudioNode(assetManager, "sound/nichtgreifen.wav", false);
+		audioNichtGreifen.setLooping(false);
+
 		Sphere rock = new Sphere(16, 16, 0.15f);
 		graficObject = new Geometry("Aktor", rock);
 		rock.setTextureMode(Sphere.TextureMode.Projected); // better quality on
@@ -105,18 +98,16 @@ public class Aktor {
 		Vector3f v3 = graficObject.getLocalTranslation();
 		graficObject.setLocalTranslation(v3.x + delta(deltaTime), v3.y, v3.z);
 	}
-	
+
 	public void rein(long deltaTime) {
 		Vector3f v3 = graficObject.getLocalTranslation();
 		graficObject.setLocalTranslation(v3.x, v3.y, v3.z - delta(deltaTime));
 	}
-	
+
 	public void raus(long deltaTime) {
 		Vector3f v3 = graficObject.getLocalTranslation();
-		graficObject.setLocalTranslation(v3.x, v3.y, v3.z + delta(deltaTime) );
+		graficObject.setLocalTranslation(v3.x, v3.y, v3.z + delta(deltaTime));
 	}
-	
-	
 
 	private boolean isGreifbar(Greifbar greifbaresObject) {
 		if (greifbaresObject != null) {
@@ -125,53 +116,51 @@ public class Aktor {
 		}
 		return false;
 	}
-	
-	private void setColor(ColorRGBA color){
+
+	private void setColor(ColorRGBA color) {
 		mat_lit.setColor("Specular", color);
 		mat_lit.setColor("Diffuse", color);
 	}
-	
 
-	public void toggleGreifen(Artefakt greifbaresObject) {
+	public void toggleGreifen(Griff griff) {
 		if (System.currentTimeMillis() - toggleTime > lastToggle) {
 			lastToggle = System.currentTimeMillis();
 
 			if (zustand == Zustand.offen) {
-				if (isGreifbar(greifbaresObject)) {
+				if (griff.isGreifbar()) {
 					setColor(ColorRGBA.Green);
 					zustand = Zustand.gegriffen;
-					
-					gegriffenesArtefakt = greifbaresObject;
-					greifbaresObject.setGreifbar(false);
-					greifbaresObject.setAktor(this);
-					
+
+					this.griff = griff;
+					griff.greifen(this);
+
 					audioGreifen.playInstance();
-					
+
 				} else {
 					setNichtgreifen();
-					
+
 					audioNichtGreifen.playInstance();
 				}
 
 			} else {
 				setColor(ColorRGBA.White);
 				zustand = Zustand.offen;
-				if(gegriffenesArtefakt!= null){
-					gegriffenesArtefakt.setGreifbar(true);
-					gegriffenesArtefakt.setAktor(null);
+				if (this.griff != null) {
+					this.griff.loslassen();
+					this.griff = null;
 				}
 
 			}
 		}
 
 	}
-	
-	public void setNichtgreifen(){
+
+	public void setNichtgreifen() {
 		zustand = Zustand.nichtsgegriffen;
 		setColor(ColorRGBA.Red);
 	}
 
-	public Vector3f getLocalTranslation(){
+	public Vector3f getLocalTranslation() {
 		return graficObject.getLocalTranslation();
 	}
 }

@@ -2,38 +2,32 @@ package schalttafel.artefakte;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 
 public class Schieber2 extends Schieber {
-	
-	
 
 	@Override
 	public Node init(AssetManager assetManager, Vector3f position) {
 		super.init(assetManager, position);
-		
-		graficObject.rotate(0, 0, (float)(Math.PI/2.0));
-		
+
+		graficObject.rotate(0, 0, (float) (Math.PI / 2.0));
+
 		return graficObject;
 	}
-	
-	
-	
 
 	@Override
 	public void update() {
-		if (aktor != null) {
+		if (griff1.isGegriffen()) {
 
-			float distance = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
-			
-			graficObject.move(translationDX,0, 0);
-			float distanceRechts = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
+			float distance = griff1.distanceToActor();
 
-			graficObject.move(-2f * translationDX,0, 0);
-			float distanceLinks = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
-			
-			graficObject.move(translationDX, 0 , 0);
+			graficObject.move(translationDX, 0, 0);
+			float distanceRechts = griff1.distanceToActor();
+
+			graficObject.move(-2f * translationDX, 0, 0);
+			float distanceLinks = griff1.distanceToActor();
+
+			graficObject.move(translationDX, 0, 0);
 
 			if (distance < distanceRechts) {
 				if (distance < distanceLinks) {
@@ -52,19 +46,19 @@ public class Schieber2 extends Schieber {
 
 	}
 
-	private void myTranslate(Geometry g, float distance, float translationDX) {
+	private void myTranslate(Griff griff, float distance, float translationDX) {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {
-			if(!isBeweglichTranslation(translationDX, translation)){
+			if (!isBeweglichTranslation(translationDX, translation)) {
 				audioSchieberEnde.play();
 				break;
 			}
-			
-			this.translation+= translationDX;
-			
-			graficObject.move(translationDX,0, 0);
-			newDistance = g.getWorldTranslation().distance(aktor.getLocalTranslation());
+
+			this.translation += translationDX;
+
+			graficObject.move(translationDX, 0, 0);
+			newDistance = griff.distanceToActor();
 			if (newDistance > oldDistance) {
 				break;
 			}

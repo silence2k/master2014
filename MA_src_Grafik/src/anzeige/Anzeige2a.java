@@ -32,92 +32,87 @@
 
 package anzeige;
 
-import java.util.List;
-
 import com.jme3.app.SimpleApplication;
-import com.jme3.font.BitmapText;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Box;
 
-/** Sample 3 - how to load an OBJ model, and OgreXML model, 
- * a material/texture, or text. */
+/**
+ * Sample 3 - how to load an OBJ model, and OgreXML model, a material/texture,
+ * or text.
+ */
 public class Anzeige2a extends SimpleApplication {
-	
+
 	Node teapot;
 	long lasttime = System.currentTimeMillis();
 	boolean toggle = false;
-	
+
 	float rotation = 0;
 	float max = 3f;
 	float min = 0.1f;
-	
+
 	float dRotation = 0.02f;
 
-    public static void main(String[] args) {
-        Anzeige2a app = new Anzeige2a();
-        app.start();
-    }
+	public static void main(String[] args) {
+		Anzeige2a app = new Anzeige2a();
+		app.start();
+	}
 
-    @Override
-    public void simpleInitApp() {
+	@Override
+	public void simpleInitApp() {
 
-//        /** Load a teapot model (OBJ file from test-data) */
-        Spatial teapot = assetManager.loadModel("obj/rad1/rad1.obj");
-        Material mat_default = new Material( assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
-//        Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-//        mat_default.setColor("Color", new ColorRGBA(1f,0f,0f, 1f));
-        teapot.setMaterial(mat_default);
-        rootNode.attachChild(teapot);
-    	
-        
+		// /** Load a teapot model (OBJ file from test-data) */
+		Spatial teapot = assetManager.loadModel("obj/rad1/rad1.obj");
+		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
+		// Material mat_default = new Material(assetManager,
+		// "Common/MatDefs/Misc/Unshaded.j3md");
+		// mat_default.setColor("Color", new ColorRGBA(1f,0f,0f, 1f));
+		teapot.setMaterial(mat_default);
+		rootNode.attachChild(teapot);
 
-        /** You must add a light to make the model visible */
-        DirectionalLight sun = new DirectionalLight();
-        sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f).normalizeLocal());
-        rootNode.addLight(sun);
-    }
+		/** You must add a light to make the model visible */
+		DirectionalLight sun = new DirectionalLight();
+		sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f).normalizeLocal());
+		rootNode.addLight(sun);
+	}
 
 	@Override
 	public void simpleUpdate(float tpf) {
 		// TODO Auto-generated method stub
 		super.simpleUpdate(tpf);
-		
-//        Geometry g = (Geometry)teapot.getChild("hebel1-geom-1");
-////        Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-//        Material mat_default = g.getMaterial();
-//        if(lasttime < System.currentTimeMillis()-1000){
-//        	lasttime = System.currentTimeMillis();
-//        	toggle(mat_default);
-//   
-//        	
-//        }
-//       // g.setMaterial(mat_default);
-//        rotate();
-       
+
+		// Geometry g = (Geometry)teapot.getChild("hebel1-geom-1");
+		// // Material mat_default = new Material(assetManager,
+		// "Common/MatDefs/Misc/Unshaded.j3md");
+		// Material mat_default = g.getMaterial();
+		// if(lasttime < System.currentTimeMillis()-1000){
+		// lasttime = System.currentTimeMillis();
+		// toggle(mat_default);
+		//
+		//
+		// }
+		// // g.setMaterial(mat_default);
+		// rotate();
+
 	}
-    
-    
-	private void toggle(Material mat_default){
-		if(toggle){
-			mat_default.setColor("Color", new ColorRGBA(1f,0f,0f, 1f));
-		}else{
-			mat_default.setColor("Color", new ColorRGBA(0f,1f,0f, 1f));
+
+	private void toggle(Material mat_default) {
+		if (toggle) {
+			mat_default.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
+		} else {
+			mat_default.setColor("Color", new ColorRGBA(0f, 1f, 0f, 1f));
 		}
 		toggle = !toggle;
 	}
-	
-	private void rotate(){
-		if(rotation + dRotation > max || rotation + dRotation < min){
+
+	private void rotate() {
+		if (rotation + dRotation > max || rotation + dRotation < min) {
 			dRotation = -dRotation;
 		}
 		rotation += dRotation;
-		 teapot.rotate(dRotation, 0, 0);
+		teapot.rotate(dRotation, 0, 0);
 	}
 }

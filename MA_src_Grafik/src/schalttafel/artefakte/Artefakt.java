@@ -12,57 +12,51 @@ import com.jme3.scene.shape.Sphere;
 import com.jme3.util.TangentBinormalGenerator;
 
 public abstract class Artefakt implements Greifbar {
-	
+
 	protected final ColorRGBA Greifbar = new ColorRGBA(0f, 1f, 0f, 1f);
 	protected final ColorRGBA Gegriffen = new ColorRGBA(1f, 0f, 0f, 1f);
 	protected final ColorRGBA Inaktiv = new ColorRGBA(1f, 1f, 1f, 1f);
-	
-	
+
 	// grenze min rotation
 	float minRot;
-	
+
 	// grenze max rotation
 	float maxRot;
-	
+
 	// grenze min translation
 	float minTrans;
-	
+
 	// grenze max translation
 	float maxTrans;
-	
-	
 
 	protected Node graficObject;
 
-	protected Aktor aktor;
+	// protected Aktor aktor;
+	//
+	// protected MyMaterial griffmaterial;
+	//
+	// protected Geometry griff1 = null;
+	//
+	// protected boolean greifbar = true;
 
-	protected MyMaterial griffmaterial;
+	protected Griff griff1;
 
-	protected Geometry griff1 = null;
-	
-	
-	protected MyMaterial griffmaterial2;
+	// protected MyMaterial griffmaterial2;
 
-	protected Geometry griff2 = null;
-	
-	
-	protected boolean greifbar = true;
-	
-	
-	
+	protected Griff griff2 = null;
 
 	public abstract Node init(AssetManager assetManager, Vector3f position);
 
 	public abstract void update();
-	
+
 	protected abstract void init();
 
-	protected void buildGriff1(Vector3f position, AssetManager assetManager) {
-		griff1 = buildGriff("griff1", position, assetManager);
+	protected void buildGriff1(Vector3f position, MyMaterial material, AssetManager assetManager) {
+		griff1 = new Griff(this, material, buildGriff("griff1", position, assetManager));
 	}
-	
-	protected void buildGriff2(Vector3f position, AssetManager assetManager) {
-		griff2 = buildGriff("griff2", position, assetManager);
+
+	protected void buildGriff2(Vector3f position, MyMaterial material, AssetManager assetManager) {
+		griff2 = new Griff(this, material, buildGriff("griff2", position, assetManager));
 	}
 
 	protected Geometry buildGriff(String name, Vector3f position, AssetManager assetManager) {
@@ -83,63 +77,72 @@ public abstract class Artefakt implements Greifbar {
 		return geo;
 	}
 
-	public void setAktor(Aktor aktor) {
-		this.aktor = aktor;
-	}
-
 	public boolean isGreifbar() {
-		return greifbar;
+		return griff1.isGreifbar() || (griff2 != null && griff2.isGreifbar());
 	}
 
-	public Vector3f getGreifbarePostion() {
-		return griff1.getWorldTranslation();
-	}
-	
-	
 	public float distanceFreierGriff(Aktor aktor) {
 		float distance = Float.MAX_VALUE;
-		if(greifbar){
-			distance = griff1.getWorldTranslation().distance(aktor.getLocalTranslation());
+		float distance2 = Float.MAX_VALUE;
+		if (griff1.isGreifbar()) {
+			distance = griff1.distance(aktor);
 		}
-		return distance;
+		if (griff2 != null && griff2.isGreifbar()) {
+			distance2 = griff2.distance(aktor);
+		}
+
+		return Math.min(distance, distance2);
 	}
 
-	
-	
-	protected boolean isBeweglichRotation(float dx, float aktuelleRotation){
+	public Griff dichtesterFreierGriff(Aktor aktor) {
+		float dis1 = Float.MAX_VALUE;
+		float dis2 = Float.MAX_VALUE;
+		if (griff1.isGreifbar()) {
+			dis1 = griff1.distance(aktor);
+		}
+		if (griff2 != null && griff2.isGreifbar()) {
+			dis2 = griff2.distance(aktor);
+		}
+
+		return dis1 < dis2 ? griff1 : griff2;
+	}
+
+	protected boolean isBeweglichRotation(float dx, float aktuelleRotation) {
 		return isBeweglichMaxRot(dx, aktuelleRotation) && isBeweglichMinRot(dx, aktuelleRotation);
 	}
-	
-	protected boolean isBeweglichMaxRot(float dx, float aktuelleRotation){
-		System.out.println("MaxRot dx: "+dx+" aktuelleRotation: " +aktuelleRotation+" maxRot: "+maxRot+" =>> "+((aktuelleRotation + dx) <= maxRot));
+
+	protected boolean isBeweglichMaxRot(float dx, float aktuelleRotation) {
+		System.out.println("MaxRot dx: " + dx + " aktuelleRotation: " + aktuelleRotation + " maxRot: " + maxRot
+				+ " =>> " + ((aktuelleRotation + dx) <= maxRot));
 		return (aktuelleRotation + dx) <= maxRot;
 	}
-	
-	protected boolean isBeweglichMinRot(float dx, float aktuelleRotation){
-		System.out.println("MinRot dx: "+dx+" aktuelleRotation: " +aktuelleRotation+" minRot: "+minRot+" =>> "+((aktuelleRotation + dx) >= minRot));
+
+	protected boolean isBeweglichMinRot(float dx, float aktuelleRotation) {
+		System.out.println("MinRot dx: " + dx + " aktuelleRotation: " + aktuelleRotation + " minRot: " + minRot
+				+ " =>> " + ((aktuelleRotation + dx) >= minRot));
 		return (aktuelleRotation + dx) >= minRot;
 	}
-	
-	protected boolean isBeweglichTranslation(float dx, float aktuelleTranslation){
+
+	protected boolean isBeweglichTranslation(float dx, float aktuelleTranslation) {
 		return isBeweglichMaxTrans(dx, aktuelleTranslation) && isBeweglichMinTrans(dx, aktuelleTranslation);
 	}
-	
-	protected boolean isBeweglichMaxTrans(float dx, float aktuelleTranslation){
+
+	protected boolean isBeweglichMaxTrans(float dx, float aktuelleTranslation) {
 		return (aktuelleTranslation + dx) <= maxTrans;
 	}
-	
-	protected boolean isBeweglichMinTrans(float dx, float aktuelleTranslation){
+
+	protected boolean isBeweglichMinTrans(float dx, float aktuelleTranslation) {
 		return (aktuelleTranslation + dx) >= minTrans;
 	}
-	
-	public void setGreifbar(boolean greifbar) {
-		this.greifbar = greifbar;
-		if (this.greifbar) {
-			griffmaterial.setColor(new ColorRGBA(0f, 1f, 0f, 1f));
-		} else {
-			griffmaterial.setColor(new ColorRGBA(1f, 0f, 0f, 1f));
-		}
 
-	}
+	// public void setGreifbar(boolean greifbar) {
+	// this.greifbar = greifbar;
+	// if (this.greifbar) {
+	// griffmaterial.setColor(new ColorRGBA(0f, 1f, 0f, 1f));
+	// } else {
+	// griffmaterial.setColor(new ColorRGBA(1f, 0f, 0f, 1f));
+	// }
+	//
+	// }
 
 }

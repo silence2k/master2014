@@ -35,112 +35,110 @@ package anzeige;
 import java.util.List;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.font.BitmapText;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Box;
 
-/** Sample 3 - how to load an OBJ model, and OgreXML model, 
- * a material/texture, or text. */
+/**
+ * Sample 3 - how to load an OBJ model, and OgreXML model, a material/texture,
+ * or text.
+ */
 public class Anzeige1_alt extends SimpleApplication {
-	
+
 	Node teapot;
 	long lasttime = System.currentTimeMillis();
 	boolean toggle = false;
 
-    public static void main(String[] args) {
-        Anzeige1_alt app = new Anzeige1_alt();
-        app.start();
-    }
+	public static void main(String[] args) {
+		Anzeige1_alt app = new Anzeige1_alt();
+		app.start();
+	}
 
-    @Override
-    public void simpleInitApp() {
+	@Override
+	public void simpleInitApp() {
 
-//        /** Load a teapot model (OBJ file from test-data) */
-//        Spatial teapot = assetManager.loadModel("Models/Teapot/Teapot.obj");
-//        Material mat_default = new Material( assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
-//        teapot.setMaterial(mat_default);
-//        rootNode.attachChild(teapot);
-    	
-        /** Load a teapot model (OBJ file from test-data) */
-        teapot = (Node) assetManager.loadModel("obj/rad1/rad1.obj");
-        
-        List<Spatial> childs = teapot.getChildren();
-        for (Spatial spatial : childs) {
+		// /** Load a teapot model (OBJ file from test-data) */
+		// Spatial teapot = assetManager.loadModel("Models/Teapot/Teapot.obj");
+		// Material mat_default = new Material( assetManager,
+		// "Common/MatDefs/Misc/ShowNormals.j3md");
+		// teapot.setMaterial(mat_default);
+		// rootNode.attachChild(teapot);
+
+		/** Load a teapot model (OBJ file from test-data) */
+		teapot = (Node) assetManager.loadModel("obj/rad1/rad1.obj");
+
+		List<Spatial> childs = teapot.getChildren();
+		for (Spatial spatial : childs) {
 			System.out.println(spatial);
 		}
-        
-        Geometry g = (Geometry)teapot.getChild("rad1-geom-0");
-        Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat_default.setColor("Color", new ColorRGBA(1f,0f,0f, 1f));
-        g.setMaterial(mat_default);
-        
-        
-        g = (Geometry)teapot.getChild("rad1-geom-1");
-        mat_default = new Material( assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
-      //  mat_default.setColor("rad1-geom-0", new ColorRGBA(1f,0f,1f, 1f));
-        g.setMaterial(mat_default);
-        
-        
-     //   Material mat_default = new Material( assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
-//        Material mat_default = assetManager.loadMaterial("obj/rad1/rad1.mtl");
-//        mat_default.setColor("rad", new ColorRGBA(1f,0f,1f, 1f));
-     //   teapot.setMaterial(mat_default);
-       // Material mat = teapot.get
-        rootNode.attachChild(teapot);
-        
-      //  teapot.get
 
-        // /obj/rad1/rad1.obj
+		Geometry g = (Geometry) teapot.getChild("rad1-geom-0");
+		Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		mat_default.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
+		g.setMaterial(mat_default);
 
-//        /** Display a line of text (default font from test-data) */
-//        setDisplayStatView(false);
-//        guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
-//        BitmapText helloText = new BitmapText(guiFont, false);
-//        helloText.setSize(guiFont.getCharSet().getRenderedSize());
-//        helloText.setText("Hello World");
-//        helloText.setLocalTranslation(300, helloText.getLineHeight(), 0);
-//        guiNode.attachChild(helloText);
+		g = (Geometry) teapot.getChild("rad1-geom-1");
+		mat_default = new Material(assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
+		// mat_default.setColor("rad1-geom-0", new ColorRGBA(1f,0f,1f, 1f));
+		g.setMaterial(mat_default);
 
+		// Material mat_default = new Material( assetManager,
+		// "Common/MatDefs/Misc/ShowNormals.j3md");
+		// Material mat_default =
+		// assetManager.loadMaterial("obj/rad1/rad1.mtl");
+		// mat_default.setColor("rad", new ColorRGBA(1f,0f,1f, 1f));
+		// teapot.setMaterial(mat_default);
+		// Material mat = teapot.get
+		rootNode.attachChild(teapot);
 
-        /** You must add a light to make the model visible */
-        DirectionalLight sun = new DirectionalLight();
-        sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f).normalizeLocal());
-        rootNode.addLight(sun);
-    }
+		// teapot.get
+
+		// /obj/rad1/rad1.obj
+
+		// /** Display a line of text (default font from test-data) */
+		// setDisplayStatView(false);
+		// guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
+		// BitmapText helloText = new BitmapText(guiFont, false);
+		// helloText.setSize(guiFont.getCharSet().getRenderedSize());
+		// helloText.setText("Hello World");
+		// helloText.setLocalTranslation(300, helloText.getLineHeight(), 0);
+		// guiNode.attachChild(helloText);
+
+		/** You must add a light to make the model visible */
+		DirectionalLight sun = new DirectionalLight();
+		sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f).normalizeLocal());
+		rootNode.addLight(sun);
+	}
 
 	@Override
 	public void simpleUpdate(float tpf) {
 		// TODO Auto-generated method stub
 		super.simpleUpdate(tpf);
-		
-        Geometry g = (Geometry)teapot.getChild("rad1-geom-0");
-//        Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        Material mat_default = g.getMaterial();
-        if(lasttime < System.currentTimeMillis()-1000){
-        	lasttime = System.currentTimeMillis();
-        	toggle(mat_default);
-   
-        	
-        }
-       // g.setMaterial(mat_default);
-        teapot.rotate(0, 0, -0.002f);
+
+		Geometry g = (Geometry) teapot.getChild("rad1-geom-0");
+		// Material mat_default = new Material(assetManager,
+		// "Common/MatDefs/Misc/Unshaded.j3md");
+		Material mat_default = g.getMaterial();
+		if (lasttime < System.currentTimeMillis() - 1000) {
+			lasttime = System.currentTimeMillis();
+			toggle(mat_default);
+
+		}
+		// g.setMaterial(mat_default);
+		teapot.rotate(0, 0, -0.002f);
 	}
-    
-    
-	private void toggle(Material mat_default){
-		if(toggle){
+
+	private void toggle(Material mat_default) {
+		if (toggle) {
 			toggle = false;
-			mat_default.setColor("Color", new ColorRGBA(1f,0f,0f, 1f));
-		}else{
+			mat_default.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
+		} else {
 			toggle = true;
-			mat_default.setColor("Color", new ColorRGBA(1f,0f,1f, 1f));
+			mat_default.setColor("Color", new ColorRGBA(1f, 0f, 1f, 1f));
 		}
 	}
 }
