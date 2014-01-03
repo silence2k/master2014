@@ -7,6 +7,8 @@ import schalttafel.artefakte.Rad1;
 import schalttafel.artefakte.Schalter2;
 import schalttafel.artefakte.Schieber1;
 import schalttafel.artefakte.Schieber2;
+import amq.RemoteEmpfaenger;
+import amqdata.Hand;
 
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -14,6 +16,8 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 
 public class Anzeige1 extends Anzeige {
+	
+	RemoteEmpfaenger empfaenger;
 
 	Rad1 rad1 = new Rad1();
 	Rad1 rad2 = new Rad1();
@@ -43,6 +47,8 @@ public class Anzeige1 extends Anzeige {
 
 	@Override
 	public void simpleInitApp() {
+		
+		empfaenger = new RemoteEmpfaenger();
 
 		cam.setLocation(new Vector3f(0f, 0f, 5f));
 
@@ -94,6 +100,14 @@ public class Anzeige1 extends Anzeige {
 		for (Artefakt arte : artefakte) {
 			arte.update();
 		}
+		
+		
+		Hand h = empfaenger.getLinks();
+		
+		handLinks.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
+		
+		h = empfaenger.getRechts();
+		handRechts.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
 	}
 
 	private void refreshTime() {

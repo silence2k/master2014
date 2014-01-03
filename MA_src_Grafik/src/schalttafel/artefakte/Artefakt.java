@@ -112,14 +112,14 @@ public abstract class Artefakt implements Greifbar {
 	}
 
 	protected boolean isBeweglichMaxRot(float dx, float aktuelleRotation) {
-		System.out.println("MaxRot dx: " + dx + " aktuelleRotation: " + aktuelleRotation + " maxRot: " + maxRot
-				+ " =>> " + ((aktuelleRotation + dx) <= maxRot));
+//		System.out.println("MaxRot dx: " + dx + " aktuelleRotation: " + aktuelleRotation + " maxRot: " + maxRot
+//				+ " =>> " + ((aktuelleRotation + dx) <= maxRot));
 		return (aktuelleRotation + dx) <= maxRot;
 	}
 
 	protected boolean isBeweglichMinRot(float dx, float aktuelleRotation) {
-		System.out.println("MinRot dx: " + dx + " aktuelleRotation: " + aktuelleRotation + " minRot: " + minRot
-				+ " =>> " + ((aktuelleRotation + dx) >= minRot));
+//		System.out.println("MinRot dx: " + dx + " aktuelleRotation: " + aktuelleRotation + " minRot: " + minRot
+//				+ " =>> " + ((aktuelleRotation + dx) >= minRot));
 		return (aktuelleRotation + dx) >= minRot;
 	}
 

@@ -59,10 +59,10 @@ public class Anzeige_Remote extends Anzeige {
 		}
 		Hand h = empfaenger.getLinks();
 		
-			handLinks.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
+		handLinks.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
 		
-		
-		
+		h = empfaenger.getRechts();
+		handRechts.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
 		
 	}
 

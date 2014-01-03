@@ -86,7 +86,7 @@ public class Aktor {
 	}
 	
 	public void update(float x, float y, float z, boolean greifen){
-		System.out.println("x: "+x+" y: "+y+" z: "+z);
+		//System.out.println("x: "+x+" y: "+y+" z: "+z);
 		graficObject.setLocalTranslation(x, y, z);
 		greifen(greifen);
 	}
