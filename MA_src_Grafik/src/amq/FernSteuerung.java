@@ -26,6 +26,9 @@ import data.Hand_alt;
 public class FernSteuerung {
 	
 	private static final long sleeptime = 100;
+	
+	private String server = "tcp://localhost:61616";
+	//private String server = "tcp://192.168.0.112:61616"; // PC3
 
 	private Connection connection;
 	private Session session;
@@ -75,8 +78,7 @@ public class FernSteuerung {
 
 	private void initActiveMQ() throws JMSException {
 		// Create a ConnectionFactory
-		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
-				"tcp://localhost:61616");
+		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(server);
 
 		// Create a Connection
 		connection = connectionFactory.createConnection();
