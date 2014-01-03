@@ -85,7 +85,7 @@ public class Anzeige_Schalter extends Anzeige {
 			handLinks.raus(deltaTime);
 			break;
 		case "la_greifen":
-			handLinks.toggleGreifen(dichtesterGriff(handLinks));
+			handLinks.toggleGreifen();
 			break;
 		default:
 			break;

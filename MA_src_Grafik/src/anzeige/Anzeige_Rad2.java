@@ -103,7 +103,7 @@ public class Anzeige_Rad2 extends Anzeige {
 			handLinks.raus(deltaTime);
 			break;
 		case "la_greifen":
-			handLinks.toggleGreifen(dichtesterGriff(handLinks));
+			handLinks.toggleGreifen();
 			break;
 		case "ra_hoch":
 			handRechts.hoch(deltaTime);
@@ -124,7 +124,7 @@ public class Anzeige_Rad2 extends Anzeige {
 			handRechts.raus(deltaTime);
 			break;
 		case "ra_greifen":
-			handRechts.toggleGreifen(dichtesterGriff(handRechts));
+			handRechts.toggleGreifen();
 			break;
 
 		default:

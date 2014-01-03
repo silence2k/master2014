@@ -2,6 +2,7 @@ package aktor;
 
 import schalttafel.artefakte.Greifbar;
 import schalttafel.artefakte.Griff;
+import anzeige.Anzeige;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
@@ -30,6 +31,8 @@ public class Aktor {
 	final long toggleTime = 400;
 
 	/* ******************** */
+	
+	Anzeige anzeige;
 
 	private Geometry graficObject;
 
@@ -44,6 +47,13 @@ public class Aktor {
 	private AudioNode audioGreifen;
 
 	private AudioNode audioNichtGreifen;
+	
+	
+
+	public Aktor(Anzeige anzeige) {
+		super();
+		this.anzeige = anzeige;
+	}
 
 	public Geometry init(AssetManager assetManager, Vector3f position) {
 		/**
@@ -78,6 +88,7 @@ public class Aktor {
 	public void update(float x, float y, float z, boolean greifen){
 		System.out.println("x: "+x+" y: "+y+" z: "+z);
 		graficObject.setLocalTranslation(x, y, z);
+		greifen(greifen);
 	}
 
 	private float delta(long deltaTime) {
@@ -127,17 +138,18 @@ public class Aktor {
 		mat_lit.setColor("Diffuse", color);
 	}
 
-	public void toggleGreifen(Griff griff) {
+	public void toggleGreifen() {
+		Griff tmpGriff = anzeige.dichtesterGriff(this);
 		if (System.currentTimeMillis() - toggleTime > lastToggle) {
 			lastToggle = System.currentTimeMillis();
 
 			if (zustand == Zustand.offen) {
-				if (griff.isGreifbar()) {
+				if (tmpGriff.isGreifbar() && tmpGriff.distance(this) < maxgreifen) {
 					setColor(ColorRGBA.Green);
 					zustand = Zustand.gegriffen;
 
-					this.griff = griff;
-					griff.greifen(this);
+					this.griff = tmpGriff;
+					this.griff.greifen(this);
 
 					audioGreifen.playInstance();
 
@@ -160,8 +172,12 @@ public class Aktor {
 
 	}
 	
-	private void greifen() {
-		
+	private void greifen(boolean greifen) {
+		if(greifen == false && zustand != Zustand.offen){
+			toggleGreifen();
+		}else if(greifen == true && zustand == Zustand.offen){
+			toggleGreifen();
+		}
 	}
 
 	private void setNichtgreifen() {

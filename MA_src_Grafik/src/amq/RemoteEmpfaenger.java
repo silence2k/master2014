@@ -32,6 +32,9 @@ public class RemoteEmpfaenger{
 	
 	boolean schubGeben = false;
 	
+	volatile boolean  weiter = true;
+	
+	
 
 	public RemoteEmpfaenger(){
 		super();
@@ -46,6 +49,24 @@ public class RemoteEmpfaenger{
 	
 	
 	
+
+	public void setWeiter(boolean weiter) {
+		this.weiter = weiter;
+	}
+	
+	
+
+
+
+
+
+	public boolean isWeiter() {
+		return weiter;
+	}
+
+
+
+
 
 	public Hand getLinks() {
 		return links;
@@ -100,9 +121,8 @@ public class RemoteEmpfaenger{
 
 		public void run() {
 			System.out.println("Consumer started!!!");
-			boolean weiter = true;
 			try {
-				while(weiter){
+				while(isWeiter()){
 
 				// Wait for a message
 				Message message = consumer.receive(1000);

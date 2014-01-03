@@ -12,12 +12,12 @@ import com.jme3.input.controls.AnalogListener;
 
 public abstract class Anzeige extends SimpleApplication implements AnalogListener {
 
-	protected Aktor handRechts = new Aktor();
-	protected Aktor handLinks = new Aktor();
+	protected Aktor handRechts = new Aktor(this);
+	protected Aktor handLinks = new Aktor(this);
 
 	protected List<Artefakt> artefakte = new ArrayList<>();
 
-	protected Griff dichtesterGriff(Aktor aktor) {
+	public Griff dichtesterGriff(Aktor aktor) {
 		Griff result = null;
 		float distance = Float.MAX_VALUE;
 		float tmp;
