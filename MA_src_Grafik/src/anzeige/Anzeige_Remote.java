@@ -2,7 +2,6 @@ package anzeige;
 
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Rad1;
-import schalttafel.artefakte.Rad2;
 import amq.RemoteEmpfaenger;
 import amqdata.Hand;
 

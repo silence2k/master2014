@@ -17,12 +17,6 @@ import javax.swing.JLabel;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import com.jme3.input.KeyInput;
-import com.jme3.input.controls.KeyTrigger;
-
-import amqdata.Hand;
-import data.Hand_alt;
-
 public class FernSteuerung {
 	
 	private static final long sleeptime = 100;

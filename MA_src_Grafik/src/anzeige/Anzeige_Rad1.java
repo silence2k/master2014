@@ -2,7 +2,6 @@ package anzeige;
 
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Rad1;
-import schalttafel.artefakte.Rad2;
 
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
