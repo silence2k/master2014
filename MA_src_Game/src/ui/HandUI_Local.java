@@ -1,12 +1,12 @@
 package ui;
 
 import steuerung.Steuerung;
-import data.Hand;
+import data.Hand_alt;
 
 public class HandUI_Local implements SteuerungHaende{
 	
-	Hand left;
-	Hand right;
+	Hand_alt left;
+	Hand_alt right;
 	
 	HandUI ui_left;
 	HandUI ui_right;

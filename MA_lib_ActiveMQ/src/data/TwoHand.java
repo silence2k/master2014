@@ -2,8 +2,8 @@ package data;
 
 public class TwoHand {
 	
-	Hand leftHand;
-	Hand rightHand;
+	Hand_alt leftHand;
+	Hand_alt rightHand;
 	@Override
 	
 	

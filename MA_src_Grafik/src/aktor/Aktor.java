@@ -74,6 +74,11 @@ public class Aktor {
 		graficObject.rotate(1.6f, 0, 0); // Rotate it a bit
 		return graficObject;
 	}
+	
+	public void update(float x, float y, float z, boolean greifen){
+		System.out.println("x: "+x+" y: "+y+" z: "+z);
+		graficObject.setLocalTranslation(x, y, z);
+	}
 
 	private float delta(long deltaTime) {
 		return (float) (deltaTime / 1000.0 * speed);
@@ -139,7 +144,7 @@ public class Aktor {
 				} else {
 					setNichtgreifen();
 
-					audioNichtGreifen.playInstance();
+					
 				}
 
 			} else {
@@ -154,10 +159,15 @@ public class Aktor {
 		}
 
 	}
+	
+	private void greifen() {
+		
+	}
 
-	public void setNichtgreifen() {
+	private void setNichtgreifen() {
 		zustand = Zustand.nichtsgegriffen;
 		setColor(ColorRGBA.Red);
+		audioNichtGreifen.playInstance();
 	}
 
 	public Vector3f getLocalTranslation() {

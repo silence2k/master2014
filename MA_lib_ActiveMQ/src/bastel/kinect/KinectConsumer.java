@@ -86,7 +86,7 @@ public class KinectConsumer implements Runnable,ExceptionListener{
         public void run() {
             try {
                 // Create a ConnectionFactory
-                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
+                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
 
                 // Create a Connection
                 Connection connection = connectionFactory.createConnection();

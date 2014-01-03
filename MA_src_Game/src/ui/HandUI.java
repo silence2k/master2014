@@ -1,13 +1,13 @@
 package ui;
 
 import static org.lwjgl.opengl.GL11.glColor3f;
-import data.Hand;
+import data.Hand_alt;
 
 public class HandUI {
 	
 	public final float handSize = 10f;
 	
-	Hand hand;
+	Hand_alt hand;
 	
 	
 	
