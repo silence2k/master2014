@@ -14,6 +14,9 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import amqdata.Hand;
 
 public class RemoteEmpfaenger{
+	
+	private String server = "tcp://localhost:61616";
+	//private String server = "tcp://192.168.0.112:61616"; // PC3
 
 	private Connection connection;
 	private Session session;
@@ -55,7 +58,7 @@ public class RemoteEmpfaenger{
 
 
 	private void initActiveMq() throws JMSException {
-		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(server);
 		connection = connectionFactory.createConnection();
 		connection.start();
 
