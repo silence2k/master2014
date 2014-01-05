@@ -69,8 +69,8 @@ public class Anzeige1 extends Anzeige {
 		rootNode.attachChild(schalter1.init(physic, assetManager, new Vector3f(1.3f, -1f, 0)));
 
 		// rootNode.attachChild(rad2.init(assetManager));
-		rootNode.attachChild(handRechts.init(assetManager, new Vector3f(1, 0, 0.2f)));
-		rootNode.attachChild(handLinks.init(assetManager, new Vector3f(-1, 0, 0.2f)));
+		rootNode.attachChild(handRechts.init(physic,assetManager, new Vector3f(1, 0, 0.2f)));
+		rootNode.attachChild(handLinks.init(physic,assetManager, new Vector3f(-1, 0, 0.2f)));
 
 		artefakte.add(rad1);
 		artefakte.add(rad2);

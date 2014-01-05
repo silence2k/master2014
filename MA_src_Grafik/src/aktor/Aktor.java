@@ -10,6 +10,8 @@ import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.util.TangentBinormalGenerator;
 
@@ -34,7 +36,7 @@ public class Aktor {
 	
 	Anzeige anzeige;
 
-	private Geometry graficObject;
+	private Spatial graficObject;
 
 	private Zustand zustand = Zustand.offen;
 
@@ -48,14 +50,16 @@ public class Aktor {
 
 	private AudioNode audioNichtGreifen;
 	
+	private boolean links;
 	
 
-	public Aktor(Anzeige anzeige) {
+	public Aktor(Anzeige anzeige, boolean links) {
 		super();
 		this.anzeige = anzeige;
+		this.links = links;
 	}
 
-	public Geometry init(AssetManager assetManager, Vector3f position) {
+	public Spatial init(boolean physic, AssetManager assetManager, Vector3f position) {
 		/**
 		 * A bumpy rock with a shiny light effect. To make bumpy objects you
 		 * must create a NormalMap.
@@ -67,6 +71,17 @@ public class Aktor {
 		audioNichtGreifen = new AudioNode(assetManager, "sound/nichtgreifen.wav", false);
 		audioNichtGreifen.setLooping(false);
 
+		if(physic){
+			initPhysic(assetManager, position);
+		}else{
+			initGraphic(assetManager, position);
+		}
+		
+		return graficObject;
+	}
+	
+	
+	private void initPhysic(AssetManager assetManager, Vector3f position) {
 		Sphere rock = new Sphere(16, 16, 0.15f);
 		graficObject = new Geometry("Aktor", rock);
 		rock.setTextureMode(Sphere.TextureMode.Projected); // better quality on
@@ -82,8 +97,18 @@ public class Aktor {
 		graficObject.setMaterial(mat_lit);
 		graficObject.setLocalTranslation(position); // Move it a bit
 		graficObject.rotate(1.6f, 0, 0); // Rotate it a bit
-		return graficObject;
 	}
+	
+	private void initGraphic(AssetManager assetManager, Vector3f position) {
+		if(links){
+			graficObject = assetManager.loadModel("obj/hand/linksOffen.obj");
+		}else{
+			graficObject = assetManager.loadModel("obj/hand/rechtsOffen.obj");
+		}
+		
+	}
+	
+	
 	
 	public void update(float x, float y, float z, boolean greifen){
 		//System.out.println("x: "+x+" y: "+y+" z: "+z);

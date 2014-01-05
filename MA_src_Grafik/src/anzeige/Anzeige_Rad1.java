@@ -31,8 +31,8 @@ public class Anzeige_Rad1 extends Anzeige {
 
 		rootNode.attachChild(rad.init(physic, assetManager, new Vector3f(0, 0, 0)));
 
-		rootNode.attachChild(handRechts.init(assetManager, new Vector3f(1, 0, 0.2f)));
-		rootNode.attachChild(handLinks.init(assetManager, new Vector3f(-1, 0, 0.2f)));
+		rootNode.attachChild(handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f)));
+		rootNode.attachChild(handLinks.init(physic, assetManager, new Vector3f(-1, 0, 0.2f)));
 
 		artefakte.add(rad);
 
