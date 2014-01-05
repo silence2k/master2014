@@ -45,7 +45,7 @@ public abstract class Artefakt implements Greifbar {
 
 	protected Griff griff2 = null;
 
-	public abstract Node init(AssetManager assetManager, Vector3f position);
+	public abstract Node init(boolean physic, AssetManager assetManager, Vector3f position);
 
 	public abstract void update();
 

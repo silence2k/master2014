@@ -29,7 +29,7 @@ public class Anzeige_Schalter extends Anzeige {
 
 		setupKeys();
 
-		rootNode.attachChild(schalter1.init(assetManager, new Vector3f(0, 0, 0)));
+		rootNode.attachChild(schalter1.init(physic, assetManager, new Vector3f(0, 0, 0)));
 
 		rootNode.attachChild(handLinks.init(assetManager, new Vector3f(-0.1f, 0, 0.2f)));
 

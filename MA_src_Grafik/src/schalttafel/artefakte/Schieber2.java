@@ -7,8 +7,8 @@ import com.jme3.scene.Node;
 public class Schieber2 extends Schieber {
 
 	@Override
-	public Node init(AssetManager assetManager, Vector3f position) {
-		super.init(assetManager, position);
+	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
+		super.init(physic, assetManager, position);
 
 		graficObject.rotate(0, 0, (float) (Math.PI / 2.0));
 

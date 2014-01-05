@@ -29,7 +29,7 @@ public class Button1 extends Artefakt {
 	}
 
 	@Override
-	public Node init(AssetManager assetManager, Vector3f position) {
+	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
 		init();
 
 		audioButtonPress = new AudioNode(assetManager, "sound/buttonpress.wav", false);

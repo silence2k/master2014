@@ -30,7 +30,7 @@ public abstract class Schieber extends Artefakt {
 	}
 
 	@Override
-	public Node init(AssetManager assetManager, Vector3f position) {
+	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
 		init();
 
 		audioSchieberEnde = new AudioNode(assetManager, "sound/radende.wav", false);

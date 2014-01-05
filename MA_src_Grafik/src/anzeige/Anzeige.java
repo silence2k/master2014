@@ -11,6 +11,8 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.input.controls.AnalogListener;
 
 public abstract class Anzeige extends SimpleApplication implements AnalogListener {
+	
+	protected boolean physic = true;
 
 	protected Aktor handRechts = new Aktor(this);
 	protected Aktor handLinks = new Aktor(this);

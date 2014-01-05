@@ -54,19 +54,19 @@ public class Anzeige1 extends Anzeige {
 
 		setupKeys();
 
-		rootNode.attachChild(rad1.init(assetManager, new Vector3f(0.8f, 0.5f, 0)));
-		rootNode.attachChild(rad2.init(assetManager, new Vector3f(-0.8f, 0.5f, 0)));
-		rootNode.attachChild(rad3.init(assetManager, new Vector3f(0.8f, -0.5f, 0)));
+		rootNode.attachChild(rad1.init(physic, assetManager, new Vector3f(0.8f, 0.5f, 0)));
+		rootNode.attachChild(rad2.init(physic, assetManager, new Vector3f(-0.8f, 0.5f, 0)));
+		rootNode.attachChild(rad3.init(physic, assetManager, new Vector3f(0.8f, -0.5f, 0)));
 
-		rootNode.attachChild(schieber1.init(assetManager, new Vector3f(-0.8f, -0.5f, 0)));
-		rootNode.attachChild(schieber2.init(assetManager, new Vector3f(-0.8f, -1.0f, 0)));
+		rootNode.attachChild(schieber1.init(physic, assetManager, new Vector3f(-0.8f, -0.5f, 0)));
+		rootNode.attachChild(schieber2.init(physic, assetManager, new Vector3f(-0.8f, -1.0f, 0)));
 
-		rootNode.attachChild(hebel1.init(assetManager, new Vector3f(0, 0, 0)));
+		rootNode.attachChild(hebel1.init(physic, assetManager, new Vector3f(0, 0, 0)));
 
-		rootNode.attachChild(button1.init(assetManager, new Vector3f(1.3f, 0, 0)));
-		rootNode.attachChild(button2.init(assetManager, new Vector3f(1.7f, 0, 0)));
+		rootNode.attachChild(button1.init(physic, assetManager, new Vector3f(1.3f, 0, 0)));
+		rootNode.attachChild(button2.init(physic, assetManager, new Vector3f(1.7f, 0, 0)));
 
-		rootNode.attachChild(schalter1.init(assetManager, new Vector3f(1.3f, -1f, 0)));
+		rootNode.attachChild(schalter1.init(physic, assetManager, new Vector3f(1.3f, -1f, 0)));
 
 		// rootNode.attachChild(rad2.init(assetManager));
 		rootNode.attachChild(handRechts.init(assetManager, new Vector3f(1, 0, 0.2f)));

@@ -29,7 +29,7 @@ public class Anzeige_Rad2 extends Anzeige {
 
 		setupKeys();
 
-		rootNode.attachChild(rad2.init(assetManager, new Vector3f(0, 0, 0)));
+		rootNode.attachChild(rad2.init(physic, assetManager, new Vector3f(0, 0, 0)));
 
 		rootNode.attachChild(handRechts.init(assetManager, new Vector3f(1, 0, 0.2f)));
 		rootNode.attachChild(handLinks.init(assetManager, new Vector3f(-1, 0, 0.2f)));

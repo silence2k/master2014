@@ -14,7 +14,7 @@ public class Rad1 extends Rad {
 	private AudioNode audioRaddreh;
 	private AudioNode audioRadende;
 
-	public Node init(AssetManager assetManager, Vector3f position) {
+	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
 		init();
 
 		audioRaddreh = new AudioNode(assetManager, "sound/raddreh.wav", false);

@@ -26,7 +26,7 @@ public class Schalter2 extends Artefakt {
 	}
 
 	@Override
-	public Node init(AssetManager assetManager, Vector3f position) {
+	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
 		init();
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/schalter2/schalter2.obj");

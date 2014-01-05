@@ -17,7 +17,7 @@ public class Rad2 extends Rad {
 
 	private boolean greifbar2 = true;
 
-	public Node init(AssetManager assetManager, Vector3f position) {
+	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/rad2/rad2.obj");
 

@@ -15,7 +15,7 @@ public class Hebel2 extends Hebel {
 	protected Aktor aktor2;
 
 	@Override
-	public Node init(AssetManager assetManager, Vector3f position) {
+	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/hebel1/hebel1.obj");
 
