@@ -48,7 +48,7 @@ public class Anzeige1 extends Anzeige {
 	@Override
 	public void simpleInitApp() {
 		physic = true;
-//		empfaenger = new RemoteEmpfaenger();
+		empfaenger = new RemoteEmpfaenger();
 
 		cam.setLocation(new Vector3f(0f, 0f, 5f));
 
@@ -102,12 +102,12 @@ public class Anzeige1 extends Anzeige {
 		}
 		
 		
-//		Hand h = empfaenger.getLinks();
-//		
-//		handLinks.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
-//		
-//		h = empfaenger.getRechts();
-//		handRechts.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
+		Hand h = empfaenger.getLinks();
+		
+		handLinks.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
+		
+		h = empfaenger.getRechts();
+		handRechts.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
 	}
 
 	private void refreshTime() {
