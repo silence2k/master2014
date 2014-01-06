@@ -1,7 +1,10 @@
 package aktor;
 
+import java.awt.Color;
+
 import schalttafel.artefakte.Greifbar;
 import schalttafel.artefakte.Griff;
+import schalttafel.artefakte.MyMaterial;
 import anzeige.Anzeige;
 
 import com.jme3.asset.AssetManager;
@@ -36,11 +39,13 @@ public class Aktor {
 	
 	Anzeige anzeige;
 
-	private Spatial graficObject;
+//	private Spatial graficObject;
+//	
+//	private Spatial graOffen;
+//	
+//	private Spatial graGegriffen;
 	
-	private Spatial graOffen;
-	
-	private Spatial graGegriffen;
+	private GraHand graHand;
 	
 	private Zustand zustand = Zustand.offen;
 
@@ -66,7 +71,7 @@ public class Aktor {
 		
 	}
 
-	public Spatial init(boolean physic, AssetManager assetManager, Vector3f position) {
+	public void init(boolean physic, AssetManager assetManager, Vector3f position) {
 		/**
 		 * A bumpy rock with a shiny light effect. To make bumpy objects you
 		 * must create a NormalMap.
@@ -85,13 +90,13 @@ public class Aktor {
 		}
 		this.physic = physic;
 		
-		return graficObject;
+		//return graficObject;
 	}
 	
 	
 	private void initPhysic(AssetManager assetManager, Vector3f position) {
 		Sphere rock = new Sphere(16, 16, 0.15f);
-		graficObject = new Geometry("Aktor", rock);
+		Spatial graficObject = new Geometry("Aktor", rock);
 		rock.setTextureMode(Sphere.TextureMode.Projected); // better quality on
 															// spheres
 		TangentBinormalGenerator.generate(rock); // for lighting effect
@@ -105,25 +110,27 @@ public class Aktor {
 		graficObject.setMaterial(mat_lit);
 		graficObject.setLocalTranslation(position); // Move it a bit
 		graficObject.rotate(1.6f, 0, 0); // Rotate it a bit
+		
+		
+		graHand = new GraHand(graficObject, mat_lit);
 	}
 	
 	private void initGraphic(AssetManager assetManager, Vector3f position) {
 		if(links){
-			graOffen = assetManager.loadModel("obj/hand/linksOffen.obj");
-			graGegriffen = assetManager.loadModel("obj/hand/linksGegriffen.obj");
+			graHand = new GraHand(assetManager,"obj/hand/linksOffen.obj",  "obj/hand/linksGegriffen.obj");
 		}else{
-			graOffen = assetManager.loadModel("obj/hand/rechtsOffen.obj");
-			graGegriffen = assetManager.loadModel("obj/hand/rechtsGegriffen.obj");
+			graHand = new GraHand(assetManager,"obj/hand/rechtsOffen.obj",  "obj/hand/rechtsGegriffen.obj");
 		}
-		graficObject = graOffen;
-		graficObject.setLocalTranslation(position);
+
+		graHand.setLocalTranslation(position);
+
 	}
 	
 	
 	
 	public void update(float x, float y, float z, boolean greifen){
 		//System.out.println("x: "+x+" y: "+y+" z: "+z);
-		graficObject.setLocalTranslation(x, y, z);
+		graHand.setLocalTranslation(x, y, z);
 		greifen(greifen);
 	}
 
@@ -132,33 +139,33 @@ public class Aktor {
 	}
 
 	public void hoch(long deltaTime) {
-		Vector3f v3 = graficObject.getLocalTranslation();
-		graficObject.setLocalTranslation(v3.x, v3.y + delta(deltaTime), v3.z);
+		Vector3f v3 = graHand.getLocalTranslation();
+		graHand.setLocalTranslation(v3.x, v3.y + delta(deltaTime), v3.z);
 	}
 
 	public void runter(long deltaTime) {
-		Vector3f v3 = graficObject.getLocalTranslation();
-		graficObject.setLocalTranslation(v3.x, v3.y - delta(deltaTime), v3.z);
+		Vector3f v3 = graHand.getLocalTranslation();
+		graHand.setLocalTranslation(v3.x, v3.y - delta(deltaTime), v3.z);
 	}
 
 	public void links(long deltaTime) {
-		Vector3f v3 = graficObject.getLocalTranslation();
-		graficObject.setLocalTranslation(v3.x - delta(deltaTime), v3.y, v3.z);
+		Vector3f v3 = graHand.getLocalTranslation();
+		graHand.setLocalTranslation(v3.x - delta(deltaTime), v3.y, v3.z);
 	}
 
 	public void rechts(long deltaTime) {
-		Vector3f v3 = graficObject.getLocalTranslation();
-		graficObject.setLocalTranslation(v3.x + delta(deltaTime), v3.y, v3.z);
+		Vector3f v3 = graHand.getLocalTranslation();
+		graHand.setLocalTranslation(v3.x + delta(deltaTime), v3.y, v3.z);
 	}
 
 	public void rein(long deltaTime) {
-		Vector3f v3 = graficObject.getLocalTranslation();
-		graficObject.setLocalTranslation(v3.x, v3.y, v3.z - delta(deltaTime));
+		Vector3f v3 = graHand.getLocalTranslation();
+		graHand.setLocalTranslation(v3.x, v3.y, v3.z - delta(deltaTime));
 	}
 
 	public void raus(long deltaTime) {
-		Vector3f v3 = graficObject.getLocalTranslation();
-		graficObject.setLocalTranslation(v3.x, v3.y, v3.z + delta(deltaTime));
+		Vector3f v3 = graHand.getLocalTranslation();
+		graHand.setLocalTranslation(v3.x, v3.y, v3.z + delta(deltaTime));
 	}
 
 	private boolean isGreifbar(Greifbar greifbaresObject) {
@@ -169,24 +176,8 @@ public class Aktor {
 		return false;
 	}
 
-	private void setColor(ColorRGBA color) {
-		mat_lit.setColor("Specular", color);
-		mat_lit.setColor("Diffuse", color);
-	}
+
 	
-	private void greifen(){
-		anzeige.getRootNode().detachChild(graficObject);
-		graGegriffen.setLocalTranslation(graficObject.getLocalTranslation());
-		graficObject = graGegriffen;
-		anzeige.getRootNode().attachChild(graficObject);
-	}
-	
-	private void oeffnen(){
-		anzeige.getRootNode().detachChild(graficObject);
-		graOffen.setLocalTranslation(graficObject.getLocalTranslation());
-		graficObject = graOffen;
-		anzeige.getRootNode().attachChild(graficObject);
-	}
 
 	public void toggleGreifen() {
 		Griff tmpGriff = anzeige.dichtesterGriff(this);
@@ -195,11 +186,7 @@ public class Aktor {
 
 			if (zustand == Zustand.offen) {
 				if (tmpGriff.isGreifbar() && tmpGriff.distance(this) < maxgreifen) {
-					if(physic){
-						setColor(ColorRGBA.Green);
-					}else{
-						greifen();
-					}
+					graHand.greifen();
 					
 					zustand = Zustand.gegriffen;
 
@@ -215,11 +202,7 @@ public class Aktor {
 				}
 
 			} else {
-				if(physic){
-					setColor(ColorRGBA.White);
-				}else{
-					oeffnen();
-				}
+				graHand.oeffnen();
 				
 				zustand = Zustand.offen;
 				if (this.griff != null) {
@@ -242,16 +225,99 @@ public class Aktor {
 
 	private void setNichtgreifen() {
 		zustand = Zustand.nichtsgegriffen;
-		if(physic){
-			setColor(ColorRGBA.Red);
-		}else{
-			greifen();
-		}
+		graHand.nichtGreifen();
 		
 		audioNichtGreifen.playInstance();
 	}
 
 	public Vector3f getLocalTranslation() {
-		return graficObject.getLocalTranslation();
+		return graHand.getLocalTranslation();
 	}
+	
+	class GraHand{
+		private boolean kugel = false;
+		
+		private Spatial graficObject;
+		
+		private Material mat;
+		
+		private Geometry graOffen;
+		
+		private Geometry graGegriffen;
+		
+		private MyMaterial graOffenMat;
+		
+		private MyMaterial graGegriffenMat;
+		
+		public GraHand(Spatial graficObject, Material mat){
+			this.graficObject = graficObject;
+			this.mat = mat;
+			kugel = true;
+		}
+		
+		public GraHand(AssetManager assetManager,String pfadOffen, String pfadGeschlossen){
+			graOffen = (Geometry)assetManager.loadModel(pfadOffen);
+			graOffenMat = new MyMaterial(graOffen.getMaterial());
+			
+			graGegriffen = (Geometry)assetManager.loadModel(pfadGeschlossen);
+			graGegriffenMat = new MyMaterial(graGegriffen.getMaterial());
+		
+			graficObject = graOffen;
+			anzeige.getRootNode().attachChild(graficObject);
+		}
+		
+		
+		public void oeffnen(){
+			if(kugel){
+				setColor(ColorRGBA.White);
+			}else{
+
+			anzeige.getRootNode().detachChild(graficObject);
+			graOffen.setLocalTranslation(graficObject.getLocalTranslation());
+			graficObject = graOffen;
+			anzeige.getRootNode().attachChild(graficObject);
+			}
+		}
+		
+		public void greifen(){
+			if(kugel){
+				setColor(ColorRGBA.Green);
+			}else{
+				anzeige.getRootNode().detachChild(graficObject);
+				graGegriffen.setLocalTranslation(graficObject.getLocalTranslation());
+				graficObject = graGegriffen;
+				anzeige.getRootNode().attachChild(graficObject);
+			}
+		}
+		
+		public void nichtGreifen(){
+			if(kugel){
+				setColor(ColorRGBA.Red);
+			}else{
+				anzeige.getRootNode().detachChild(graficObject);
+				graGegriffen.setLocalTranslation(graficObject.getLocalTranslation());
+				graficObject = graGegriffen;
+				anzeige.getRootNode().attachChild(graficObject);
+			}
+		}
+		
+		public void setLocalTranslation(float x, float y, float z){
+			graficObject.setLocalTranslation(x,y,z);
+		}
+		
+		public void setLocalTranslation(Vector3f localTranslation){
+			graficObject.setLocalTranslation(localTranslation);
+		}
+		
+		public Vector3f getLocalTranslation(){
+			return graficObject.getLocalTranslation();
+		}
+		
+		private void setColor(ColorRGBA color) {
+			mat.setColor("Specular", color);
+			mat.setColor("Diffuse", color);
+		}
+		
+	}
+	
 }
