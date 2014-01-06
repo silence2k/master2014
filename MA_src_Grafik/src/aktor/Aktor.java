@@ -37,7 +37,11 @@ public class Aktor {
 	Anzeige anzeige;
 
 	private Spatial graficObject;
-
+	
+	private Spatial graOffen;
+	
+	private Spatial graGegriffen;
+	
 	private Zustand zustand = Zustand.offen;
 
 	private long lastToggle = System.currentTimeMillis();
@@ -52,11 +56,14 @@ public class Aktor {
 	
 	private boolean links;
 	
+	private boolean physic;
+	
 
 	public Aktor(Anzeige anzeige, boolean links) {
 		super();
 		this.anzeige = anzeige;
 		this.links = links;
+		
 	}
 
 	public Spatial init(boolean physic, AssetManager assetManager, Vector3f position) {
@@ -64,7 +71,7 @@ public class Aktor {
 		 * A bumpy rock with a shiny light effect. To make bumpy objects you
 		 * must create a NormalMap.
 		 */
-
+		
 		audioGreifen = new AudioNode(assetManager, "sound/greifen.wav", false);
 		audioGreifen.setLooping(false);
 
@@ -76,6 +83,7 @@ public class Aktor {
 		}else{
 			initGraphic(assetManager, position);
 		}
+		this.physic = physic;
 		
 		return graficObject;
 	}
@@ -101,11 +109,14 @@ public class Aktor {
 	
 	private void initGraphic(AssetManager assetManager, Vector3f position) {
 		if(links){
-			graficObject = assetManager.loadModel("obj/hand/linksOffen.obj");
+			graOffen = assetManager.loadModel("obj/hand/linksOffen.obj");
+			graGegriffen = assetManager.loadModel("obj/hand/linksGegriffen.obj");
 		}else{
-			graficObject = assetManager.loadModel("obj/hand/rechtsOffen.obj");
+			graOffen = assetManager.loadModel("obj/hand/rechtsOffen.obj");
+			graGegriffen = assetManager.loadModel("obj/hand/rechtsGegriffen.obj");
 		}
-		
+		graficObject = graOffen;
+		graficObject.setLocalTranslation(position);
 	}
 	
 	
@@ -162,6 +173,20 @@ public class Aktor {
 		mat_lit.setColor("Specular", color);
 		mat_lit.setColor("Diffuse", color);
 	}
+	
+	private void greifen(){
+		anzeige.getRootNode().detachChild(graficObject);
+		graGegriffen.setLocalTranslation(graficObject.getLocalTranslation());
+		graficObject = graGegriffen;
+		anzeige.getRootNode().attachChild(graficObject);
+	}
+	
+	private void oeffnen(){
+		anzeige.getRootNode().detachChild(graficObject);
+		graOffen.setLocalTranslation(graficObject.getLocalTranslation());
+		graficObject = graOffen;
+		anzeige.getRootNode().attachChild(graficObject);
+	}
 
 	public void toggleGreifen() {
 		Griff tmpGriff = anzeige.dichtesterGriff(this);
@@ -170,7 +195,12 @@ public class Aktor {
 
 			if (zustand == Zustand.offen) {
 				if (tmpGriff.isGreifbar() && tmpGriff.distance(this) < maxgreifen) {
-					setColor(ColorRGBA.Green);
+					if(physic){
+						setColor(ColorRGBA.Green);
+					}else{
+						greifen();
+					}
+					
 					zustand = Zustand.gegriffen;
 
 					this.griff = tmpGriff;
@@ -185,7 +215,12 @@ public class Aktor {
 				}
 
 			} else {
-				setColor(ColorRGBA.White);
+				if(physic){
+					setColor(ColorRGBA.White);
+				}else{
+					oeffnen();
+				}
+				
 				zustand = Zustand.offen;
 				if (this.griff != null) {
 					this.griff.loslassen();
@@ -207,7 +242,12 @@ public class Aktor {
 
 	private void setNichtgreifen() {
 		zustand = Zustand.nichtsgegriffen;
-		setColor(ColorRGBA.Red);
+		if(physic){
+			setColor(ColorRGBA.Red);
+		}else{
+			greifen();
+		}
+		
 		audioNichtGreifen.playInstance();
 	}
 
