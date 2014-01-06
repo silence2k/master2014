@@ -24,6 +24,7 @@ public class Anzeige1 extends Anzeige {
 	Rad1 rad3 = new Rad1();
 
 	Hebel1 hebel1 = new Hebel1();
+	Hebel1 hebel2 = new Hebel1();
 
 	Schieber1 schieber1 = new Schieber1();
 	Schieber2 schieber2 = new Schieber2();
@@ -54,19 +55,20 @@ public class Anzeige1 extends Anzeige {
 
 		setupKeys();
 
-		rootNode.attachChild(rad1.init(physic, assetManager, new Vector3f(0.8f, 0.5f, 0)));
-		rootNode.attachChild(rad2.init(physic, assetManager, new Vector3f(-0.8f, 0.5f, 0)));
+		rootNode.attachChild(rad1.init(physic, assetManager, new Vector3f(0.4f, 0.5f, 0)));
+		rootNode.attachChild(rad2.init(physic, assetManager, new Vector3f(1.2f, 0.5f, 0)));
 		rootNode.attachChild(rad3.init(physic, assetManager, new Vector3f(0.8f, -0.5f, 0)));
 
 		rootNode.attachChild(schieber1.init(physic, assetManager, new Vector3f(-0.8f, -0.5f, 0)));
 		rootNode.attachChild(schieber2.init(physic, assetManager, new Vector3f(-0.8f, -1.0f, 0)));
 
-		rootNode.attachChild(hebel1.init(physic, assetManager, new Vector3f(0, 0, 0)));
+		rootNode.attachChild(hebel1.init(physic, assetManager, new Vector3f(-0.8f, 0.4f, 0)));
+		rootNode.attachChild(hebel2.init(physic, assetManager, new Vector3f(-1.2f, 0.4f, 0)));
 
-		rootNode.attachChild(button1.init(physic, assetManager, new Vector3f(1.3f, 0, 0)));
-		rootNode.attachChild(button2.init(physic, assetManager, new Vector3f(1.7f, 0, 0)));
+		rootNode.attachChild(button1.init(physic, assetManager, new Vector3f(1.3f, -0.4f, 0)));
+		rootNode.attachChild(button2.init(physic, assetManager, new Vector3f(1.7f, -0.4f, 0)));
 
-		rootNode.attachChild(schalter1.init(physic, assetManager, new Vector3f(1.3f, -1f, 0)));
+		//rootNode.attachChild(schalter1.init(physic, assetManager, new Vector3f(1.3f, -1f, 0)));
 
 		// rootNode.attachChild(rad2.init(assetManager));
 		handRechts.init(physic,assetManager, new Vector3f(1, 0, 0.2f));
@@ -77,13 +79,15 @@ public class Anzeige1 extends Anzeige {
 		artefakte.add(rad3);
 
 		artefakte.add(hebel1);
+		artefakte.add(hebel2);
+		
 		artefakte.add(schieber1);
 		artefakte.add(schieber2);
 
 		artefakte.add(button1);
 		artefakte.add(button2);
 
-		artefakte.add(schalter1);
+		//artefakte.add(schalter1);
 
 		/** You must add a light to make the model visible */
 		DirectionalLight sun = new DirectionalLight();
