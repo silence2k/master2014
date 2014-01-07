@@ -65,7 +65,7 @@ public class HandAnzeige extends JPanel{
 
 	public void paint(Graphics g) {
 		   printPoints(g);
-//		   printHands(g);
+		   printHands(g);
 		  }
 	
 	private void printPoints(Graphics g){
@@ -98,7 +98,7 @@ public class HandAnzeige extends JPanel{
 	
 	private void printHand(HandART hand, Graphics g){
 		
-		g.setColor(Color.green);
+		g.setColor(Color.cyan);
 		g.fillRect(getX(hand.getMittelPunkt()), getY(hand.getMittelPunkt()), 2, 2);
 		int tmp = (int)hand.ausdehnung();
 		g.drawOval(getX(hand.getMittelPunkt()), getY(hand.getMittelPunkt()), tmp, tmp);

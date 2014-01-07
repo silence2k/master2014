@@ -16,8 +16,7 @@ public class Ringpuffer<E>{
 	}
 	
 	private void init(int size){
-		list = new ArrayList<>();
-		
+		list = new ArrayList<>(size);
 		for(int i = 0; i < size; i++){
 			list.add(new ArrayList<E>());
 		}

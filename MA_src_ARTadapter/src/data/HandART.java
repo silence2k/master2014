@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class HandART {
 
-	private List<Standard3D> fingerListe;
-	private Standard3D mittelPunkt;
+	private List<Standard3D> fingerListe = new ArrayList<>();
+	private Standard3D mittelPunkt = new Standard3D("", 0, 0, 0);
 	private boolean geschlossen;
 
 	private boolean erfasst;

@@ -14,8 +14,8 @@ public class Berechne {
 
 	private DataSource dataSource;
 
-	private HandART rechteHand;
-	private HandART linkeHand;
+	private HandART rechteHand = new HandART();
+	private HandART linkeHand = new HandART();
 
 	List<Standard3D> listAll;
 	List<Standard3D> listClean;
