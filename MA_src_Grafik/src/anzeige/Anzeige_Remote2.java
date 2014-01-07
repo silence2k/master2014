@@ -8,7 +8,6 @@ import schalttafel.artefakte.Schalter2;
 import schalttafel.artefakte.Schieber1;
 import schalttafel.artefakte.Schieber2;
 import amq.RemoteEmpfaenger;
-import amqdata.Hand;
 
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -51,9 +50,9 @@ public class Anzeige_Remote2 extends Anzeige {
 
 		cam.setLocation(new Vector3f(0f, 0f, 5f));
 
-		rootNode.attachChild(rad1.init(physic, assetManager, new Vector3f(0.4f, 0.5f, 0)));
-		rootNode.attachChild(rad2.init(physic, assetManager, new Vector3f(1.2f, 0.5f, 0)));
-		rootNode.attachChild(rad3.init(physic, assetManager, new Vector3f(0.8f, -0.5f, 0)));
+		rootNode.attachChild(rad1.init(physic, assetManager, new Vector3f(0.4f, -0.5f, 0)));
+		rootNode.attachChild(rad2.init(physic, assetManager, new Vector3f(1.2f, -0.5f, 0)));
+		rootNode.attachChild(rad3.init(physic, assetManager, new Vector3f(0.8f, 0.5f, 0)));
 
 		rootNode.attachChild(schieber1.init(physic, assetManager, new Vector3f(-0.8f, -0.5f, 0)));
 		rootNode.attachChild(schieber2.init(physic, assetManager, new Vector3f(-0.8f, -1.0f, 0)));
@@ -61,8 +60,8 @@ public class Anzeige_Remote2 extends Anzeige {
 		rootNode.attachChild(hebel1.init(physic, assetManager, new Vector3f(-0.8f, 0.4f, 0)));
 		rootNode.attachChild(hebel2.init(physic, assetManager, new Vector3f(-1.2f, 0.4f, 0)));
 
-		rootNode.attachChild(button1.init(physic, assetManager, new Vector3f(1.3f, -0.4f, 0)));
-		rootNode.attachChild(button2.init(physic, assetManager, new Vector3f(1.7f, -0.4f, 0)));
+		rootNode.attachChild(button1.init(physic, assetManager, new Vector3f(1.3f, 0.4f, 0)));
+		rootNode.attachChild(button2.init(physic, assetManager, new Vector3f(1.7f, 0.4f, 0)));
 
 		handRechts.init(physic,assetManager, new Vector3f(1.5f, 1, 0.2f));
 		handLinks.init(physic,assetManager, new Vector3f(-0.5f, 1, 0.2f));
@@ -97,12 +96,12 @@ public class Anzeige_Remote2 extends Anzeige {
 		for (Artefakt arte : artefakte) {
 			arte.update();
 		}
-		Hand h = empfaenger.getLinks();
-		
-		handLinks.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
-		
-		h = empfaenger.getRechts();
-		handRechts.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
+//		Hand h = empfaenger.getLinks();
+//		
+//		handLinks.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
+//		
+//		h = empfaenger.getRechts();
+//		handRechts.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
 		
 	}
 
