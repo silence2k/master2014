@@ -20,7 +20,7 @@ import reciver.parser.ParserSimpleGui;
 
 import data.Berechne;
 import data.DataSource;
-import data.Hand;
+import data.HandART;
 import data.Standard3D;
 import data.Standard6D;
 import filereader.Reader;
@@ -81,7 +81,11 @@ public class HandAnzeige extends JPanel{
 		    }
 		    
 		    g.setColor(Color.green);
-		    for(Standard3D s3d : berechne.getListClean()){
+//		    for(Standard3D s3d : berechne.getListClean()){
+//		    	g.fillRect(getX(s3d), getY(s3d), 2, 2);
+//		    }
+		    
+		    for(Standard3D s3d : berechne.getListPuffer()){
 		    	g.fillRect(getX(s3d), getY(s3d), 2, 2);
 		    }
 		    
@@ -92,7 +96,7 @@ public class HandAnzeige extends JPanel{
 		printHand(berechne.getLinkeHand(), g);
 	}
 	
-	private void printHand(Hand hand, Graphics g){
+	private void printHand(HandART hand, Graphics g){
 		
 		g.setColor(Color.green);
 		g.fillRect(getX(hand.getMittelPunkt()), getY(hand.getMittelPunkt()), 2, 2);

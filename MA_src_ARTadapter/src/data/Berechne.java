@@ -14,11 +14,13 @@ public class Berechne {
 
 	private DataSource dataSource;
 
-	private Hand rechteHand;
-	private Hand linkeHand;
+	private HandART rechteHand;
+	private HandART linkeHand;
 
 	List<Standard3D> listAll;
 	List<Standard3D> listClean;
+	
+	Ringpuffer<Standard3D> puffer = new Ringpuffer<>(5);
 
 	public Berechne(DataSource dataSource) {
 		super();
@@ -32,12 +34,16 @@ public class Berechne {
 	public List<Standard3D> getListClean() {
 		return listClean;
 	}
+	
+	public List<Standard3D> getListPuffer() {
+		return puffer.getAll();
+	}
 
-	public Hand getRechteHand() {
+	public HandART getRechteHand() {
 		return rechteHand;
 	}
 
-	public Hand getLinkeHand() {
+	public HandART getLinkeHand() {
 		return linkeHand;
 	}
 
@@ -52,6 +58,7 @@ public class Berechne {
 		}
 		listAll = source;
 		listClean = list;
+		puffer.add(listClean);
 	}
 
 	private boolean match(Standard3D s3d) {
