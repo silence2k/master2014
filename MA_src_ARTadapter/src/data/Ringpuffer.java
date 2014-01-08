@@ -35,5 +35,9 @@ public class Ringpuffer<E>{
 		}
 		return all;
 	}
+	
+	public boolean isEmpty(){
+		return getAll().isEmpty();
+	}
 
 }

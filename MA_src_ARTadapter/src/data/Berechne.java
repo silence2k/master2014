@@ -3,6 +3,10 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jms.JMSException;
+
+import amq.AMQ_Sender;
+
 public class Berechne {
 
 	private double grenze_xPlus = 2000;
@@ -14,8 +18,10 @@ public class Berechne {
 
 	private DataSource dataSource;
 
-	private HandART rechteHand = new HandART();
-	private HandART linkeHand = new HandART();
+	private HandART2 rechteHand = new HandART2(1000,0,0);
+	private HandART2 linkeHand = new HandART2(-1000,0,0);
+	
+	AMQ_Sender sender;
 
 	List<Standard3DExtented> listAll;
 	List<Standard3DExtented> listClean;
@@ -25,6 +31,14 @@ public class Berechne {
 	public Berechne(DataSource dataSource) {
 		super();
 		this.dataSource = dataSource;
+		
+		
+		 try {
+			sender = new AMQ_Sender(rechteHand, linkeHand);
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public List<Standard3DExtented> getListAll() {
@@ -39,11 +53,11 @@ public class Berechne {
 		return puffer.getAll();
 	}
 
-	public HandART getRechteHand() {
+	public HandART2 getRechteHand() {
 		return rechteHand;
 	}
 
-	public HandART getLinkeHand() {
+	public HandART2 getLinkeHand() {
 		return linkeHand;
 	}
 
@@ -59,6 +73,7 @@ public class Berechne {
 		listAll = source;
 		listClean = list;
 		puffer.add(listClean);
+		updateHand(listClean);
 	}
 
 	private boolean match(Standard3DExtented s3d) {
@@ -69,8 +84,27 @@ public class Berechne {
 		return true;
 	}
 	
-	private void updateHand(){
+	private void updateHand(List<Standard3DExtented> list){
+		List<Standard3DExtented> rechts = new ArrayList<Standard3DExtented>();
+		List<Standard3DExtented> links = new ArrayList<Standard3DExtented>();
 		
+		for (Standard3DExtented s3d : list) {
+			dichter(s3d, rechts, links).add(s3d);
+		}
+		
+		rechteHand.update(rechts);
+		linkeHand.update(links);
+		
+		
+	}
+	
+	private List<Standard3DExtented> dichter(Standard3DExtented s3d,List<Standard3DExtented> rechts,List<Standard3DExtented> links){
+		double abstandRechts = rechteHand.getMittelPunkt().abstand(s3d);
+		double abstandLinks = linkeHand.getMittelPunkt().abstand(s3d);
+		if(abstandLinks > abstandRechts){
+			return rechts;
+		}
+		return links;
 	}
 
 }

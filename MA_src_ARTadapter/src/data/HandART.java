@@ -7,14 +7,21 @@ import java.util.Map;
 
 public class HandART {
 
-	private List<Standard3D> fingerListe = new ArrayList<>();
+	private Map<String,Standard3DExtented> fingerMap = new HashMap<>();
 	private Standard3D mittelPunkt = new Standard3D("", 0, 0, 0);
 	private boolean geschlossen;
 
 	private boolean erfasst;
+	
+	
+
+	public HandART(double x, double y, double z) {
+		super();
+		mittelPunkt = new Standard3D("", x, y, z);
+	}
 
 	public List<Standard3D> getFingerListe() {
-		return fingerListe;
+		return new ArrayList<Standard3D>(fingerMap.values());
 	}
 
 	public Standard3D getMittelPunkt() {
@@ -31,7 +38,7 @@ public class HandART {
 
 	public double ausdehnung() {
 		double tmp = 0;
-		for (Standard3D s3d : fingerListe) {
+		for (Standard3D s3d : fingerMap.values()) {
 			tmp = Math.max(tmp, s3d.abstand(mittelPunkt));
 		}
 		return tmp;
@@ -43,7 +50,7 @@ public class HandART {
 		Map<String, Standard3D> neuePunkte = new HashMap<>();
 		
 		for (Standard3D s3d : list) {
-			if(enthaeltID(fingerListe, s3d.getId())){
+			if(enthaeltID(fingerMap, s3d.getId())){
 				daten.remove(s3d.getId());
 				neuePunkte.put(s3d.getId(), s3d);
 			}
@@ -64,8 +71,8 @@ public class HandART {
 		return new ArrayList<>(map.values());
 	}
 	
-	private boolean enthaeltID(List<Standard3D> list, String id){
-		for (Standard3D s3d : list) {
+	private boolean enthaeltID(Map<String,Standard3DExtented> map, String id){
+		for (Standard3D s3d : map.values()) {
 			if(id.equalsIgnoreCase(s3d.getId())){
 				return true;
 			}

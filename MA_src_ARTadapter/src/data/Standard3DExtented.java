@@ -8,6 +8,10 @@ public class Standard3DExtented extends Standard3D {
 		super(stan);
 		this.frameNr = frameNr;
 	}
+	
+	public String getKey(){
+		return frameNr+"_"+getId();
+	}
 
 	@Override
 	public int hashCode() {

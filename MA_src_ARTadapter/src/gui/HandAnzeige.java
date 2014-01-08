@@ -21,6 +21,7 @@ import reciver.parser.ParserSimpleGui;
 import data.Berechne;
 import data.DataSource;
 import data.HandART;
+import data.HandART2;
 import data.Standard3D;
 import data.Standard6D;
 import filereader.Reader;
@@ -102,6 +103,17 @@ public class HandAnzeige extends JPanel{
 		g.fillRect(getX(hand.getMittelPunkt()), getY(hand.getMittelPunkt()), 2, 2);
 		int tmp = (int)hand.ausdehnung();
 		g.drawOval(getX(hand.getMittelPunkt()), getY(hand.getMittelPunkt()), tmp, tmp);
+	}
+	
+	private void printHand(HandART2 hand, Graphics g){
+		
+		g.setColor(Color.cyan);
+		g.fillRect(getX(hand.getMittelPunkt()), getY(hand.getMittelPunkt()), 2, 2);
+		int tmp = (int)hand.getAusdehnung();
+		g.drawOval(getX(hand.getMittelPunkt())-tmp/2, getY(hand.getMittelPunkt())-tmp/2, tmp, tmp);
+		tmp = (int)hand.maxAbstand;
+		g.setColor(Color.orange);
+		g.drawOval(getX(hand.getMittelPunkt())-tmp/2, getY(hand.getMittelPunkt())-tmp/2, tmp, tmp);
 	}
 
 	private int getX(Standard3D s3d){
