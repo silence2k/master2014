@@ -35,7 +35,7 @@ public class Anzeige_Remote extends Anzeige {
 
 //		setupKeys();
 
-		rootNode.attachChild(rad.init(physic, assetManager, new Vector3f(1, 1, 0)));
+		rootNode.attachChild(rad.init(physic, assetManager, new Vector3f(1, -1, 0)));
 
 		handRechts.init(physic,assetManager, new Vector3f(1.5f, 1, 0.2f));
 		handLinks.init(physic,assetManager, new Vector3f(-0.5f, 1, 0.2f));

@@ -79,7 +79,7 @@ public class HandAnzeige extends JPanel{
 
 		    g.setColor(Color.red);
 		    for(Standard3D s3d : berechne.getListAll()){
-		    	g.fillRect(getX(s3d), getY(s3d), 2, 2);
+		    	g.fillRect(getX(s3d), -getZ(s3d), 2, 2);
 		    }
 		    
 		    g.setColor(Color.green);
@@ -88,7 +88,7 @@ public class HandAnzeige extends JPanel{
 //		    }
 		    
 		    for(Standard3D s3d : berechne.getListPuffer()){
-		    	g.fillRect(getX(s3d), getY(s3d), 2, 2);
+		    	g.fillRect(getX(s3d), -getZ(s3d), 2, 2);
 		    }
 		    
 	}
@@ -101,15 +101,15 @@ public class HandAnzeige extends JPanel{
 	private void printHand(HandART hand, Graphics g){
 		
 		g.setColor(Color.cyan);
-		g.fillRect(getX(hand.getMittelPunkt()), getY(hand.getMittelPunkt()), 2, 2);
+		g.fillRect(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), 2, 2);
 		int tmp = (int)hand.ausdehnung();
-		g.drawOval(getX(hand.getMittelPunkt()), getY(hand.getMittelPunkt()), tmp, tmp);
+		g.drawOval(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), tmp, tmp);
 	}
 	
 	private void printHand(HandART2 hand, Graphics g){
 		
 		g.setColor(Color.cyan);
-		g.fillRect(getX(hand.getMittelPunkt()), getY(hand.getMittelPunkt()), 2, 2);
+		g.fillRect(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), 2, 2);
 		int tmp = (int)hand.getAusdehnung();
 		g.drawOval(getX(hand.getMittelPunkt())-tmp/2, getY(hand.getMittelPunkt())-tmp/2, tmp, tmp);
 		tmp = (int)hand.maxAbstand;
@@ -125,6 +125,11 @@ public class HandAnzeige extends JPanel{
 	private int getY(Standard3D s3d){
 		double y = s3d.getY()* faktor+verschiebung;
 		return (int)y;
+	}
+	
+	private int getZ(Standard3D s3d){
+		double z = s3d.getZ()* faktor+verschiebung;
+		return (int)z;
 	}
 
 	/**

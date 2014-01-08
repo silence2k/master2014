@@ -8,6 +8,7 @@ import schalttafel.artefakte.Schalter2;
 import schalttafel.artefakte.Schieber1;
 import schalttafel.artefakte.Schieber2;
 import amq.RemoteEmpfaenger;
+import amqdata.Hand;
 
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -96,12 +97,12 @@ public class Anzeige_Remote2 extends Anzeige {
 		for (Artefakt arte : artefakte) {
 			arte.update();
 		}
-//		Hand h = empfaenger.getLinks();
-//		
-//		handLinks.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
-//		
-//		h = empfaenger.getRechts();
-//		handRechts.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
+		Hand h = empfaenger.getLinks();
+		
+		handLinks.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
+		
+		h = empfaenger.getRechts();
+		handRechts.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
 		
 	}
 
