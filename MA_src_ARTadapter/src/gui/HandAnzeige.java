@@ -146,9 +146,6 @@ public class HandAnzeige extends JPanel{
 		final HandAnzeige ta = new HandAnzeige(data);
 		
 		
-
-//		reciver.addDataParser(new ParserSimpleGui(st6d, ta));
-//		new Thread(reciver).start();
 		
 		
 		 final JFrame frame = new JFrame("HandAnzeige");
