@@ -17,25 +17,25 @@ public class Berechne {
 	private HandART rechteHand = new HandART();
 	private HandART linkeHand = new HandART();
 
-	List<Standard3D> listAll;
-	List<Standard3D> listClean;
+	List<Standard3DExtented> listAll;
+	List<Standard3DExtented> listClean;
 	
-	Ringpuffer<Standard3D> puffer = new Ringpuffer<>(5);
+	Ringpuffer<Standard3DExtented> puffer = new Ringpuffer<>(5);
 
 	public Berechne(DataSource dataSource) {
 		super();
 		this.dataSource = dataSource;
 	}
 
-	public List<Standard3D> getListAll() {
+	public List<Standard3DExtented> getListAll() {
 		return listAll;
 	}
 
-	public List<Standard3D> getListClean() {
+	public List<Standard3DExtented> getListClean() {
 		return listClean;
 	}
 	
-	public List<Standard3D> getListPuffer() {
+	public List<Standard3DExtented> getListPuffer() {
 		return puffer.getAll();
 	}
 
@@ -48,10 +48,10 @@ public class Berechne {
 	}
 
 	public void update() {
-		List<Standard3D> list = new ArrayList<>();
-		List<Standard3D> source = dataSource.getStandard3dList();
+		List<Standard3DExtented> list = new ArrayList<>();
+		List<Standard3DExtented> source = dataSource.getStandard3dList();
 
-		for (Standard3D s3d : source) {
+		for (Standard3DExtented s3d : source) {
 			if (match(s3d)) {
 				list.add(s3d);
 			}
@@ -61,7 +61,7 @@ public class Berechne {
 		puffer.add(listClean);
 	}
 
-	private boolean match(Standard3D s3d) {
+	private boolean match(Standard3DExtented s3d) {
 		if (s3d.getX() > grenze_xPlus || s3d.getX() < grenze_xMinus || s3d.getY() > grenze_yPlus
 				|| s3d.getY() < grenze_yMinus || s3d.getZ() > grenze_zPlus || s3d.getZ() < grenze_zMinus) {
 			return false;

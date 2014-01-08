@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface DataSource {
 	
-	public List<Standard3D> getStandard3dList();
+	public List<Standard3DExtented> getStandard3dList();
 
 }

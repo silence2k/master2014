@@ -9,13 +9,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import reciver.parser.Parser;
 import reciver.parser.Standard3D_Parser;
 import data.DataSource;
 import data.Standard3D;
+import data.Standard3DExtented;
 
 public class Reader implements DataSource{
 	
-	protected List<List<Standard3D>> list;
+	protected List<List<Standard3DExtented>> list;
 	
 	private int index = 0;
 	private long lastTime;
@@ -33,8 +35,8 @@ public class Reader implements DataSource{
 	
 	
 	@Override
-	public List<Standard3D> getStandard3dList() {
-		List<Standard3D> result = new ArrayList<>();
+	public List<Standard3DExtented> getStandard3dList() {
+		List<Standard3DExtented> result = new ArrayList<>();
 		index = (index+1)%list.size();
 		int tmp = 0;
 		for(int i = 0; i < bufferSize; i++){
@@ -51,16 +53,18 @@ public class Reader implements DataSource{
 		Reader r = new Reader();
         BufferedReader reader = new BufferedReader(new FileReader(dataFile));
         String line;
-        List<Standard3D> tmpList = null;
+        List<Standard3DExtented> tmpList = null;
+        int frameNr = 0;
         while ((line = reader.readLine()) != null) {
             if (line.startsWith("fr ")) {
                 // neu beginnen und alle liste speichern, falls vorhanden
+            	frameNr = Parser.parseFrame(line);
             	if(tmpList!=null){
             		r.list.add(tmpList);
             		tmpList = new ArrayList<>();
             	}}
             else if(line.startsWith("3d ")){
-            	tmpList = Standard3D_Parser.parseList(line);
+            	tmpList = Standard3D_Parser.parseList(line,frameNr);
             }
 			
         }
