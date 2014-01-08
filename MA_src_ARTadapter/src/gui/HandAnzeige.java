@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import reciver.ARTDataSource;
 import reciver.UdpReciver;
 import reciver.parser.ParserSimpleGui;
 
@@ -133,11 +134,19 @@ public class HandAnzeige extends JPanel{
 	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		
-//		Reader r = Reader.instance(new File(Verzeichnis+"Hand_eins.txt"));
-		Reader r = Reader.instance(new File(Verzeichnis+"Hand_zwei.txt"));
-		final HandAnzeige ta = new HandAnzeige(r);
+//		Reader data = Reader.instance(new File(Verzeichnis+"Hand_eins.txt"));
+	//	Reader data = Reader.instance(new File(Verzeichnis+"Hand_zwei.txt"));
 		
-//		UdpReciver reciver = new UdpReciver();
+		ARTDataSource data = new ARTDataSource();
+		
+		UdpReciver reciver = new UdpReciver();
+		reciver.addDataParser(data);
+		new Thread(reciver).start();
+		
+		final HandAnzeige ta = new HandAnzeige(data);
+		
+		
+
 //		reciver.addDataParser(new ParserSimpleGui(st6d, ta));
 //		new Thread(reciver).start();
 		
