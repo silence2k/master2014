@@ -2,7 +2,8 @@ package schalttafel.artefakte;
 
 public abstract class Hebel extends Artefakt {
 
-	protected float rotation = 0.01f;
+	
+	protected  float rotation;
 
 	float grenzeOben = 0.6f;
 

@@ -2,8 +2,6 @@ package schalttafel.artefakte;
 
 public abstract class Rad extends Artefakt {
 
-	protected float rotationDX = 0.01f;
-
 	protected float rotation = 0;
 
 	public void setAuf(boolean auf) {

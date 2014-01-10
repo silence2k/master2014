@@ -28,20 +28,14 @@ public abstract class Artefakt implements Greifbar {
 
 	// grenze max translation
 	float maxTrans;
+	
+	protected final float rotationDX = 0.001f;
 
 	protected Node graficObject;
-
-	// protected Aktor aktor;
-	//
-	// protected MyMaterial griffmaterial;
-	//
-	// protected Geometry griff1 = null;
-	//
-	// protected boolean greifbar = true;
+	
 
 	protected Griff griff1;
 
-	// protected MyMaterial griffmaterial2;
 
 	protected Griff griff2 = null;
 

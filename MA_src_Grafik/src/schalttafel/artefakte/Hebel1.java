@@ -12,6 +12,8 @@ public class Hebel1 extends Hebel {
 
 	@Override
 	public Node init(boolean physik, AssetManager assetManager, Vector3f position) {
+		init();
+		
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/hebel1/hebel1.obj");
 
@@ -29,8 +31,8 @@ public class Hebel1 extends Hebel {
 		Geometry g = (Geometry) graficObject.getChild("hebel1-geom-0");
 		MyMaterial m = new MyMaterial(g.getMaterial());
 		m.setColor(Greifbar);
-
-		buildGriff1(new Vector3f(0, 0.2f, 0), m, assetManager);
+		rotation = 0.2f;
+		buildGriff1(new Vector3f(0, 0.35f, 0), m, assetManager);
 
 		graficObject.setLocalTranslation(position);
 
@@ -43,36 +45,41 @@ public class Hebel1 extends Hebel {
 
 			float distance = griff1.distanceToActor();
 
-			graficObject.rotate(rotation, 0, 0);
+			graficObject.rotate(rotationDX, 0, 0);
 			float distanceRechts = griff1.distanceToActor();
 
-			graficObject.rotate(-2f * rotation, 0, 0);
+			graficObject.rotate(-2f * rotationDX, 0, 0);
 			float distanceLinks = griff1.distanceToActor();
 
-			graficObject.rotate(rotation, 0, 0);
+			graficObject.rotate(rotationDX, 0, 0);
 
 			if (distance < distanceRechts) {
 				if (distance < distanceLinks) {
 					// nichts tun
 				} else {
-					myRotate(griff1, distance, -rotation);
+					myRotate(griff1, distance, -rotationDX);
 				}
 			} else {
 				if (distanceRechts < distanceLinks) {
-					myRotate(griff1, distance, rotation);
+					myRotate(griff1, distance, rotationDX);
 				} else {
-					myRotate(griff1, distance, -rotation);
+					myRotate(griff1, distance, -rotationDX);
 				}
 			}
 		}
 
 	}
 
-	private void myRotate(Griff griff, float distance, float rotation) {
+	private void myRotate(Griff griff, float distance, float rotationDX) {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {
-			graficObject.rotate(rotation, 0, 0);
+			if (!isBeweglichRotation(rotationDX, rotation)) {
+				//audioRadende.play();
+				break;
+			}
+			this.rotation += rotationDX;
+			graficObject.rotate(rotationDX, 0, 0);
 			newDistance = griff.distanceToActor();
 			if (newDistance > oldDistance) {
 				break;
