@@ -34,7 +34,7 @@ import com.jme3.util.TangentBinormalGenerator;
 
 import data.Standard6D;
 
-public class TerrainTest extends SimpleApplication {
+public class TerrainTestCopy extends SimpleApplication {
 
     private Material mat_terrain;
     private TerrainGrid terrain;
@@ -63,7 +63,7 @@ public class TerrainTest extends SimpleApplication {
     
     
     
-    public TerrainTest(Standard6D camPos) {
+    public TerrainTestCopy(Standard6D camPos) {
 		super();
 		this.camPos = camPos;
 	}
