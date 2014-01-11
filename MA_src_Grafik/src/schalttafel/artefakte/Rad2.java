@@ -13,10 +13,6 @@ import com.jme3.scene.Spatial;
 
 public class Rad2 extends Rad {
 
-	protected Aktor aktor2;
-
-	private boolean greifbar2 = true;
-
 	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/rad2/rad2.obj");
@@ -43,45 +39,63 @@ public class Rad2 extends Rad {
 
 		if (griff1.isGegriffen() && griff2.isGegriffen()) {
 
-			float distance = griff1.distanceToActor();
+			float distanceGriff1 = griff1.distanceToActor();
+			float distanceGriff2 = griff2.distanceToActor();
 
 			graficObject.rotate(0, 0, rotationDX);
 
-			float distanceRechts = griff1.distanceToActor();
+			float distanceRechtsGriff1 = griff1.distanceToActor();
+			float distanceRechtsGriff2 = griff2.distanceToActor();
 
 			graficObject.rotate(0, 0, -2f * rotationDX);
 
-			float distanceLinks = griff1.distanceToActor();
+			float distanceLinksGriff1 = griff1.distanceToActor();
+			float distanceLinksGriff2 = griff2.distanceToActor();
 
 			graficObject.rotate(0, 0, rotationDX);
-
-			if (distance < distanceRechts) {
-				if (distance < distanceLinks) {
-					// nichts tun
-				} else {
-					myRotate(griff1, distance, -rotationDX);
-				}
-			} else {
-				if (distanceRechts < distanceLinks) {
-					myRotate(griff1, distance, rotationDX);
-				} else {
-					myRotate(griff1, distance, -rotationDX);
-				}
+			
+			float distanceMitte = (distanceGriff1 + distanceGriff2) / 2.0f;
+			
+			
+			if(distanceGriff1 > distanceGriff2){
+				rotateWahl(distanceGriff1, distanceRechtsGriff1, distanceLinksGriff1, griff1,griff2, distanceMitte);
+			}else{
+				rotateWahl(distanceGriff2, distanceRechtsGriff2, distanceLinksGriff2, griff2, griff1,distanceMitte);
 			}
+
+			
 		}
 
 	}
 
-	private void myRotate(Griff griff, float distance, float rotation) {
+	private void rotateWahl(float distance, float distanceRechts, float distanceLinks, Griff rotateGriff, Griff andererGriff, float distanceMitte) {
+		if (distance < distanceRechts) {
+			if (distance < distanceLinks) {
+				// nichts tun
+			} else {
+				myRotate(rotateGriff, distance, -rotationDX,andererGriff,distanceMitte);
+			}
+		} else {
+			if (distanceRechts < distanceLinks) {
+				myRotate(rotateGriff, distance, rotationDX,andererGriff,distanceMitte);
+			} else {
+				myRotate(rotateGriff, distance, -rotationDX,andererGriff,distanceMitte);
+			}
+		}
+	}
+
+	private void myRotate(Griff griff, float distance, float rotation, Griff andererGriff, float distanceMitte) {
 		float oldDistance = distance;
-		float newDistance = 0;
+		float newDistanceGriffRotate = 0;
+		float newDistanceAndererGriff = 0;
 		while (true) {
 			graficObject.rotate(0, 0, rotation);
-			newDistance = griff.distanceToActor();
-			if (newDistance > oldDistance) {
+			newDistanceGriffRotate = griff.distanceToActor();
+			newDistanceAndererGriff = andererGriff.distanceToActor();
+			if (newDistanceGriffRotate > oldDistance || newDistanceAndererGriff > distanceMitte) {
 				break;
 			}
-			oldDistance = newDistance;
+			oldDistance = newDistanceGriffRotate;
 		}
 
 	}
