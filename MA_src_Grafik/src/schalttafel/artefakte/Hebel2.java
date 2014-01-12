@@ -16,6 +16,7 @@ public class Hebel2 extends Hebel {
 
 	@Override
 	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
+		init();
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/hebel2/hebel2.obj");
 
@@ -28,7 +29,10 @@ public class Hebel2 extends Hebel {
 		MyMaterial m = new MyMaterial(g.getMaterial());
 		m.setColor(Greifbar);
 
-		buildGriff1(new Vector3f(0, 0.2f, 0), m, assetManager);
+		buildGriff1(new Vector3f(-0.2f, 0.22f, 0), m, assetManager);
+		buildGriff2(new Vector3f( 0.2f, 0.22f, 0), m, assetManager);
+		
+		rotation = 0.2f;
 
 		graficObject.setLocalTranslation(position);
 
@@ -42,17 +46,17 @@ public class Hebel2 extends Hebel {
 			float distanceGriff1 = griff1.distanceToActor();
 			float distanceGriff2 = griff2.distanceToActor();
 
-			graficObject.rotate(0, 0, rotationDX);
+			graficObject.rotate(rotationDX,0,0);
 
 			float distanceRechtsGriff1 = griff1.distanceToActor();
 			float distanceRechtsGriff2 = griff2.distanceToActor();
 
-			graficObject.rotate(0, 0, -2f * rotationDX);
+			graficObject.rotate(-2f * rotationDX,0,0);
 
 			float distanceLinksGriff1 = griff1.distanceToActor();
 			float distanceLinksGriff2 = griff2.distanceToActor();
 
-			graficObject.rotate(0, 0, rotationDX);
+			graficObject.rotate(rotationDX,0,0);
 			
 			float distanceMitte = (distanceGriff1 + distanceGriff2) / 2.0f;
 
@@ -66,8 +70,8 @@ public class Hebel2 extends Hebel {
 	}
 	
 	private void rotateWahl(float distance, float distanceRechts, float distanceLinks, Griff rotateGriff, Griff andererGriff, float distanceMitte) {
-		if (distance < distanceRechts) {
-			if (distance < distanceLinks) {
+		if (distance <= distanceRechts) {
+			if (distance <= distanceLinks) {
 				// nichts tun
 			} else {
 				myRotate(rotateGriff, distance, -rotationDX,andererGriff,distanceMitte);
@@ -81,16 +85,37 @@ public class Hebel2 extends Hebel {
 		}
 	}
 
-	private void myRotate(Griff griff, float distance, float rotation,Griff andererGriff,float distanceMitte) {
+//	private void myRotate(Griff griff, float distance, float rotation,Griff andererGriff,float distanceMitte) {
+//		float oldDistance = distance;
+//		float newDistance = 0;
+//		while (true) {
+//			graficObject.rotate(rotation, 0, 0);
+//			newDistance = griff.distanceToActor();
+//			if (newDistance > oldDistance) {
+//				break;
+//			}
+//			oldDistance = newDistance;
+//		}
+//
+//	}
+	
+	private void myRotate(Griff griff, float distance, float rotationDX, Griff andererGriff, float distanceMitte) {
 		float oldDistance = distance;
-		float newDistance = 0;
+		float newDistanceGriffRotate = 0;
+		float newDistanceAndererGriff = 0;
 		while (true) {
-			graficObject.rotate(rotation, 0, 0);
-			newDistance = griff.distanceToActor();
-			if (newDistance > oldDistance) {
+			if (!isBeweglichRotation(rotationDX, rotation)) {
+				//audioRadende.play();
 				break;
 			}
-			oldDistance = newDistance;
+			graficObject.rotate(rotationDX, 0, 0);
+			this.rotation += rotationDX;
+			newDistanceGriffRotate = griff.distanceToActor();
+			newDistanceAndererGriff = andererGriff.distanceToActor();
+			if (newDistanceGriffRotate > oldDistance || newDistanceAndererGriff > distanceMitte) {
+				break;
+			}
+			oldDistance = newDistanceGriffRotate;
 		}
 
 	}
