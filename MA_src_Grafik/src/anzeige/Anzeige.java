@@ -3,6 +3,7 @@ package anzeige;
 import java.util.ArrayList;
 import java.util.List;
 
+import schalttafel.anzeige.Anzeiger;
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Griff;
 import aktor.Aktor;
@@ -21,6 +22,8 @@ public abstract class Anzeige extends SimpleApplication implements AnalogListene
 	protected Aktor handLinks = new Aktor(this,links);
 
 	protected List<Artefakt> artefakte = new ArrayList<>();
+	
+	protected List<Anzeiger> anzeiger = new ArrayList<>();
 
 	public Griff dichtesterGriff(Aktor aktor) {
 		Griff result = null;
