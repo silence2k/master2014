@@ -5,7 +5,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 
-public class AnzeigerStab extends Anzeiger {
+public class AnzeigerPfeil extends Anzeiger {
 
 	
 
@@ -23,16 +23,16 @@ public class AnzeigerStab extends Anzeiger {
 		graficObject = new Node();
 		/** Load a teapot model (OBJ file from test-data) */
 		anzeige = (Geometry) assetManager
-				.loadModel("obj/anzeigerstab/anzeigerstab.obj");
+				.loadModel("obj/anzeigerpfeil/anzeigerpfeil.obj");
 
 		
 		graficObject.attachChild(anzeige);
 		
-		graficObject.attachChild(assetManager.loadModel("obj/anzeigerstab/anzeigerstab_verkleidung.obj"));
+		graficObject.attachChild(assetManager.loadModel("obj/anzeigerpfeil/anzeigerpfeil_verkleidung.obj"));
 
-		wertNull = anzeige.getLocalScale().y;
+		wertNull = anzeige.getLocalRotation().getZ();
 
-		wertHundert = wertNull + 10;
+		wertHundert = -(float)(wertNull + Math.PI * 2.0 / 3.0);
 
 		difWert = wertHundert - wertNull;
 		
@@ -52,8 +52,7 @@ public class AnzeigerStab extends Anzeiger {
 			}
 			delta = delta * deltaTime / 1000f;
 			wert += delta;
-			Vector3f f = anzeige.getLocalScale();
-			anzeige.setLocalScale(f.x, f.y + delta, f.z);
+			anzeige.rotate(0, 0, delta);
 		}
 	}
 	@Override

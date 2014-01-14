@@ -16,5 +16,10 @@ public abstract class Hebel extends Artefakt {
 		// Heben unten max
 		maxRot = 3f;
 	}
+	
+	protected float zielwert(){
+		float tmp = maxRot - minRot;
+		return rotation / tmp * 100f;
+	}
 
 }

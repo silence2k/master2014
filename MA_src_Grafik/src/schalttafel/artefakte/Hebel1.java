@@ -31,10 +31,13 @@ public class Hebel1 extends Hebel {
 		Geometry g = (Geometry) graficObject.getChild("hebel1-geom-0");
 		MyMaterial m = new MyMaterial(g.getMaterial());
 		m.setColor(Greifbar);
-		rotation = 0.2f;
+
 		buildGriff1(new Vector3f(0, 0.35f, 0), m, assetManager);
 
 		graficObject.setLocalTranslation(position);
+		
+		rotation = maxRot;
+		graficObject.rotate(maxRot, 0, 0);
 
 		return graficObject;
 	}
@@ -67,7 +70,8 @@ public class Hebel1 extends Hebel {
 				}
 			}
 		}
-
+		
+		updateAnzeige(zielwert(), deltaTime);
 	}
 
 	private void myRotate(Griff griff, float distance, float rotationDX) {
