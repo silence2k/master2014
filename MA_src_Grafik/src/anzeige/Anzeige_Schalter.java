@@ -31,7 +31,7 @@ public class Anzeige_Schalter extends Anzeige {
 
 		rootNode.attachChild(schalter1.init(physic, assetManager, new Vector3f(0, 0, 0)));
 
-		handLinks.init(physic,assetManager, new Vector3f(-0.1f, 0, 0.2f));
+		handLinks.init(physic, assetManager, new Vector3f(-0.1f, 0, 0.2f));
 
 		artefakte.add(schalter1);
 

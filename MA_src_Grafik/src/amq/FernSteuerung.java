@@ -18,20 +18,20 @@ import javax.swing.JLabel;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class FernSteuerung {
-	
+
 	private static final long sleeptime = 100;
-	
+
 	private String server = "tcp://localhost:61616";
-	//private String server = "tcp://192.168.0.112:61616"; // PC3
+	// private String server = "tcp://192.168.0.112:61616"; // PC3
 
 	private Connection connection;
 	private Session session;
 	private MessageProducer producerRechts;
 	private MessageProducer producerLinks;
-	
+
 	private MyHand rechts;
 	private MyHand links;
-	
+
 	private volatile boolean weiter = true;
 
 	public static void main(String... args) {
@@ -40,10 +40,8 @@ public class FernSteuerung {
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	
 
 	public FernSteuerung() throws JMSException {
 		super();
@@ -52,13 +50,11 @@ public class FernSteuerung {
 		initActiveMQ();
 		initSenderThread();
 	}
-	
-	private void initHands(){
-		rechts = new MyHand(-1,0,0.2f);
-		links = new MyHand(1,0,0.2f);
+
+	private void initHands() {
+		rechts = new MyHand(-1, 0, 0.2f);
+		links = new MyHand(1, 0, 0.2f);
 	}
-
-
 
 	private void initGui() {
 		JFrame meinFrame = new JFrame("Beispiel JFrame");
@@ -68,7 +64,6 @@ public class FernSteuerung {
 		meinFrame.addKeyListener(new MyKey(this));
 		meinFrame.setVisible(true);
 	}
-
 
 	private void initActiveMQ() throws JMSException {
 		// Create a ConnectionFactory
@@ -87,31 +82,30 @@ public class FernSteuerung {
 		// Create a MessageProducer from the Session to the Topic or Queue
 		producerRechts = session.createProducer(destination);
 		producerRechts.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-		
+
 		destination = session.createQueue("Hand.Links");
-		
+
 		producerLinks = session.createProducer(destination);
 		producerLinks.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 	}
-	
-	
-	private void initSenderThread(){
+
+	private void initSenderThread() {
 		Thread t = new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				while(weiter){
+				while (weiter) {
 					try {
 						Thread.sleep(sleeptime);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					if(!weiter){
+					if (!weiter) {
 						break;
 					}
 					send();
 				}
-				
+
 			}
 		});
 		t.start();
@@ -123,22 +117,22 @@ public class FernSteuerung {
 		session.close();
 		connection.close();
 	}
-	
-	private void send(){
+
+	private void send() {
 		TextMessage message;
 		try {
 			message = session.createTextMessage(rechts.toString());
 			producerRechts.send(message);
-			
+
 			message = session.createTextMessage(links.toString());
 			producerLinks.send(message);
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	private void auswerten(String s){
+
+	private void auswerten(String s) {
 		switch (s) {
 		case "t":
 			links.addY();
@@ -188,12 +182,11 @@ public class FernSteuerung {
 		}
 
 	}
-	
-	
 
 	private static class MyKey implements KeyListener {
-		
+
 		private FernSteuerung scs;
+
 		public MyKey(FernSteuerung scs) {
 			super();
 			this.scs = scs;
@@ -201,9 +194,9 @@ public class FernSteuerung {
 
 		@Override
 		public void keyPressed(KeyEvent arg0) {
-//			System.out.println(arg0.getKeyChar());
-			//scs.send(arg0.getKeyChar()+"");
-			scs.auswerten((arg0.getKeyChar()+"").toLowerCase());
+			// System.out.println(arg0.getKeyChar());
+			// scs.send(arg0.getKeyChar()+"");
+			scs.auswerten((arg0.getKeyChar() + "").toLowerCase());
 		}
 
 		@Override
@@ -219,9 +212,9 @@ public class FernSteuerung {
 		}
 
 	}
-	
-	private static class MyWindowListener implements WindowListener{
-		
+
+	private static class MyWindowListener implements WindowListener {
+
 		private FernSteuerung scs;
 
 		public MyWindowListener(FernSteuerung scs) {
@@ -232,13 +225,13 @@ public class FernSteuerung {
 		@Override
 		public void windowActivated(WindowEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void windowClosed(WindowEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -249,33 +242,33 @@ public class FernSteuerung {
 				e1.printStackTrace();
 			}
 			System.exit(0);
-			
+
 		}
 
 		@Override
 		public void windowDeactivated(WindowEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void windowDeiconified(WindowEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void windowIconified(WindowEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void windowOpened(WindowEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 	}
 
 }

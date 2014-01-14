@@ -2,7 +2,6 @@ package schalttafel.artefakte;
 
 import schalttafel.anzeige.Anzeiger;
 import aktor.Aktor;
-import anzeige.Anzeige;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
@@ -30,17 +29,15 @@ public abstract class Artefakt implements Greifbar {
 
 	// grenze max translation
 	float maxTrans;
-	
+
 	protected final float rotationDX = 0.001f;
 
 	protected Node graficObject;
-	
 
 	protected Griff griff1;
 
-
 	protected Griff griff2 = null;
-	
+
 	protected Anzeiger anzeiger;
 
 	public abstract Node init(boolean physic, AssetManager assetManager, Vector3f position);
@@ -110,14 +107,16 @@ public abstract class Artefakt implements Greifbar {
 	}
 
 	protected boolean isBeweglichMaxRot(float dx, float aktuelleRotation) {
-//		System.out.println("MaxRot dx: " + dx + " aktuelleRotation: " + aktuelleRotation + " maxRot: " + maxRot
-//				+ " =>> " + ((aktuelleRotation + dx) <= maxRot));
+		// System.out.println("MaxRot dx: " + dx + " aktuelleRotation: " +
+		// aktuelleRotation + " maxRot: " + maxRot
+		// + " =>> " + ((aktuelleRotation + dx) <= maxRot));
 		return (aktuelleRotation + dx) <= maxRot;
 	}
 
 	protected boolean isBeweglichMinRot(float dx, float aktuelleRotation) {
-//		System.out.println("MinRot dx: " + dx + " aktuelleRotation: " + aktuelleRotation + " minRot: " + minRot
-//				+ " =>> " + ((aktuelleRotation + dx) >= minRot));
+		// System.out.println("MinRot dx: " + dx + " aktuelleRotation: " +
+		// aktuelleRotation + " minRot: " + minRot
+		// + " =>> " + ((aktuelleRotation + dx) >= minRot));
 		return (aktuelleRotation + dx) >= minRot;
 	}
 
@@ -136,9 +135,9 @@ public abstract class Artefakt implements Greifbar {
 	public void setAnzeiger(Anzeiger anzeiger) {
 		this.anzeiger = anzeiger;
 	}
-	
-	protected void updateAnzeige(float zielwert, long deltaTime){
-		if(anzeiger != null){
+
+	protected void updateAnzeige(float zielwert, long deltaTime) {
+		if (anzeiger != null) {
 			anzeiger.setZielWert(zielwert);
 			anzeiger.update(deltaTime);
 		}

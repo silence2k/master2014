@@ -13,7 +13,7 @@ public class Hebel1 extends Hebel {
 	@Override
 	public Node init(boolean physik, AssetManager assetManager, Vector3f position) {
 		init();
-		
+
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/hebel1/hebel1.obj");
 
@@ -35,7 +35,7 @@ public class Hebel1 extends Hebel {
 		buildGriff1(new Vector3f(0, 0.35f, 0), m, assetManager);
 
 		graficObject.setLocalTranslation(position);
-		
+
 		rotation = maxRot;
 		graficObject.rotate(maxRot, 0, 0);
 
@@ -70,7 +70,7 @@ public class Hebel1 extends Hebel {
 				}
 			}
 		}
-		
+
 		updateAnzeige(zielwert(), deltaTime);
 	}
 
@@ -79,7 +79,7 @@ public class Hebel1 extends Hebel {
 		float newDistance = 0;
 		while (true) {
 			if (!isBeweglichRotation(rotationDX, rotation)) {
-				//audioRadende.play();
+				// audioRadende.play();
 				break;
 			}
 			this.rotation += rotationDX;

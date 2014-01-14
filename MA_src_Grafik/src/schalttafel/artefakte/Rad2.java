@@ -2,8 +2,6 @@ package schalttafel.artefakte;
 
 import java.util.List;
 
-import aktor.Aktor;
-
 import com.jme3.asset.AssetManager;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -34,6 +32,7 @@ public class Rad2 extends Rad {
 
 		return graficObject;
 	}
+
 	@Override
 	public void update(long deltaTime) {
 
@@ -53,33 +52,32 @@ public class Rad2 extends Rad {
 			float distanceLinksGriff2 = griff2.distanceToActor();
 
 			graficObject.rotate(0, 0, rotationDX);
-			
+
 			float distanceMitte = (distanceGriff1 + distanceGriff2) / 2.0f;
-			
-			
-			if(distanceGriff1 > distanceGriff2){
-				rotateWahl(distanceGriff1, distanceRechtsGriff1, distanceLinksGriff1, griff1,griff2, distanceMitte);
-			}else{
-				rotateWahl(distanceGriff2, distanceRechtsGriff2, distanceLinksGriff2, griff2, griff1,distanceMitte);
+
+			if (distanceGriff1 > distanceGriff2) {
+				rotateWahl(distanceGriff1, distanceRechtsGriff1, distanceLinksGriff1, griff1, griff2, distanceMitte);
+			} else {
+				rotateWahl(distanceGriff2, distanceRechtsGriff2, distanceLinksGriff2, griff2, griff1, distanceMitte);
 			}
 
-			
 		}
 
 	}
 
-	private void rotateWahl(float distance, float distanceRechts, float distanceLinks, Griff rotateGriff, Griff andererGriff, float distanceMitte) {
+	private void rotateWahl(float distance, float distanceRechts, float distanceLinks, Griff rotateGriff,
+			Griff andererGriff, float distanceMitte) {
 		if (distance < distanceRechts) {
 			if (distance < distanceLinks) {
 				// nichts tun
 			} else {
-				myRotate(rotateGriff, distance, -rotationDX,andererGriff,distanceMitte);
+				myRotate(rotateGriff, distance, -rotationDX, andererGriff, distanceMitte);
 			}
 		} else {
 			if (distanceRechts < distanceLinks) {
-				myRotate(rotateGriff, distance, rotationDX,andererGriff,distanceMitte);
+				myRotate(rotateGriff, distance, rotationDX, andererGriff, distanceMitte);
 			} else {
-				myRotate(rotateGriff, distance, -rotationDX,andererGriff,distanceMitte);
+				myRotate(rotateGriff, distance, -rotationDX, andererGriff, distanceMitte);
 			}
 		}
 	}

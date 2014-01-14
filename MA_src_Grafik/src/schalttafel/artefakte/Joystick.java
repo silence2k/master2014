@@ -1,7 +1,6 @@
 package schalttafel.artefakte;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -73,11 +72,7 @@ public class Joystick extends Artefakt {
 
 	private List<MyRotate> messen() {
 		/*
-		 *      -
-		 *    1 2 3
-		 *  + 4   5 -
-		 *    6 7 8
-		 *      +
+		 * - 1 2 3 + 4 5 - 6 7 8 +
 		 */
 
 		graficObject.rotate(rotationDX, 0, -rotationDX);
@@ -102,16 +97,11 @@ public class Joystick extends Artefakt {
 		return new ArrayList<>(myRotateList);
 	}
 
-	
 	private void initRotate() {
 		myRotateList = new ArrayList<>(8);
 
 		/*
-		 *      -
-		 *    1 2 3
-		 *  + 4   5 -
-		 *    6 7 8
-		 *      +
+		 * - 1 2 3 + 4 5 - 6 7 8 +
 		 */
 
 		myRotateList.add(new MyRotate(rotationDX, -rotationDX));

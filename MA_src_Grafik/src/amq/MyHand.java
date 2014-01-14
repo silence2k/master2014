@@ -2,14 +2,10 @@ package amq;
 
 import amqdata.Hand;
 
-
 public class MyHand extends Hand {
-	
+
 	private static final float delta = 0.1f;
-	
-	
-	
-	
+
 	public MyHand(float x, float y, float z) {
 		super();
 		this.x = x;
@@ -17,33 +13,32 @@ public class MyHand extends Hand {
 		this.z = z;
 	}
 
-	public void addX(){
+	public void addX() {
 		x += delta;
 	}
-	
-	public void addY(){
+
+	public void addY() {
 		y += delta;
 	}
-	
-	public void addZ(){
+
+	public void addZ() {
 		z += delta;
 	}
-	
-	public void subX(){
+
+	public void subX() {
 		x -= delta;
 	}
-	
-	public void subY(){
+
+	public void subY() {
 		y -= delta;
 	}
-	
-	public void subZ(){
+
+	public void subZ() {
 		z -= delta;
 	}
-	
-	public void toggleGrab(){
+
+	public void toggleGrab() {
 		grab = !grab;
 	}
-
 
 }

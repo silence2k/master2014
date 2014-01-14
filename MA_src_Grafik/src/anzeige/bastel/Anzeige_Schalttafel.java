@@ -10,8 +10,6 @@ import com.jme3.math.Vector3f;
 public class Anzeige_Schalttafel extends Anzeige {
 
 	Schalttafel schalttafel = new Schalttafel();
-	
-	
 
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
@@ -28,11 +26,7 @@ public class Anzeige_Schalttafel extends Anzeige {
 
 		cam.setLocation(new Vector3f(0f, 0f, 5f));
 
-
 		rootNode.attachChild(schalttafel.init(physic, assetManager, new Vector3f(0, 0, 0)));
-
-		
-
 
 		/** You must add a light to make the model visible */
 		DirectionalLight sun = new DirectionalLight();
@@ -57,11 +51,8 @@ public class Anzeige_Schalttafel extends Anzeige {
 		lasttime = time;
 	}
 
-	
-
 	public void onAnalog(String binding, float value, float tpf) {
 
-		
 	}
 
 }

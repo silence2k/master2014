@@ -2,7 +2,6 @@ package anzeige.bastel;
 
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Schalter2;
-
 import anzeige.Anzeige;
 
 import com.jme3.input.KeyInput;
@@ -31,8 +30,7 @@ public class Anzeige_Schalter extends Anzeige {
 
 		setupKeys();
 
-		rootNode.attachChild(schalter1.init(physic, assetManager, new Vector3f(
-				0, 0, 0)));
+		rootNode.attachChild(schalter1.init(physic, assetManager, new Vector3f(0, 0, 0)));
 
 		handLinks.init(physic, assetManager, new Vector3f(-0.1f, 0, 0.2f));
 
@@ -69,8 +67,7 @@ public class Anzeige_Schalter extends Anzeige {
 		inputManager.addMapping("la_rein", new KeyTrigger(KeyInput.KEY_U));
 		inputManager.addMapping("la_raus", new KeyTrigger(KeyInput.KEY_J));
 
-		inputManager.addListener(this, "la_links", "la_rechts", "la_greifen",
-				"la_rein", "la_raus");
+		inputManager.addListener(this, "la_links", "la_rechts", "la_greifen", "la_rein", "la_raus");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {

@@ -2,7 +2,6 @@ package anzeige.bastel;
 
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Rad1;
-
 import anzeige.Anzeige;
 
 import com.jme3.input.KeyInput;
@@ -31,8 +30,7 @@ public class Anzeige_Rad1 extends Anzeige {
 
 		setupKeys();
 
-		rootNode.attachChild(rad.init(physic, assetManager, new Vector3f(0, 0,
-				0)));
+		rootNode.attachChild(rad.init(physic, assetManager, new Vector3f(0, 0, 0)));
 
 		handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
 		// rootNode.attachChild(handLinks.init(physic, assetManager, new
@@ -81,10 +79,8 @@ public class Anzeige_Rad1 extends Anzeige {
 		inputManager.addMapping("ra_rein", new KeyTrigger(KeyInput.KEY_U));
 		inputManager.addMapping("ra_raus", new KeyTrigger(KeyInput.KEY_O));
 
-		inputManager.addListener(this, "la_hoch", "la_runter", "la_links",
-				"la_rechts", "la_greifen", "la_rein", "la_raus", "ra_hoch",
-				"ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein",
-				"ra_raus");
+		inputManager.addListener(this, "la_hoch", "la_runter", "la_links", "la_rechts", "la_greifen", "la_rein",
+				"la_raus", "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein", "ra_raus");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {

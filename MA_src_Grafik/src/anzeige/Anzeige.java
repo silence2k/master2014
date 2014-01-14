@@ -12,17 +12,17 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.input.controls.AnalogListener;
 
 public abstract class Anzeige extends SimpleApplication implements AnalogListener {
-	
+
 	protected boolean physic = false;
-	
+
 	private boolean links = true;
 	private boolean rechts = false;
 
-	protected Aktor handRechts = new Aktor(this,rechts);
-	protected Aktor handLinks = new Aktor(this,links);
+	protected Aktor handRechts = new Aktor(this, rechts);
+	protected Aktor handLinks = new Aktor(this, links);
 
 	protected List<Artefakt> artefakte = new ArrayList<>();
-	
+
 	protected List<Anzeiger> anzeiger = new ArrayList<>();
 
 	public Griff dichtesterGriff(Aktor aktor) {

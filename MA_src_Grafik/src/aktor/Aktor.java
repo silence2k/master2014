@@ -33,17 +33,17 @@ public class Aktor {
 	final long toggleTime = 400;
 
 	/* ******************** */
-	
+
 	Anzeige anzeige;
 
-//	private Spatial graficObject;
-//	
-//	private Spatial graOffen;
-//	
-//	private Spatial graGegriffen;
-	
+	// private Spatial graficObject;
+	//
+	// private Spatial graOffen;
+	//
+	// private Spatial graGegriffen;
+
 	private GraHand graHand;
-	
+
 	private Zustand zustand = Zustand.offen;
 
 	private long lastToggle = System.currentTimeMillis();
@@ -55,17 +55,16 @@ public class Aktor {
 	private AudioNode audioGreifen;
 
 	private AudioNode audioNichtGreifen;
-	
+
 	private boolean links;
-	
+
 	private boolean physic;
-	
 
 	public Aktor(Anzeige anzeige, boolean links) {
 		super();
 		this.anzeige = anzeige;
 		this.links = links;
-		
+
 	}
 
 	public void init(boolean physic, AssetManager assetManager, Vector3f position) {
@@ -73,24 +72,23 @@ public class Aktor {
 		 * A bumpy rock with a shiny light effect. To make bumpy objects you
 		 * must create a NormalMap.
 		 */
-		
+
 		audioGreifen = new AudioNode(assetManager, "sound/greifen.wav", false);
 		audioGreifen.setLooping(false);
 
 		audioNichtGreifen = new AudioNode(assetManager, "sound/nichtgreifen.wav", false);
 		audioNichtGreifen.setLooping(false);
 
-		if(physic){
+		if (physic) {
 			initPhysic(assetManager, position);
-		}else{
+		} else {
 			initGraphic(assetManager, position);
 		}
 		this.physic = physic;
-		
-		//return graficObject;
+
+		// return graficObject;
 	}
-	
-	
+
 	private void initPhysic(AssetManager assetManager, Vector3f position) {
 		Sphere rock = new Sphere(16, 16, 0.15f);
 		Spatial graficObject = new Geometry("Aktor", rock);
@@ -107,26 +105,23 @@ public class Aktor {
 		graficObject.setMaterial(mat_lit);
 		graficObject.setLocalTranslation(position); // Move it a bit
 		graficObject.rotate(1.6f, 0, 0); // Rotate it a bit
-		
-		
+
 		graHand = new GraHand(graficObject, mat_lit);
 	}
-	
+
 	private void initGraphic(AssetManager assetManager, Vector3f position) {
-		if(links){
-			graHand = new GraHand(assetManager,"obj/hand/linksOffen.obj",  "obj/hand/linksGegriffen.obj");
-		}else{
-			graHand = new GraHand(assetManager,"obj/hand/rechtsOffen.obj",  "obj/hand/rechtsGegriffen.obj");
+		if (links) {
+			graHand = new GraHand(assetManager, "obj/hand/linksOffen.obj", "obj/hand/linksGegriffen.obj");
+		} else {
+			graHand = new GraHand(assetManager, "obj/hand/rechtsOffen.obj", "obj/hand/rechtsGegriffen.obj");
 		}
 
 		graHand.setLocalTranslation(position);
 
 	}
-	
-	
-	
-	public void update(float x, float y, float z, boolean greifen){
-		//System.out.println("x: "+x+" y: "+y+" z: "+z);
+
+	public void update(float x, float y, float z, boolean greifen) {
+		// System.out.println("x: "+x+" y: "+y+" z: "+z);
 		graHand.setLocalTranslation(x, y, z);
 		greifen(greifen);
 	}
@@ -173,9 +168,6 @@ public class Aktor {
 		return false;
 	}
 
-
-	
-
 	public void toggleGreifen() {
 		Griff tmpGriff = anzeige.dichtesterGriff(this);
 		if (System.currentTimeMillis() - toggleTime > lastToggle) {
@@ -184,7 +176,7 @@ public class Aktor {
 			if (zustand == Zustand.offen) {
 				if (tmpGriff.isGreifbar() && tmpGriff.distance(this) < maxgreifen) {
 					graHand.greifen();
-					
+
 					zustand = Zustand.gegriffen;
 
 					this.griff = tmpGriff;
@@ -195,12 +187,11 @@ public class Aktor {
 				} else {
 					setNichtgreifen();
 
-					
 				}
 
 			} else {
 				graHand.oeffnen();
-				
+
 				zustand = Zustand.offen;
 				if (this.griff != null) {
 					this.griff.loslassen();
@@ -211,11 +202,11 @@ public class Aktor {
 		}
 
 	}
-	
+
 	private void greifen(boolean greifen) {
-		if(greifen == false && zustand != Zustand.offen){
+		if (greifen == false && zustand != Zustand.offen) {
 			toggleGreifen();
-		}else if(greifen == true && zustand == Zustand.offen){
+		} else if (greifen == true && zustand == Zustand.offen) {
 			toggleGreifen();
 		}
 	}
@@ -223,98 +214,97 @@ public class Aktor {
 	private void setNichtgreifen() {
 		zustand = Zustand.nichtsgegriffen;
 		graHand.nichtGreifen();
-		
+
 		audioNichtGreifen.playInstance();
 	}
 
 	public Vector3f getLocalTranslation() {
 		return graHand.getLocalTranslation();
 	}
-	
-	class GraHand{
+
+	class GraHand {
 		private boolean kugel = false;
-		
+
 		private Spatial graficObject;
-		
+
 		private Material mat;
-		
+
 		private Geometry graOffen;
-		
+
 		private Geometry graGegriffen;
-		
+
 		private MyMaterial graOffenMat;
-		
+
 		private MyMaterial graGegriffenMat;
-		
-		public GraHand(Spatial graficObject, Material mat){
+
+		public GraHand(Spatial graficObject, Material mat) {
 			this.graficObject = graficObject;
 			this.mat = mat;
 			kugel = true;
 		}
-		
-		public GraHand(AssetManager assetManager,String pfadOffen, String pfadGeschlossen){
-			graOffen = (Geometry)assetManager.loadModel(pfadOffen);
-			graOffenMat = new MyMaterial(graOffen.getMaterial());
-			
-			graGegriffen = (Geometry)assetManager.loadModel(pfadGeschlossen);
-			graGegriffenMat = new MyMaterial(graGegriffen.getMaterial());
-		
-			graficObject = graOffen;
-			anzeige.getRootNode().attachChild(graficObject);
-		}
-		
-		
-		public void oeffnen(){
-			if(kugel){
-				setColor(ColorRGBA.White);
-			}else{
 
-			anzeige.getRootNode().detachChild(graficObject);
-			graOffen.setLocalTranslation(graficObject.getLocalTranslation());
+		public GraHand(AssetManager assetManager, String pfadOffen, String pfadGeschlossen) {
+			graOffen = (Geometry) assetManager.loadModel(pfadOffen);
+			graOffenMat = new MyMaterial(graOffen.getMaterial());
+
+			graGegriffen = (Geometry) assetManager.loadModel(pfadGeschlossen);
+			graGegriffenMat = new MyMaterial(graGegriffen.getMaterial());
+
 			graficObject = graOffen;
 			anzeige.getRootNode().attachChild(graficObject);
+		}
+
+		public void oeffnen() {
+			if (kugel) {
+				setColor(ColorRGBA.White);
+			} else {
+
+				anzeige.getRootNode().detachChild(graficObject);
+				graOffen.setLocalTranslation(graficObject.getLocalTranslation());
+				graficObject = graOffen;
+				anzeige.getRootNode().attachChild(graficObject);
 			}
 		}
-		
-		public void greifen(){
-			if(kugel){
+
+		public void greifen() {
+			if (kugel) {
 				setColor(ColorRGBA.Green);
-			}else{
+			} else {
 				anzeige.getRootNode().detachChild(graficObject);
 				graGegriffen.setLocalTranslation(graficObject.getLocalTranslation());
 				graficObject = graGegriffen;
 				anzeige.getRootNode().attachChild(graficObject);
 			}
 		}
-		
-		public void nichtGreifen(){
-			if(kugel){
+
+		public void nichtGreifen() {
+			if (kugel) {
 				setColor(ColorRGBA.Red);
-			}else{
+			} else {
 				anzeige.getRootNode().detachChild(graficObject);
 				graGegriffen.setLocalTranslation(graficObject.getLocalTranslation());
 				graficObject = graGegriffen;
 				anzeige.getRootNode().attachChild(graficObject);
 			}
 		}
-		
-		public void setLocalTranslation(float x, float y, float z){
-			graficObject.setLocalTranslation(x,y,z);
+
+		public void setLocalTranslation(float x, float y, float z) {
+			graficObject.setLocalTranslation(x, y, z);
 		}
-		
-		public void setLocalTranslation(Vector3f localTranslation){
+
+		public void setLocalTranslation(Vector3f localTranslation) {
 			graficObject.setLocalTranslation(localTranslation);
 		}
-		
-		public Vector3f getLocalTranslation(){
+
+		public Vector3f getLocalTranslation() {
 			return graficObject.getLocalTranslation();
 		}
-		
+
 		private void setColor(ColorRGBA color) {
 			mat.setColor("Specular", color);
 			mat.setColor("Diffuse", color);
 		}
-		
+
 	}
-	
+
 }

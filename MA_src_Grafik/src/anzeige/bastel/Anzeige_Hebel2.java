@@ -30,8 +30,7 @@ public class Anzeige_Hebel2 extends Anzeige {
 
 		setupKeys();
 
-		rootNode.attachChild(hebel.init(physic, assetManager, new Vector3f(0,
-				0, 0)));
+		rootNode.attachChild(hebel.init(physic, assetManager, new Vector3f(0, 0, 0)));
 
 		handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
 		handLinks.init(physic, assetManager, new Vector3f(-1, 0, 0.2f));
@@ -79,10 +78,8 @@ public class Anzeige_Hebel2 extends Anzeige {
 		inputManager.addMapping("ra_rein", new KeyTrigger(KeyInput.KEY_U));
 		inputManager.addMapping("ra_raus", new KeyTrigger(KeyInput.KEY_O));
 
-		inputManager.addListener(this, "la_hoch", "la_runter", "la_links",
-				"la_rechts", "la_greifen", "la_rein", "la_raus", "ra_hoch",
-				"ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein",
-				"ra_raus");
+		inputManager.addListener(this, "la_hoch", "la_runter", "la_links", "la_rechts", "la_greifen", "la_rein",
+				"la_raus", "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein", "ra_raus");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {

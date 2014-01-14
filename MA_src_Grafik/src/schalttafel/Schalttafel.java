@@ -11,14 +11,13 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 public class Schalttafel {
-	
+
 	private Node graficObject;
-	
+
 	private MyMaterial material;
 
 	public Node init(boolean physik, AssetManager assetManager, Vector3f position) {
 
-		
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/schalttafel/schalttafel1.obj");
 
@@ -37,11 +36,8 @@ public class Schalttafel {
 		material = new MyMaterial(g.getMaterial());
 
 		graficObject.setLocalTranslation(position);
-		
 
 		return graficObject;
 	}
-
-
 
 }

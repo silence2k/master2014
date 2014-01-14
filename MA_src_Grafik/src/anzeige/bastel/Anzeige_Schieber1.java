@@ -33,10 +33,8 @@ public class Anzeige_Schieber1 extends Anzeige {
 
 		setupKeys();
 
-		rootNode.attachChild(schieber.init(physic, assetManager, new Vector3f(
-				0, 0, 0)));
-		rootNode.attachChild(pfeil.init(physic, assetManager, new Vector3f(0,
-				1, 0)));
+		rootNode.attachChild(schieber.init(physic, assetManager, new Vector3f(0, 0, 0)));
+		rootNode.attachChild(pfeil.init(physic, assetManager, new Vector3f(0, 1, 0)));
 
 		schieber.setAnzeiger(pfeil);
 
@@ -79,8 +77,8 @@ public class Anzeige_Schieber1 extends Anzeige {
 		inputManager.addMapping("ra_rein", new KeyTrigger(KeyInput.KEY_U));
 		inputManager.addMapping("ra_raus", new KeyTrigger(KeyInput.KEY_O));
 
-		inputManager.addListener(this, "ra_hoch", "ra_runter", "ra_links",
-				"ra_rechts", "ra_greifen", "ra_rein", "ra_raus");
+		inputManager.addListener(this, "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein",
+				"ra_raus");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {

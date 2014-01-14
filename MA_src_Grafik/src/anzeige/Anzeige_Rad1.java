@@ -35,9 +35,9 @@ public class Anzeige_Rad1 extends Anzeige {
 		rootNode.attachChild(as.init(physic, assetManager, new Vector3f(0, 1, 0)));
 		rad.setAnzeiger(as);
 
-		
 		handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
-		//rootNode.attachChild(handLinks.init(physic, assetManager, new Vector3f(-1, 0, 0.2f)));
+		// rootNode.attachChild(handLinks.init(physic, assetManager, new
+		// Vector3f(-1, 0, 0.2f)));
 
 		artefakte.add(rad);
 
@@ -66,7 +66,6 @@ public class Anzeige_Rad1 extends Anzeige {
 
 	private void setupKeys() {
 
-
 		inputManager.addMapping("ra_hoch", new KeyTrigger(KeyInput.KEY_I));
 		inputManager.addMapping("ra_runter", new KeyTrigger(KeyInput.KEY_K));
 		inputManager.addMapping("ra_links", new KeyTrigger(KeyInput.KEY_J));
@@ -75,7 +74,8 @@ public class Anzeige_Rad1 extends Anzeige {
 		inputManager.addMapping("ra_rein", new KeyTrigger(KeyInput.KEY_U));
 		inputManager.addMapping("ra_raus", new KeyTrigger(KeyInput.KEY_O));
 
-		inputManager.addListener(this, "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein", "ra_raus");
+		inputManager.addListener(this, "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein",
+				"ra_raus");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {

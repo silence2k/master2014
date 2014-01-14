@@ -16,11 +16,11 @@ public class Anzeige_AnzeigerStab extends Anzeige {
 
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
-	
+
 	float deltaY = 1f;
 
 	boolean toggle = false;
-	
+
 	float wert = 0;
 
 	public static void main(String[] args) {
@@ -35,9 +35,9 @@ public class Anzeige_AnzeigerStab extends Anzeige {
 
 		setupKeys();
 
-		rootNode.attachChild(stab.init(physic,assetManager, new Vector3f(0, 0, 0)));
+		rootNode.attachChild(stab.init(physic, assetManager, new Vector3f(0, 0, 0)));
 
-		//handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
+		// handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
 		// rootNode.attachChild(handLinks.init(physic, assetManager, new
 		// Vector3f(-1, 0, 0.2f)));
 
@@ -58,8 +58,8 @@ public class Anzeige_AnzeigerStab extends Anzeige {
 		for (Artefakt arte : artefakte) {
 			arte.update(deltaTime);
 		}
-		
-		for(Anzeiger zeiger : anzeiger){
+
+		for (Anzeiger zeiger : anzeiger) {
 			zeiger.update(deltaTime);
 		}
 	}
@@ -74,9 +74,8 @@ public class Anzeige_AnzeigerStab extends Anzeige {
 
 		inputManager.addMapping("ra_hoch", new KeyTrigger(KeyInput.KEY_I));
 		inputManager.addMapping("ra_runter", new KeyTrigger(KeyInput.KEY_K));
-		
 
-		inputManager.addListener(this,"ra_hoch","ra_runter");
+		inputManager.addListener(this, "ra_hoch", "ra_runter");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {
@@ -92,18 +91,18 @@ public class Anzeige_AnzeigerStab extends Anzeige {
 			break;
 		}
 	}
-	
-	private void hoch(long time){
+
+	private void hoch(long time) {
 		wert += 1f;
-		if(wert > 100f){
+		if (wert > 100f) {
 			wert = 100f;
 		}
 		stab.setZielWert(wert);
 	}
 
-	private void runter(long time){
+	private void runter(long time) {
 		wert -= 1f;
-		if(wert < 0){
+		if (wert < 0) {
 			wert = 0;
 		}
 		stab.setZielWert(wert);

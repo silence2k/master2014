@@ -2,8 +2,7 @@ package schalttafel.artefakte;
 
 public abstract class Hebel extends Artefakt {
 
-	
-	protected  float rotation;
+	protected float rotation;
 
 	float grenzeOben = 0.6f;
 
@@ -16,8 +15,8 @@ public abstract class Hebel extends Artefakt {
 		// Heben unten max
 		maxRot = 3f;
 	}
-	
-	protected float zielwert(){
+
+	protected float zielwert() {
 		float tmp = maxRot - minRot;
 		return rotation / tmp * 100f;
 	}

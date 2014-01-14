@@ -1,16 +1,11 @@
 package anzeige.bastel;
 
 import schalttafel.Schalttafel;
-import schalttafel.anzeige.AnzeigerLampe;
 import schalttafel.anzeige.AnzeigerStab;
 import schalttafel.artefakte.Artefakt;
-import schalttafel.artefakte.Hebel1;
 import schalttafel.artefakte.Rad1;
-
 import anzeige.Anzeige;
 
-import com.jme3.input.KeyInput;
-import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 

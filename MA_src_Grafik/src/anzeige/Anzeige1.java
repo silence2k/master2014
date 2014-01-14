@@ -16,7 +16,7 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 
 public class Anzeige1 extends Anzeige {
-	
+
 	RemoteEmpfaenger empfaenger;
 
 	Rad1 rad1 = new Rad1();
@@ -68,11 +68,12 @@ public class Anzeige1 extends Anzeige {
 		rootNode.attachChild(button1.init(physic, assetManager, new Vector3f(1.3f, -0.4f, 0)));
 		rootNode.attachChild(button2.init(physic, assetManager, new Vector3f(1.7f, -0.4f, 0)));
 
-		//rootNode.attachChild(schalter1.init(physic, assetManager, new Vector3f(1.3f, -1f, 0)));
+		// rootNode.attachChild(schalter1.init(physic, assetManager, new
+		// Vector3f(1.3f, -1f, 0)));
 
 		// rootNode.attachChild(rad2.init(assetManager));
-		handRechts.init(physic,assetManager, new Vector3f(1, 0, 0.2f));
-		handLinks.init(physic,assetManager, new Vector3f(-1, 0, 0.2f));
+		handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
+		handLinks.init(physic, assetManager, new Vector3f(-1, 0, 0.2f));
 
 		artefakte.add(rad1);
 		artefakte.add(rad2);
@@ -80,14 +81,14 @@ public class Anzeige1 extends Anzeige {
 
 		artefakte.add(hebel1);
 		artefakte.add(hebel2);
-		
+
 		artefakte.add(schieber1);
 		artefakte.add(schieber2);
 
 		artefakte.add(button1);
 		artefakte.add(button2);
 
-		//artefakte.add(schalter1);
+		// artefakte.add(schalter1);
 
 		/** You must add a light to make the model visible */
 		DirectionalLight sun = new DirectionalLight();
@@ -104,12 +105,11 @@ public class Anzeige1 extends Anzeige {
 		for (Artefakt arte : artefakte) {
 			arte.update(deltaTime);
 		}
-		
-		
+
 		Hand h = empfaenger.getLinks();
-		
+
 		handLinks.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
-		
+
 		h = empfaenger.getRechts();
 		handRechts.update(h.getX(), h.getY(), h.getZ(), h.isGrab());
 	}
