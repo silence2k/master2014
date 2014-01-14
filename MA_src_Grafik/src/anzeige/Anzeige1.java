@@ -102,7 +102,7 @@ public class Anzeige1 extends Anzeige {
 		refreshTime();
 
 		for (Artefakt arte : artefakte) {
-			arte.update();
+			arte.update(deltaTime);
 		}
 		
 		

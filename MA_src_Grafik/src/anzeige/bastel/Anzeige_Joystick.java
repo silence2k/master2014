@@ -53,7 +53,7 @@ public class Anzeige_Joystick extends Anzeige {
 		refreshTime();
 
 		for (Artefakt arte : artefakte) {
-			arte.update();
+			arte.update(deltaTime);
 		}
 	}
 

@@ -63,7 +63,7 @@ public class Schalter2 extends Artefakt {
 	}
 
 	@Override
-	public void update() {
+	public void update(long deltaTime) {
 		if (griff1.isGegriffen() || griff2.isGegriffen()) {
 			Griff aktiverGriff = isOn() ? griff2 : griff1;
 

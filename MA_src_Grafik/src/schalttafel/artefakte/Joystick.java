@@ -59,7 +59,7 @@ public class Joystick extends Artefakt {
 	}
 
 	@Override
-	public void update() {
+	public void update(long deltaTime) {
 		if (griff1.isGegriffen()) {
 
 			List<MyRotate> list = messen();

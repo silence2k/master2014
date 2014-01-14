@@ -48,7 +48,7 @@ public class Anzeige_Schalter extends Anzeige {
 		refreshTime();
 
 		for (Artefakt arte : artefakte) {
-			arte.update();
+			arte.update(deltaTime);
 		}
 	}
 

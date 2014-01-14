@@ -46,7 +46,7 @@ public class Rad1 extends Rad {
 		return graficObject;
 	}
 
-	public void update() {
+	public void update(long deltaTime) {
 
 		if (griff1.isGegriffen()) {
 
@@ -77,8 +77,11 @@ public class Rad1 extends Rad {
 				}
 			}
 		}
-
+		
+		updateAnzeige(zielwert(),deltaTime);
 	}
+	
+	
 
 	private void myRotate(Griff griff, float distance, float rotationDX) {
 		float oldDistance = distance;
@@ -100,7 +103,6 @@ public class Rad1 extends Rad {
 			oldDistance = newDistance;
 			audioRaddreh.play();
 		}
-		System.out.println("roation: " + rotation);
 	}
 
 	public void rotate(long deltaTime) {

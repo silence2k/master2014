@@ -1,5 +1,6 @@
 package anzeige.bastel;
 
+import schalttafel.anzeige.Anzeiger;
 import schalttafel.anzeige.AnzeigerStab;
 import schalttafel.artefakte.Artefakt;
 import anzeige.Anzeige;
@@ -19,6 +20,8 @@ public class Anzeige_AnzeigerStab extends Anzeige {
 	float deltaY = 1f;
 
 	boolean toggle = false;
+	
+	float wert = 0;
 
 	public static void main(String[] args) {
 		Anzeige_AnzeigerStab app = new Anzeige_AnzeigerStab();
@@ -32,7 +35,7 @@ public class Anzeige_AnzeigerStab extends Anzeige {
 
 		setupKeys();
 
-		rootNode.attachChild(stab.init(assetManager, new Vector3f(0, 0, 0)));
+		rootNode.attachChild(stab.init(physic,assetManager, new Vector3f(0, 0, 0)));
 
 		//handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
 		// rootNode.attachChild(handLinks.init(physic, assetManager, new
@@ -53,7 +56,11 @@ public class Anzeige_AnzeigerStab extends Anzeige {
 		refreshTime();
 
 		for (Artefakt arte : artefakte) {
-			arte.update();
+			arte.update(deltaTime);
+		}
+		
+		for(Anzeiger zeiger : anzeiger){
+			zeiger.update(deltaTime);
 		}
 	}
 
@@ -87,11 +94,18 @@ public class Anzeige_AnzeigerStab extends Anzeige {
 	}
 	
 	private void hoch(long time){
-		
-		stab.hoch((float)(deltaY*time/1000.0));
+		wert += 1f;
+		if(wert > 100f){
+			wert = 100f;
+		}
+		stab.setZielWert(wert);
 	}
 
 	private void runter(long time){
-		stab.runter((float)(deltaY*time/1000.0));
+		wert -= 1f;
+		if(wert < 0){
+			wert = 0;
+		}
+		stab.setZielWert(wert);
 	}
 }

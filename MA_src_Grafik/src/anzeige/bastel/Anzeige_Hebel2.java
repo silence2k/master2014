@@ -51,7 +51,7 @@ public class Anzeige_Hebel2 extends Anzeige {
 		refreshTime();
 
 		for (Artefakt arte : artefakte) {
-			arte.update();
+			arte.update(deltaTime);
 		}
 	}
 

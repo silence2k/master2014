@@ -52,7 +52,7 @@ public class Anzeige_Rad2 extends Anzeige {
 		refreshTime();
 
 		for (Artefakt arte : artefakte) {
-			arte.update();
+			arte.update(deltaTime);
 		}
 	}
 

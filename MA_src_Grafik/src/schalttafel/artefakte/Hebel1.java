@@ -40,7 +40,7 @@ public class Hebel1 extends Hebel {
 	}
 
 	@Override
-	public void update() {
+	public void update(long deltaTime) {
 		if (griff1.isGegriffen()) {
 
 			float distance = griff1.distanceToActor();

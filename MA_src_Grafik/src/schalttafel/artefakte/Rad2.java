@@ -34,8 +34,8 @@ public class Rad2 extends Rad {
 
 		return graficObject;
 	}
-
-	public void update() {
+	@Override
+	public void update(long deltaTime) {
 
 		if (griff1.isGegriffen() && griff2.isGegriffen()) {
 

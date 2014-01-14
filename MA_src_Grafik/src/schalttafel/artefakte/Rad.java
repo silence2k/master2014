@@ -20,5 +20,10 @@ public abstract class Rad extends Artefakt {
 		maxRot = (float) (6 * Math.PI);
 
 	}
+	
+	protected float zielwert(){
+		float tmp = maxRot - minRot;
+		return rotation / tmp * 100f;
+	}
 
 }

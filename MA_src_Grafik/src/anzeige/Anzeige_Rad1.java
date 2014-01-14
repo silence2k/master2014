@@ -1,5 +1,6 @@
 package anzeige;
 
+import schalttafel.anzeige.AnzeigerStab;
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Rad1;
 
@@ -11,6 +12,7 @@ import com.jme3.math.Vector3f;
 public class Anzeige_Rad1 extends Anzeige {
 
 	Rad1 rad = new Rad1();
+	AnzeigerStab as = new AnzeigerStab();
 
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
@@ -30,7 +32,10 @@ public class Anzeige_Rad1 extends Anzeige {
 		setupKeys();
 
 		rootNode.attachChild(rad.init(physic, assetManager, new Vector3f(0, 0, 0)));
+		rootNode.attachChild(as.init(physic, assetManager, new Vector3f(0, 1, 0)));
+		rad.setAnzeiger(as);
 
+		
 		handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
 		//rootNode.attachChild(handLinks.init(physic, assetManager, new Vector3f(-1, 0, 0.2f)));
 
@@ -49,7 +54,7 @@ public class Anzeige_Rad1 extends Anzeige {
 		refreshTime();
 
 		for (Artefakt arte : artefakte) {
-			arte.update();
+			arte.update(deltaTime);
 		}
 	}
 
@@ -61,13 +66,6 @@ public class Anzeige_Rad1 extends Anzeige {
 
 	private void setupKeys() {
 
-		inputManager.addMapping("la_hoch", new KeyTrigger(KeyInput.KEY_T));
-		inputManager.addMapping("la_runter", new KeyTrigger(KeyInput.KEY_G));
-		inputManager.addMapping("la_links", new KeyTrigger(KeyInput.KEY_F));
-		inputManager.addMapping("la_rechts", new KeyTrigger(KeyInput.KEY_H));
-		inputManager.addMapping("la_greifen", new KeyTrigger(KeyInput.KEY_B));
-		inputManager.addMapping("la_rein", new KeyTrigger(KeyInput.KEY_R));
-		inputManager.addMapping("la_raus", new KeyTrigger(KeyInput.KEY_Z));
 
 		inputManager.addMapping("ra_hoch", new KeyTrigger(KeyInput.KEY_I));
 		inputManager.addMapping("ra_runter", new KeyTrigger(KeyInput.KEY_K));
@@ -77,34 +75,12 @@ public class Anzeige_Rad1 extends Anzeige {
 		inputManager.addMapping("ra_rein", new KeyTrigger(KeyInput.KEY_U));
 		inputManager.addMapping("ra_raus", new KeyTrigger(KeyInput.KEY_O));
 
-		inputManager.addListener(this, "la_hoch", "la_runter", "la_links", "la_rechts", "la_greifen", "la_rein",
-				"la_raus", "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein", "ra_raus");
+		inputManager.addListener(this, "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein", "ra_raus");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {
 
 		switch (binding) {
-		case "la_hoch":
-			handLinks.hoch(deltaTime);
-			break;
-		case "la_runter":
-			handLinks.runter(deltaTime);
-			break;
-		case "la_links":
-			handLinks.links(deltaTime);
-			break;
-		case "la_rechts":
-			handLinks.rechts(deltaTime);
-			break;
-		case "la_rein":
-			handLinks.rein(deltaTime);
-			break;
-		case "la_raus":
-			handLinks.raus(deltaTime);
-			break;
-		case "la_greifen":
-			handLinks.toggleGreifen();
-			break;
 		case "ra_hoch":
 			handRechts.hoch(deltaTime);
 			break;

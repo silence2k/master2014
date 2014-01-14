@@ -56,7 +56,7 @@ public class Anzeige_Remote extends Anzeige {
 		refreshTime();
 
 		for (Artefakt arte : artefakte) {
-			arte.update();
+			arte.update(deltaTime);
 		}
 		Hand h = empfaenger.getLinks();
 		

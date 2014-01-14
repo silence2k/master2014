@@ -1,6 +1,8 @@
 package schalttafel.artefakte;
 
+import schalttafel.anzeige.Anzeiger;
 import aktor.Aktor;
+import anzeige.Anzeige;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
@@ -38,10 +40,12 @@ public abstract class Artefakt implements Greifbar {
 
 
 	protected Griff griff2 = null;
+	
+	protected Anzeiger anzeiger;
 
 	public abstract Node init(boolean physic, AssetManager assetManager, Vector3f position);
 
-	public abstract void update();
+	public abstract void update(long deltaTime);
 
 	protected abstract void init();
 
@@ -127,6 +131,17 @@ public abstract class Artefakt implements Greifbar {
 
 	protected boolean isBeweglichMinTrans(float dx, float aktuelleTranslation) {
 		return (aktuelleTranslation + dx) >= minTrans;
+	}
+
+	public void setAnzeiger(Anzeiger anzeiger) {
+		this.anzeiger = anzeiger;
+	}
+	
+	protected void updateAnzeige(float zielwert, long deltaTime){
+		if(anzeiger != null){
+			anzeiger.setZielWert(zielwert);
+			anzeiger.update(deltaTime);
+		}
 	}
 
 	// public void setGreifbar(boolean greifbar) {

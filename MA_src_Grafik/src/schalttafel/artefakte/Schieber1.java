@@ -3,7 +3,7 @@ package schalttafel.artefakte;
 public class Schieber1 extends Schieber {
 
 	@Override
-	public void update() {
+	public void update(long deltaTime) {
 		if (griff1.isGegriffen()) {
 
 			float distance = griff1.distanceToActor();

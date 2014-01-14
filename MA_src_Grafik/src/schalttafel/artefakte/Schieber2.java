@@ -16,7 +16,7 @@ public class Schieber2 extends Schieber {
 	}
 
 	@Override
-	public void update() {
+	public void update(long deltaTime) {
 		if (griff1.isGegriffen()) {
 
 			float distance = griff1.distanceToActor();

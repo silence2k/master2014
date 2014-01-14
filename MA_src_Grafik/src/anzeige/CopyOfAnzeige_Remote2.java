@@ -95,7 +95,7 @@ public class CopyOfAnzeige_Remote2 extends Anzeige {
 		refreshTime();
 
 		for (Artefakt arte : artefakte) {
-			arte.update();
+			arte.update(deltaTime);
 		}
 		Hand h = empfaenger.getLinks();
 		

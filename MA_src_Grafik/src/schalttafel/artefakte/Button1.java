@@ -61,7 +61,7 @@ public class Button1 extends Artefakt {
 	}
 
 	@Override
-	public void update() {
+	public void update(long deltaTime) {
 		if (griff1.isGegriffen()) {
 
 			float distance = griff1.distanceToActor();
