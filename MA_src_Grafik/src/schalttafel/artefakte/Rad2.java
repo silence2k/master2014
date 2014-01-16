@@ -65,8 +65,8 @@ public class Rad2 extends Rad {
 
 	}
 
-	private void rotateWahl(float distance, float distanceRechts, float distanceLinks, Griff rotateGriff,
-			Griff andererGriff, float distanceMitte) {
+	private void rotateWahl(float distance, float distanceRechts, float distanceLinks, AktorGriff rotateGriff,
+			AktorGriff andererGriff, float distanceMitte) {
 		if (distance < distanceRechts) {
 			if (distance < distanceLinks) {
 				// nichts tun
@@ -82,7 +82,7 @@ public class Rad2 extends Rad {
 		}
 	}
 
-	private void myRotate(Griff griff, float distance, float rotation, Griff andererGriff, float distanceMitte) {
+	private void myRotate(AktorGriff griff, float distance, float rotation, AktorGriff andererGriff, float distanceMitte) {
 		float oldDistance = distance;
 		float newDistanceGriffRotate = 0;
 		float newDistanceAndererGriff = 0;

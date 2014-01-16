@@ -131,7 +131,7 @@ public class Joystick extends Artefakt {
 			this.sortDistance = sortDistance;
 		}
 
-		public void myRotate(Griff griff) {
+		public void myRotate(AktorGriff griff) {
 			float oldDistance = sortDistance;
 			float newDistance = 0;
 			float tmpX = xAngle;

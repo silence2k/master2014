@@ -65,7 +65,7 @@ public class Schalter2 extends Artefakt {
 	@Override
 	public void update(long deltaTime) {
 		if (griff1.isGegriffen() || griff2.isGegriffen()) {
-			Griff aktiverGriff = isOn() ? griff2 : griff1;
+			AktorGriff aktiverGriff = isOn() ? griff2 : griff1;
 
 			System.out.println("rotation: " + rotation);
 
@@ -96,7 +96,7 @@ public class Schalter2 extends Artefakt {
 
 	}
 
-	private void myRotate(Griff griff, float distance, float rotationDx) {
+	private void myRotate(AktorGriff griff, float distance, float rotationDx) {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {

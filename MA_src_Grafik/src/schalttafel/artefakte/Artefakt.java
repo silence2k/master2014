@@ -34,9 +34,9 @@ public abstract class Artefakt implements Greifbar {
 
 	protected Node graficObject;
 
-	protected Griff griff1;
+	protected AktorGriff griff1;
 
-	protected Griff griff2 = null;
+	protected AktorGriff griff2 = null;
 
 	protected Anzeiger anzeiger;
 
@@ -47,11 +47,11 @@ public abstract class Artefakt implements Greifbar {
 	protected abstract void init();
 
 	protected void buildGriff1(Vector3f position, MyMaterial material, AssetManager assetManager) {
-		griff1 = new Griff(this, material, buildGriff("griff1", position, assetManager));
+		griff1 = new AktorGriff(this, material, buildGriff("griff1", position, assetManager));
 	}
 
 	protected void buildGriff2(Vector3f position, MyMaterial material, AssetManager assetManager) {
-		griff2 = new Griff(this, material, buildGriff("griff2", position, assetManager));
+		griff2 = new AktorGriff(this, material, buildGriff("griff2", position, assetManager));
 	}
 
 	protected Geometry buildGriff(String name, Vector3f position, AssetManager assetManager) {
@@ -89,7 +89,7 @@ public abstract class Artefakt implements Greifbar {
 		return Math.min(distance, distance2);
 	}
 
-	public Griff dichtesterFreierGriff(Aktor aktor) {
+	public AktorGriff dichtesterFreierGriff(Aktor aktor) {
 		float dis1 = Float.MAX_VALUE;
 		float dis2 = Float.MAX_VALUE;
 		if (griff1.isGreifbar()) {

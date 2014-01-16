@@ -5,7 +5,7 @@ import aktor.Aktor;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 
-public class Griff {
+public class AktorGriff {
 
 	protected final ColorRGBA Greifbar = new ColorRGBA(0f, 1f, 0f, 1f);
 	protected final ColorRGBA Gegriffen = new ColorRGBA(1f, 0f, 0f, 1f);
@@ -21,7 +21,7 @@ public class Griff {
 
 	protected Aktor aktor;
 
-	public Griff(Artefakt artefakt, MyMaterial griffmaterial, Geometry geo) {
+	public AktorGriff(Artefakt artefakt, MyMaterial griffmaterial, Geometry geo) {
 		super();
 		this.artefakt = artefakt;
 		this.griffmaterial = griffmaterial;

@@ -35,7 +35,7 @@ public class Schieber1 extends Schieber {
 		updateAnzeige(zielwert(), deltaTime);
 	}
 
-	private void myTranslate(Griff griff, float distance, float translationDX) {
+	private void myTranslate(AktorGriff griff, float distance, float translationDX) {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {

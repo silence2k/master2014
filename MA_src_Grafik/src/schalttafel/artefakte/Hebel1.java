@@ -74,7 +74,7 @@ public class Hebel1 extends Hebel {
 		updateAnzeige(zielwert(), deltaTime);
 	}
 
-	private void myRotate(Griff griff, float distance, float rotationDX) {
+	private void myRotate(AktorGriff griff, float distance, float rotationDX) {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {

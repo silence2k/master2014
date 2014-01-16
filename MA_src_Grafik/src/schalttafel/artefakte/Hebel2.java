@@ -69,8 +69,8 @@ public class Hebel2 extends Hebel {
 
 	}
 
-	private void rotateWahl(float distance, float distanceRechts, float distanceLinks, Griff rotateGriff,
-			Griff andererGriff, float distanceMitte) {
+	private void rotateWahl(float distance, float distanceRechts, float distanceLinks, AktorGriff rotateGriff,
+			AktorGriff andererGriff, float distanceMitte) {
 		if (distance <= distanceRechts) {
 			if (distance <= distanceLinks) {
 				// nichts tun
@@ -101,7 +101,7 @@ public class Hebel2 extends Hebel {
 	//
 	// }
 
-	private void myRotate(Griff griff, float distance, float rotationDX, Griff andererGriff, float distanceMitte) {
+	private void myRotate(AktorGriff griff, float distance, float rotationDX, AktorGriff andererGriff, float distanceMitte) {
 		float oldDistance = distance;
 		float newDistanceGriffRotate = 0;
 		float newDistanceAndererGriff = 0;

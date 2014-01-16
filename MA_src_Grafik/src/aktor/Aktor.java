@@ -1,7 +1,7 @@
 package aktor;
 
 import schalttafel.artefakte.Greifbar;
-import schalttafel.artefakte.Griff;
+import schalttafel.artefakte.AktorGriff;
 import schalttafel.artefakte.MyMaterial;
 import anzeige.Anzeige;
 
@@ -50,7 +50,7 @@ public class Aktor {
 
 	private Material mat_lit = null;
 
-	private Griff griff;
+	private AktorGriff griff;
 
 	private AudioNode audioGreifen;
 
@@ -169,7 +169,7 @@ public class Aktor {
 	}
 
 	public void toggleGreifen() {
-		Griff tmpGriff = anzeige.dichtesterGriff(this);
+		AktorGriff tmpGriff = anzeige.dichtesterGriff(this);
 		if (System.currentTimeMillis() - toggleTime > lastToggle) {
 			lastToggle = System.currentTimeMillis();
 

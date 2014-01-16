@@ -5,7 +5,7 @@ import java.util.List;
 
 import schalttafel.anzeige.Anzeiger;
 import schalttafel.artefakte.Artefakt;
-import schalttafel.artefakte.Griff;
+import schalttafel.artefakte.AktorGriff;
 import aktor.Aktor;
 
 import com.jme3.app.SimpleApplication;
@@ -25,8 +25,8 @@ public abstract class Anzeige extends SimpleApplication implements AnalogListene
 
 	protected List<Anzeiger> anzeiger = new ArrayList<>();
 
-	public Griff dichtesterGriff(Aktor aktor) {
-		Griff result = null;
+	public AktorGriff dichtesterGriff(Aktor aktor) {
+		AktorGriff result = null;
 		float distance = Float.MAX_VALUE;
 		float tmp;
 		for (Artefakt arte : artefakte) {

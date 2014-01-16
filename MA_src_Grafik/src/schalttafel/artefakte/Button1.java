@@ -93,7 +93,7 @@ public class Button1 extends Artefakt {
 
 	}
 
-	private void myTranslate(Griff griff, float distance, float translationDX) {
+	private void myTranslate(AktorGriff griff, float distance, float translationDX) {
 		float oldDistance = distance;
 		float newDistance = 0;
 		while (true) {
