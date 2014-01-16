@@ -26,7 +26,7 @@ import data.Standard3D;
 import data.Standard6D;
 import filereader.Reader;
 
-public class HandAnzeige extends JPanel {
+public class HandAnzeigeART extends JPanel {
 
 	public static String Verzeichnis = "../MA_src_ARTadapter/filedata/";
 
@@ -40,7 +40,7 @@ public class HandAnzeige extends JPanel {
 
 	Berechne berechne;
 
-	public HandAnzeige(DataSource ds) {
+	public HandAnzeigeART(DataSource ds) {
 		super();
 		this.ds = ds;
 
@@ -129,15 +129,15 @@ public class HandAnzeige extends JPanel {
 	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
-		 //Reader data = Reader.instance(new File(Verzeichnis+"Hand_eins.txt"));
-//		Reader data = Reader.instance(new File(Verzeichnis + "Hand.txt"));
+		// Reader data = Reader.instance(new File(Verzeichnis+"Hand_eins.txt"));
+		Reader data = Reader.instance(new File(Verzeichnis + "Hand.txt"));
 
-		 ARTDataSource data = new ARTDataSource();
-		 UdpReciver reciver = new UdpReciver();
-		 reciver.addDataParser(data);
-		 new Thread(reciver).start();
+		// ARTDataSource data = new ARTDataSource();
+		// UdpReciver reciver = new UdpReciver();
+		// reciver.addDataParser(data);
+		// new Thread(reciver).start();
 
-		final HandAnzeige ta = new HandAnzeige(data);
+		final HandAnzeigeART ta = new HandAnzeigeART(data);
 
 		final JFrame frame = new JFrame("HandAnzeige");
 		frame.getContentPane().add(ta);
