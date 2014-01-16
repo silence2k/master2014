@@ -29,10 +29,11 @@ public class Hebel2 extends Hebel {
 		MyMaterial m = new MyMaterial(g.getMaterial());
 		m.setColor(Greifbar);
 
-		buildGriff1(new Vector3f(-0.2f, 0.22f, 0), m, assetManager);
-		buildGriff2(new Vector3f(0.2f, 0.22f, 0), m, assetManager);
+		buildGriff1(new Vector3f(-0.2f, 0.34f, 0), m, assetManager);
+		buildGriff2(new Vector3f(0.2f, 0.34f, 0), m, assetManager);
 
-		rotation = 0.2f;
+		rotation = maxRot;
+		graficObject.rotate(maxRot, 0, 0);
 
 		graficObject.setLocalTranslation(position);
 

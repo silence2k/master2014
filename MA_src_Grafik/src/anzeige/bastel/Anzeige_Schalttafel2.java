@@ -29,7 +29,7 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 	
 	
 	Node node = new Node();
-	int state = 0;
+	int state = 9;
 	
 	long warteZeit;
 
@@ -150,37 +150,43 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 
 	private void switchState(int dx) {
 		if(System.currentTimeMillis() > warteZeit){
-			warteZeit = System.currentTimeMillis() + 1000;
-			this.state = (this.state + dx)%4;
+			warteZeit = System.currentTimeMillis() + 500;
+			state += dx;
+			if(this.state > 9)
+				this.state = 0;
+			if(this.state < 0){
+				this.state = 9;
+			}
+
 		node.detachAllChildren();
 		artefakte.clear();
 		switch (state) {
 		case 0:
-			hebelTafel();
+			hebelTafel(1,-0.5f,1,1);
 			break;
 		case 1:
-			hebel2Tafel();
+			hebel2Tafel(1,-0.5f,1,1);
 			break;
 		case 2:
-			radTafel();
+			radTafel(1,-0.5f,1,1);
 			break;
 		case 3:
-			rad2Tafel();
+			rad2Tafel(1,-0.5f,1,1);
 			break;
 		case 4:
-			schieberTafel();
+			schieberTafel(1,-0.5f,1,1);
 			break;
 		case 5:
-			schieber2Tafel();
+			schieber2Tafel(1,-0.5f,1,1);
 			break;
 		case 6:
-			knopfTafel();
+			knopfTafel(1,-0.5f,1,1);
 			break;
 		case 7:
-			kippschalterTafel();
+			kippschalterTafel(1,-0.5f,1,1);
 			break;
 		case 8:
-			griffTafel();
+			griffTafel(1,-0.5f,1,1);
 			break;
 		case 9:
 			komplettesSchaltpultTafel();
@@ -193,92 +199,89 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 
 	}
 
-	private void hebelTafel() {
+	private void hebelTafel(float x1, float y1, float x2, float y2) {
 		Hebel1 hebel1 = new Hebel1();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
-		node.attachChild(hebel1.init(physic, assetManager, new Vector3f(1, 0, 0)));
-		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(1, 1, 0)));
+		node.attachChild(hebel1.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		hebel1.setAnzeiger(lampe1);
 		artefakte.add(hebel1);
 	}
-	private void hebel2Tafel() {
+	private void hebel2Tafel(float x1, float y1, float x2, float y2) {
 		Hebel2 hebel2 = new Hebel2();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
-		node.attachChild(hebel2.init(physic, assetManager, new Vector3f(1, 0, 0)));
-		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(1, 1, 0)));
+		node.attachChild(hebel2.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		hebel2.setAnzeiger(lampe1);
 		artefakte.add(hebel2);
 	}
 
-	private void radTafel() {
+	private void radTafel(float x1, float y1, float x2, float y2) {
 		Rad1 rad = new Rad1();
 		AnzeigerStab stab = new AnzeigerStab();
-		node.attachChild(rad.init(physic, assetManager, new Vector3f(1, 0, 0)));
-		node.attachChild(stab.init(physic, assetManager, new Vector3f(1, 1, 0)));
+		node.attachChild(rad.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(stab.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		rad.setAnzeiger(stab);
 		artefakte.add(rad);
 	}
-	private void rad2Tafel() {
+	private void rad2Tafel(float x1, float y1, float x2, float y2) {
 		Rad2 rad = new Rad2();
 		AnzeigerStab stab = new AnzeigerStab();
-		node.attachChild(rad.init(physic, assetManager, new Vector3f(1, 0, 0)));
-		node.attachChild(stab.init(physic, assetManager, new Vector3f(1, 1, 0)));
+		node.attachChild(rad.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(stab.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		rad.setAnzeiger(stab);
 		artefakte.add(rad);
 	}
 	
-	private void schieberTafel() {
+	private void schieberTafel(float x1, float y1, float x2, float y2) {
 		Schieber1 schieber = new Schieber1();
 		AnzeigerPfeil pfeil = new AnzeigerPfeil();
-		node.attachChild(schieber.init(physic, assetManager, new Vector3f(1, 0, 0)));
-		node.attachChild(pfeil.init(physic, assetManager, new Vector3f(1, 1, 0)));
+		node.attachChild(schieber.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(pfeil.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		schieber.setAnzeiger(pfeil);
 		artefakte.add(schieber);
 	}
 	
-	private void schieber2Tafel() {
+	private void schieber2Tafel(float x1, float y1, float x2, float y2) {
 		Schieber2 schieber = new Schieber2();
 		AnzeigerPfeil pfeil = new AnzeigerPfeil();
-		node.attachChild(schieber.init(physic, assetManager, new Vector3f(1, 0, 0)));
-		node.attachChild(pfeil.init(physic, assetManager, new Vector3f(1, 1, 0)));
+		node.attachChild(schieber.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(pfeil.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		schieber.setAnzeiger(pfeil);
 		artefakte.add(schieber);
 	}
 	
-	private void knopfTafel() {
+	private void knopfTafel(float x1, float y1, float x2, float y2) {
 		Button1 button = new Button1();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
-		node.attachChild(button.init(physic, assetManager, new Vector3f(1, 0, 0)));
-		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(1, 1, 0)));
+		node.attachChild(button.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		button.setAnzeiger(lampe1);
 		artefakte.add(button);
 	}
 	
-	private void kippschalterTafel() {
+	private void kippschalterTafel(float x1, float y1, float x2, float y2) {
 		Schalter2 schalter = new Schalter2();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
-		node.attachChild(schalter.init(physic, assetManager, new Vector3f(1, 0, 0)));
-		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(1, 1, 0)));
+		node.attachChild(schalter.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		schalter.setAnzeiger(lampe1);
 		artefakte.add(schalter);
 	}
 	
-	private void griffTafel() {
+	private void griffTafel(float x1, float y1, float x2, float y2) {
 		Griff1 griff = new Griff1();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
-		node.attachChild(griff.init(physic, assetManager, new Vector3f(1, 0, 0)));
-		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(1, 1, 0)));
+		node.attachChild(griff.init(physic, assetManager, new Vector3f(x1,y1, 0)));
+		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		griff.setAnzeiger(lampe1);
 		artefakte.add(griff);
 	}
 	
 	private void komplettesSchaltpultTafel() {
-//		Hebel2 hebel2 = new Hebel2();
-//		AnzeigerLampe lampe1 = new AnzeigerLampe();
-//		node.attachChild(hebel2.init(physic, assetManager, new Vector3f(0, 0, 0)));
-//		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(0, 1, 0)));
-//		hebel2.setAnzeiger(lampe1);
-//		artefakte.add(hebel2);
+		hebelTafel(-0.5f,-0.7f,-0.5f,1);
+		hebelTafel(-1.1f,-0.7f,-1.1f,1);
+		hebel2Tafel(-1.8f, -0.7f, -1.8f, 1);
 	}
 
 }

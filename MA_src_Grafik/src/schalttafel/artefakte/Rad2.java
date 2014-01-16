@@ -29,6 +29,8 @@ public class Rad2 extends Rad {
 		m = new MyMaterial(g.getMaterial());
 		m.setColor(new ColorRGBA(0f, 1f, 1f, 1f));
 		buildGriff2(new Vector3f(-0.2f, 0, 0), m, assetManager);
+		
+		graficObject.setLocalTranslation(position);
 
 		return graficObject;
 	}
