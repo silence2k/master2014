@@ -11,14 +11,25 @@ public class HandART2 {
 
 	public static final double maxAbstand = 120;
 
+	private static final double maxGreifen = 25;
+	private static final double minNichtGreifen = 80;
+	private static final int minAnzahlFingerGreifen = 8;
+	private static final int switchCounterMax = 5;
+	
+	private int switchCounter = 0;
+
 	private Ringpuffer<Standard3DExtented> finger = new Ringpuffer<Standard3DExtented>(5);
 	private Set<String> fingerID;
 	private double ausdehnung;
 
 	private Standard3D mittelPunkt = new Standard3D("", 0, 0, 0);
+	private Standard3D entferntesterPunkt = new Standard3D("", 0, 0, 0);
 	private Standard3D defaultPosition;
-	
-	
+
+	// in Frames
+	private long jidderTimer = 0;
+	private long jidderIgnore = 50;
+
 	private boolean grab;
 
 	private boolean erfasst;
@@ -71,6 +82,26 @@ public class HandART2 {
 		}
 		finger.add(cleanList);
 		internUpdate();
+
+		if (finger.size() > minAnzahlFingerGreifen) {
+			if (grab && ausdehnung > minNichtGreifen) {
+				swich();
+			} else if (!grab && ausdehnung < maxGreifen) {
+				swich();
+			}else{
+				switchCounter = 0;
+			}
+		}else{
+			switchCounter = 0;
+		}
+	}
+	
+	private void swich(){
+		switchCounter++;
+		if(switchCounter > switchCounterMax){
+			grab = !grab;
+			switchCounter = 0;
+		}
 	}
 
 	private Standard3DExtented getStartPunkt(List<Standard3DExtented> list) {
@@ -96,43 +127,61 @@ public class HandART2 {
 	private void internUpdate() {
 		Set<String> set = new HashSet<>();
 		double tmp = 0;
+		double tmpAbstand = 0;
 		for (Standard3D s3d : finger.getAll()) {
-			tmp = Math.max(tmp, s3d.abstand(mittelPunkt));
-			set.add(s3d.getId());
+			tmpAbstand = s3d.abstand(mittelPunkt);
+			if (tmpAbstand < maxAbstand) {
+				if (tmpAbstand > tmp) {
+					tmp = tmpAbstand;
+					entferntesterPunkt = s3d;
+				}
+				// tmp = Math.max(tmp, tmpAbstand);
+
+				set.add(s3d.getId());
+			}
 		}
 		ausdehnung = tmp;
 		fingerID = set;
 		berechneSchwerpunkt();
 	}
-	
-	public void berechneSchwerpunkt(){
-		
-		if(finger.getAll().isEmpty()){
-			mittelPunkt.setX(defaultPosition.getX());
-			mittelPunkt.setY(defaultPosition.getY());
-			mittelPunkt.setZ(defaultPosition.getZ());
-		}else{
-		
-		double x = 0;
-		double y = 0;
-		double z = 0;
-		
-		int size = 0;
-		
-		for (Standard3D s3d : finger.getAll()) {
-			x += s3d.getX();
-			y += s3d.getY();
-			z += s3d.getZ();
-			size++;
-		}
-		if(size>0){
-			mittelPunkt.setX(x/size);
-			mittelPunkt.setY(y/size);
-			mittelPunkt.setZ(z/size);
-		}
+
+	public void berechneSchwerpunkt() {
+
+		if (finger.getAll().isEmpty()) {
+			entferntesterPunkt = null;
+			if (jidderTimer == 0) {
+				jidderTimer = 1;
+			} else {
+				jidderTimer++;
+				if (jidderTimer > jidderIgnore) {
+					mittelPunkt.setX(defaultPosition.getX());
+					mittelPunkt.setY(defaultPosition.getY());
+					mittelPunkt.setZ(defaultPosition.getZ());
+				}
+
+			}
+
+		} else {
+			jidderTimer = 0;
+			double x = 0;
+			double y = 0;
+			double z = 0;
+
+			int size = 0;
+
+			for (Standard3D s3d : finger.getAll()) {
+				x += s3d.getX();
+				y += s3d.getY();
+				z += s3d.getZ();
+				size++;
+			}
+			if (size > 0) {
+				mittelPunkt.setX(x / size);
+				mittelPunkt.setY(y / size);
+				mittelPunkt.setZ(z / size);
+			}
 		}
 	}
-
 
 	private Map<String, Standard3D> listToMap(List<Standard3D> list) {
 		Map<String, Standard3D> map = new HashMap<>();
@@ -155,12 +204,14 @@ public class HandART2 {
 		return false;
 	}
 
-	
 	@Override
 	public String toString() {
-		return "Hand[x=" + mittelPunkt.getX() + ";y=" + mittelPunkt.getY() + ";z=" + mittelPunkt.getZ() + ";grab=" + grab + "]";
+		return "Hand[x=" + mittelPunkt.getX() + ";y=" + mittelPunkt.getY() + ";z=" + mittelPunkt.getZ() + ";grab="
+				+ grab + "]";
 	}
-	
-	
+
+	public Standard3D getEntferntesterPunkt() {
+		return entferntesterPunkt;
+	}
 
 }

@@ -39,5 +39,13 @@ public class Ringpuffer<E>{
 	public boolean isEmpty(){
 		return getAll().isEmpty();
 	}
+	
+	public int size(){
+		int size = 0;
+		for(Collection<E> c: list){
+			size += c.size();
+		}
+		return size;
+	}
 
 }

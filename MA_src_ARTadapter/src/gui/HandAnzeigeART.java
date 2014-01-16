@@ -130,12 +130,12 @@ public class HandAnzeigeART extends JPanel {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
 		// Reader data = Reader.instance(new File(Verzeichnis+"Hand_eins.txt"));
-		Reader data = Reader.instance(new File(Verzeichnis + "Hand.txt"));
+		//Reader data = Reader.instance(new File(Verzeichnis + "Hand.txt"));
 
-		// ARTDataSource data = new ARTDataSource();
-		// UdpReciver reciver = new UdpReciver();
-		// reciver.addDataParser(data);
-		// new Thread(reciver).start();
+		 ARTDataSource data = new ARTDataSource();
+		 UdpReciver reciver = new UdpReciver();
+		 reciver.addDataParser(data);
+		 new Thread(reciver).start();
 
 		final HandAnzeigeART ta = new HandAnzeigeART(data);
 

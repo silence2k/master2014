@@ -34,7 +34,7 @@ public class HandAnzeige extends JPanel {
 	double faktor = 0.2;
 	static double verschiebung = 500;
 
-	static final long sleepTime = 30;
+	static final long sleepTime = 10;
 
 	DataSource ds;
 
@@ -83,8 +83,8 @@ public class HandAnzeige extends JPanel {
 	}
 
 	private void printHands(Graphics g) {
-		printHand(berechne.getRechteHand(), g);
-		printHand(berechne.getLinkeHand(), g);
+		printHand(berechne.getRechteHand(), g,true);
+		printHand(berechne.getLinkeHand(), g,false);
 	}
 
 	private void printHand(HandART hand, Graphics g) {
@@ -95,12 +95,29 @@ public class HandAnzeige extends JPanel {
 		g.drawOval(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), tmp, tmp);
 	}
 
-	private void printHand(HandART2 hand, Graphics g) {
+	private void printHand(HandART2 hand, Graphics g, boolean rechts) {
 
 		g.setColor(Color.cyan);
+
 		g.fillRect(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), 2, 2);
 		int tmp = (int) hand.getAusdehnung();
+		if(rechts && hand.getAusdehnung() > 0){
+			System.out.println(hand.getAusdehnung());
+		}
+		
+		if(hand.isGrab()){
+			g.setColor(Color.yellow);
+			g.fillOval(getX(hand.getMittelPunkt()) - tmp / 2, getZ(hand.getMittelPunkt()) - tmp / 2, tmp, tmp);
+		}else{
+			g.drawOval(getX(hand.getMittelPunkt()) - tmp / 2, getZ(hand.getMittelPunkt()) - tmp / 2, tmp, tmp);
+		}
 		g.drawOval(getX(hand.getMittelPunkt()) - tmp / 2, getZ(hand.getMittelPunkt()) - tmp / 2, tmp, tmp);
+		
+		if(hand.getEntferntesterPunkt()!=null){
+		g.setColor(Color.red);
+		g.drawLine(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), getX(hand.getEntferntesterPunkt()), getZ(hand.getEntferntesterPunkt()));
+		}
+		
 		tmp = (int) hand.maxAbstand;
 		g.setColor(Color.orange);
 		g.drawOval(getX(hand.getMittelPunkt()) - tmp / 2, getZ(hand.getMittelPunkt()) - tmp / 2, tmp, tmp);
@@ -130,12 +147,14 @@ public class HandAnzeige extends JPanel {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
 		 //Reader data = Reader.instance(new File(Verzeichnis+"Hand_eins.txt"));
-//		Reader data = Reader.instance(new File(Verzeichnis + "Hand.txt"));
+//		Reader data = Reader.instance(new File(Verzeichnis + "ZweiHand_winken.txt"));
+//		Reader data = Reader.instance(new File(Verzeichnis + "Greifen.txt"));
+		Reader data = Reader.instance(new File(Verzeichnis + "GreifenZiehen.txt"));
 
-		 ARTDataSource data = new ARTDataSource();
-		 UdpReciver reciver = new UdpReciver();
-		 reciver.addDataParser(data);
-		 new Thread(reciver).start();
+//		 ARTDataSource data = new ARTDataSource();
+//		 UdpReciver reciver = new UdpReciver();
+//		 reciver.addDataParser(data);
+//		 new Thread(reciver).start();
 
 		final HandAnzeige ta = new HandAnzeige(data);
 
