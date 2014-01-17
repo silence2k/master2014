@@ -180,10 +180,11 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 				rad2Tafel(1, -0.5f, 1, 1);
 				break;
 			case 4:
-				schieberTafel(1, -0.9f, 1, 1);
+				schieberTafel(0.4f, -0.85f, 0.4f, 0.3f);
+				
 				break;
 			case 5:
-				schieber2Tafel(1, -0.5f, 1, 1);
+				schieber2Tafel(0.4f, -0.4f, 0.6f, 0.3f);
 				break;
 			case 6:
 				knopfTafel(1, -0.5f, 1, 1);
@@ -303,8 +304,8 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		hebelTafel(-1.1f, yhebel, -1.1f, yhebellampe);
 		hebel2Tafel(-1.8f, yhebel, -1.8f, yhebellampe);
 		
-		schieberTafel(1, -0.9f, 1, 1);
-		schieber2Tafel(1, -0.5f, 1, 1);
+		schieberTafel(0.4f, -1.25f, 0.4f, -0.3f);
+		schieber2Tafel(0.8f, -0.7f, 1, -0.3f);
 	}
 
 }
