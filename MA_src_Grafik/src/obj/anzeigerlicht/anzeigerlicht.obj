@@ -1,4 +1,4 @@
-# Blender v2.63 (sub 0) OBJ File: ''
+# Blender v2.65 (sub 0) OBJ File: ''
 # www.blender.org
 mtllib anzeigerlicht.mtl
 o anzeigerlicht
@@ -229,7 +229,7 @@ vn 0.000000 -0.129611 0.991565
 vn 0.000000 -0.402040 0.915622
 vn 0.000000 -0.701194 0.712970
 vn 0.000000 -0.957114 0.289711
-usemtl Default
+usemtl Default.001
 s off
 f 34//1 42//1 26//1
 f 34//1 38//1 42//1
