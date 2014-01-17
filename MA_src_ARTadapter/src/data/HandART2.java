@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class HandART2 {
+	
+	public static final double scale = 0.001;
 
 	public static final double maxAbstand = 120;
 
@@ -206,7 +208,7 @@ public class HandART2 {
 
 	@Override
 	public String toString() {
-		return "Hand[x=" + mittelPunkt.getX() + ";y=" + mittelPunkt.getY() + ";z=" + mittelPunkt.getZ() + ";grab="
+		return "Hand[x=" + mittelPunkt.getX()*scale + ";y=" + mittelPunkt.getY()*scale + ";z=" + mittelPunkt.getZ()*scale + ";grab="
 				+ grab + "]";
 	}
 
