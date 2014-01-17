@@ -101,9 +101,6 @@ public class HandAnzeige extends JPanel {
 
 		g.fillRect(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), 2, 2);
 		int tmp = (int) hand.getAusdehnung();
-		if(rechts && hand.getAusdehnung() > 0){
-			System.out.println(hand.getAusdehnung());
-		}
 		
 		if(hand.isGrab()){
 			g.setColor(Color.yellow);

@@ -1,5 +1,7 @@
 package aktor;
 
+import java.util.Collection;
+
 import schalttafel.artefakte.Greifbar;
 import schalttafel.artefakte.AktorGriff;
 import schalttafel.artefakte.MyMaterial;
@@ -7,12 +9,15 @@ import anzeige.Anzeige;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
+import com.jme3.material.MatParam;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.math.Vector4f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
+import com.jme3.shader.VarType;
 import com.jme3.util.TangentBinormalGenerator;
 
 public class Aktor {
@@ -232,10 +237,11 @@ public class Aktor {
 		private Geometry graOffen;
 
 		private Geometry graGegriffen;
-
-		private MyMaterial graOffenMat;
-
-		private MyMaterial graGegriffenMat;
+		
+		
+		private ColorRGBA normal;
+		
+		private ColorRGBA rot; 
 
 		public GraHand(Spatial graficObject, Material mat) {
 			this.graficObject = graficObject;
@@ -245,14 +251,20 @@ public class Aktor {
 
 		public GraHand(AssetManager assetManager, String pfadOffen, String pfadGeschlossen) {
 			graOffen = (Geometry) assetManager.loadModel(pfadOffen);
-			graOffenMat = new MyMaterial(graOffen.getMaterial());
+			//graOffenMat = new MyMaterial(graOffen.getMaterial());
 
 			graGegriffen = (Geometry) assetManager.loadModel(pfadGeschlossen);
-			graGegriffenMat = new MyMaterial(graGegriffen.getMaterial());
-
+			//graGegriffenMat = new MyMaterial(graGegriffen.getMaterial());
+			
+			Material m = graGegriffen.getMaterial();
+			MatParam vColor = m.getParam("Diffuse");
+			normal = new ColorRGBA((ColorRGBA) vColor.getValue());
+			rot = new ColorRGBA(1, 0, 0, normal.a);
+			
 			graficObject = graOffen;
 			anzeige.getRootNode().attachChild(graficObject);
 		}
+		
 
 		public void oeffnen() {
 			if (kugel) {
@@ -274,6 +286,10 @@ public class Aktor {
 				graGegriffen.setLocalTranslation(graficObject.getLocalTranslation());
 				graficObject = graGegriffen;
 				anzeige.getRootNode().attachChild(graficObject);
+				
+				Material m = graGegriffen.getMaterial();
+				MatParam vColor = m.getParam("Diffuse");
+				vColor.setValue(normal);
 			}
 		}
 
@@ -285,6 +301,10 @@ public class Aktor {
 				graGegriffen.setLocalTranslation(graficObject.getLocalTranslation());
 				graficObject = graGegriffen;
 				anzeige.getRootNode().attachChild(graficObject);
+				
+				Material m = graGegriffen.getMaterial();
+				MatParam vColor = m.getParam("Diffuse");
+				vColor.setValue(rot);
 			}
 		}
 
