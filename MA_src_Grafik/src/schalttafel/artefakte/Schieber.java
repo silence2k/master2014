@@ -19,14 +19,16 @@ public abstract class Schieber extends Artefakt {
 
 	float grenzeOben = 0.6f;
 
+
 	float grenzeUnten = 2.6f;
+
 
 	protected void init() {
 		// Heben oben max
 		minTrans = 0f;
 
 		// Heben unten max
-		maxTrans = 0.5f;
+		maxTrans = 0.75f;
 	}
 
 	@Override

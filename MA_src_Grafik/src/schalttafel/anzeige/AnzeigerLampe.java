@@ -19,7 +19,7 @@ public class AnzeigerLampe extends Anzeiger {
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/anzeigerlicht/anzeigerlicht.obj");
 
-		anzeige = (Geometry) graficObject.getChild("anzeigerlicht-geom-0");
+		anzeige = (Geometry) graficObject.getChild("anzeigerlicht-geom-1");
 		myMaterial = new MyMaterial(anzeige.getMaterial());
 		myMaterial.setColor(Aus);
 		an = false;

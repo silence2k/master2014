@@ -125,10 +125,12 @@ public abstract class Artefakt implements Greifbar {
 	}
 
 	protected boolean isBeweglichMaxTrans(float dx, float aktuelleTranslation) {
+		//System.out.println(aktuelleTranslation + dx +" : "+maxTrans);
 		return (aktuelleTranslation + dx) <= maxTrans;
 	}
 
 	protected boolean isBeweglichMinTrans(float dx, float aktuelleTranslation) {
+		//System.out.println(aktuelleTranslation + dx +" : "+minTrans);
 		return (aktuelleTranslation + dx) >= minTrans;
 	}
 

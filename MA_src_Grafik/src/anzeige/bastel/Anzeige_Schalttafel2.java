@@ -14,6 +14,10 @@ import schalttafel.artefakte.Rad2;
 import schalttafel.artefakte.Schalter2;
 import schalttafel.artefakte.Schieber1;
 import schalttafel.artefakte.Schieber2;
+import schalttafel.verkleidung.Hebel1Verkleidung;
+import schalttafel.verkleidung.Hebel2Verkleidung;
+import schalttafel.verkleidung.Schieber1Verkleidung;
+import schalttafel.verkleidung.Schieber2Verkleidung;
 import anzeige.Anzeige;
 
 import com.jme3.app.StatsAppState;
@@ -176,7 +180,7 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 				rad2Tafel(1, -0.5f, 1, 1);
 				break;
 			case 4:
-				schieberTafel(1, -0.5f, 1, 1);
+				schieberTafel(1, -0.9f, 1, 1);
 				break;
 			case 5:
 				schieber2Tafel(1, -0.5f, 1, 1);
@@ -204,7 +208,10 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 	private void hebelTafel(float x1, float y1, float x2, float y2) {
 		Hebel1 hebel1 = new Hebel1();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
+		Hebel1Verkleidung verkleidung = new Hebel1Verkleidung();
 		node.attachChild(hebel1.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(verkleidung.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		
 		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		hebel1.setAnzeiger(lampe1);
 		artefakte.add(hebel1);
@@ -213,7 +220,10 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 	private void hebel2Tafel(float x1, float y1, float x2, float y2) {
 		Hebel2 hebel2 = new Hebel2();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
+		Hebel2Verkleidung verkleidung = new Hebel2Verkleidung();
 		node.attachChild(hebel2.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(verkleidung.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		
 		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		hebel2.setAnzeiger(lampe1);
 		artefakte.add(hebel2);
@@ -240,7 +250,9 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 	private void schieberTafel(float x1, float y1, float x2, float y2) {
 		Schieber1 schieber = new Schieber1();
 		AnzeigerPfeil pfeil = new AnzeigerPfeil();
+		Schieber1Verkleidung verkleidung = new Schieber1Verkleidung();
 		node.attachChild(schieber.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(verkleidung.init(physic, assetManager, new Vector3f(x1, y1, 0)));
 		node.attachChild(pfeil.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		schieber.setAnzeiger(pfeil);
 		artefakte.add(schieber);
@@ -249,7 +261,9 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 	private void schieber2Tafel(float x1, float y1, float x2, float y2) {
 		Schieber2 schieber = new Schieber2();
 		AnzeigerPfeil pfeil = new AnzeigerPfeil();
+		Schieber2Verkleidung verkleidung = new Schieber2Verkleidung();
 		node.attachChild(schieber.init(physic, assetManager, new Vector3f(x1, y1, 0)));
+		node.attachChild(verkleidung.init(physic, assetManager, new Vector3f(x1, y1, 0)));
 		node.attachChild(pfeil.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		schieber.setAnzeiger(pfeil);
 		artefakte.add(schieber);
@@ -283,9 +297,14 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 	}
 
 	private void komplettesSchaltpultTafel() {
-		hebelTafel(-0.5f, -0.7f, -0.5f, 1);
-		hebelTafel(-1.1f, -0.7f, -1.1f, 1);
-		hebel2Tafel(-1.8f, -0.7f, -1.8f, 1);
+		float yhebel = -0.8f;
+		float yhebellampe = -0.1f;
+		hebelTafel(-0.5f, yhebel, -0.5f, yhebellampe);
+		hebelTafel(-1.1f, yhebel, -1.1f, yhebellampe);
+		hebel2Tafel(-1.8f, yhebel, -1.8f, yhebellampe);
+		
+		schieberTafel(1, -0.9f, 1, 1);
+		schieber2Tafel(1, -0.5f, 1, 1);
 	}
 
 }

@@ -25,11 +25,16 @@ public class Hebel2 extends Hebel {
 			System.out.println(spatial);
 		}
 
-		Geometry g = (Geometry) graficObject.getChild("hebel2-geom-0");
+		Geometry g = (Geometry) graficObject.getChild("hebel2-geom-1");
 		MyMaterial m = new MyMaterial(g.getMaterial());
 		m.setColor(Greifbar);
 
 		buildGriff1(new Vector3f(-0.2f, 0.34f, 0), m, assetManager);
+		
+		g = (Geometry) graficObject.getChild("hebel2-geom-0");
+		m = new MyMaterial(g.getMaterial());
+		m.setColor(Greifbar);
+		
 		buildGriff2(new Vector3f(0.2f, 0.34f, 0), m, assetManager);
 
 		rotation = maxRot;
