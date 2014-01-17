@@ -1,6 +1,6 @@
 # Blender MTL File: 'None'
 # Material Count: 3
-newmtl black
+newmtl black.001
 Ns 131.372549
 Ka 0.000000 0.000000 0.000000
 Kd 0.000000 0.000000 0.000000
@@ -10,7 +10,7 @@ d 1.000000
 illum 1
 
 
-newmtl blatt
+newmtl blatt.001
 Ns 131.372549
 Ka 0.000000 0.000000 0.000000
 Kd 1.000000 1.000000 1.000000
@@ -20,7 +20,7 @@ d 1.000000
 illum 1
 
 
-newmtl rahmen
+newmtl rahmen.001
 Ns 131.372549
 Ka 0.000000 0.000000 0.000000
 Kd 0.501961 0.501961 0.501961
