@@ -11,7 +11,7 @@ import com.jme3.scene.Spatial;
 
 public abstract class Schieber extends Artefakt {
 
-	protected float translationDX = 0.01f;
+	protected float translationDX = 0.001f;
 
 	protected float translation = 0;
 
