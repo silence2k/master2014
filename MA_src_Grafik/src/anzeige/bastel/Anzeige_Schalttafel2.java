@@ -26,11 +26,10 @@ import com.jme3.scene.Node;
 public class Anzeige_Schalttafel2 extends Anzeige {
 
 	Schalttafel schalttafel = new Schalttafel();
-	
-	
+
 	Node node = new Node();
 	int state = 9;
-	
+
 	long warteZeit;
 
 	long lasttime = System.currentTimeMillis();
@@ -45,34 +44,36 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 
 	@Override
 	public void simpleInitApp() {
-		
+
 		warteZeit = System.currentTimeMillis();
 
 		if (stateManager.getState(StatsAppState.class) != null) {
 			stateManager.getState(StatsAppState.class).toggleStats();
 		}
-		
+
 		this.flyCam.setEnabled(false);
-		
+
 		setupKeys();
 
 		cam.setLocation(new Vector3f(0f, 0f, 5f));
 
 		rootNode.attachChild(schalttafel.init(physic, assetManager, new Vector3f(0, 0, 0)));
-		
+
 		rootNode.attachChild(node);
-		
+
 		switchState(state);
 
-//		rootNode.attachChild(rad1.init(physic, assetManager, new Vector3f(0, 0, 0)));
-//		rootNode.attachChild(as1.init(physic, assetManager, new Vector3f(0, 1, 0)));
-//		rad1.setAnzeiger(as1);
+		// rootNode.attachChild(rad1.init(physic, assetManager, new Vector3f(0,
+		// 0, 0)));
+		// rootNode.attachChild(as1.init(physic, assetManager, new Vector3f(0,
+		// 1, 0)));
+		// rad1.setAnzeiger(as1);
 
 		handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
 		// rootNode.attachChild(handLinks.init(physic, assetManager, new
 		// Vector3f(-1, 0, 0.2f)));
 
-//		artefakte.add(rad1);
+		// artefakte.add(rad1);
 
 		/** You must add a light to make the model visible */
 		DirectionalLight sun = new DirectionalLight();
@@ -96,7 +97,7 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		deltaTime = time - lasttime;
 		lasttime = time;
 	}
-	
+
 	private void setupKeys() {
 
 		inputManager.addMapping("next", new KeyTrigger(KeyInput.KEY_T));
@@ -110,7 +111,8 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		inputManager.addMapping("ra_rein", new KeyTrigger(KeyInput.KEY_U));
 		inputManager.addMapping("ra_raus", new KeyTrigger(KeyInput.KEY_O));
 
-		inputManager.addListener(this, "next", "prev", "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein", "ra_raus");
+		inputManager.addListener(this, "next", "prev", "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen",
+				"ra_rein", "ra_raus");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {
@@ -149,52 +151,52 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 	}
 
 	private void switchState(int dx) {
-		if(System.currentTimeMillis() > warteZeit){
+		if (System.currentTimeMillis() > warteZeit) {
 			warteZeit = System.currentTimeMillis() + 500;
 			state += dx;
-			if(this.state > 9)
+			if (this.state > 9)
 				this.state = 0;
-			if(this.state < 0){
+			if (this.state < 0) {
 				this.state = 9;
 			}
 
-		node.detachAllChildren();
-		artefakte.clear();
-		switch (state) {
-		case 0:
-			hebelTafel(1,-0.5f,1,1);
-			break;
-		case 1:
-			hebel2Tafel(1,-0.5f,1,1);
-			break;
-		case 2:
-			radTafel(1,-0.5f,1,1);
-			break;
-		case 3:
-			rad2Tafel(1,-0.5f,1,1);
-			break;
-		case 4:
-			schieberTafel(1,-0.5f,1,1);
-			break;
-		case 5:
-			schieber2Tafel(1,-0.5f,1,1);
-			break;
-		case 6:
-			knopfTafel(1,-0.5f,1,1);
-			break;
-		case 7:
-			kippschalterTafel(1,-0.5f,1,1);
-			break;
-		case 8:
-			griffTafel(1,-0.5f,1,1);
-			break;
-		case 9:
-			komplettesSchaltpultTafel();
-			break;
+			node.detachAllChildren();
+			artefakte.clear();
+			switch (state) {
+			case 0:
+				hebelTafel(1, -0.5f, 1, 1);
+				break;
+			case 1:
+				hebel2Tafel(1, -0.5f, 1, 1);
+				break;
+			case 2:
+				radTafel(1, -0.5f, 1, 1);
+				break;
+			case 3:
+				rad2Tafel(1, -0.5f, 1, 1);
+				break;
+			case 4:
+				schieberTafel(1, -0.5f, 1, 1);
+				break;
+			case 5:
+				schieber2Tafel(1, -0.5f, 1, 1);
+				break;
+			case 6:
+				knopfTafel(1, -0.5f, 1, 1);
+				break;
+			case 7:
+				kippschalterTafel(1, -0.5f, 1, 1);
+				break;
+			case 8:
+				griffTafel(1, -0.5f, 1, 1);
+				break;
+			case 9:
+				komplettesSchaltpultTafel();
+				break;
 
-		default:
-			break;
-		}
+			default:
+				break;
+			}
 		}
 
 	}
@@ -207,6 +209,7 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		hebel1.setAnzeiger(lampe1);
 		artefakte.add(hebel1);
 	}
+
 	private void hebel2Tafel(float x1, float y1, float x2, float y2) {
 		Hebel2 hebel2 = new Hebel2();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
@@ -224,6 +227,7 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		rad.setAnzeiger(stab);
 		artefakte.add(rad);
 	}
+
 	private void rad2Tafel(float x1, float y1, float x2, float y2) {
 		Rad2 rad = new Rad2();
 		AnzeigerStab stab = new AnzeigerStab();
@@ -232,7 +236,7 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		rad.setAnzeiger(stab);
 		artefakte.add(rad);
 	}
-	
+
 	private void schieberTafel(float x1, float y1, float x2, float y2) {
 		Schieber1 schieber = new Schieber1();
 		AnzeigerPfeil pfeil = new AnzeigerPfeil();
@@ -241,7 +245,7 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		schieber.setAnzeiger(pfeil);
 		artefakte.add(schieber);
 	}
-	
+
 	private void schieber2Tafel(float x1, float y1, float x2, float y2) {
 		Schieber2 schieber = new Schieber2();
 		AnzeigerPfeil pfeil = new AnzeigerPfeil();
@@ -250,7 +254,7 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		schieber.setAnzeiger(pfeil);
 		artefakte.add(schieber);
 	}
-	
+
 	private void knopfTafel(float x1, float y1, float x2, float y2) {
 		Button1 button = new Button1();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
@@ -259,7 +263,7 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		button.setAnzeiger(lampe1);
 		artefakte.add(button);
 	}
-	
+
 	private void kippschalterTafel(float x1, float y1, float x2, float y2) {
 		Schalter2 schalter = new Schalter2();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
@@ -268,19 +272,19 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		schalter.setAnzeiger(lampe1);
 		artefakte.add(schalter);
 	}
-	
+
 	private void griffTafel(float x1, float y1, float x2, float y2) {
 		Griff1 griff = new Griff1();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
-		node.attachChild(griff.init(physic, assetManager, new Vector3f(x1,y1, 0)));
+		node.attachChild(griff.init(physic, assetManager, new Vector3f(x1, y1, 0)));
 		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		griff.setAnzeiger(lampe1);
 		artefakte.add(griff);
 	}
-	
+
 	private void komplettesSchaltpultTafel() {
-		hebelTafel(-0.5f,-0.7f,-0.5f,1);
-		hebelTafel(-1.1f,-0.7f,-1.1f,1);
+		hebelTafel(-0.5f, -0.7f, -0.5f, 1);
+		hebelTafel(-1.1f, -0.7f, -1.1f, 1);
 		hebel2Tafel(-1.8f, -0.7f, -1.8f, 1);
 	}
 

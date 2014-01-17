@@ -102,7 +102,8 @@ public class Hebel2 extends Hebel {
 	//
 	// }
 
-	private void myRotate(AktorGriff griff, float distance, float rotationDX, AktorGriff andererGriff, float distanceMitte) {
+	private void myRotate(AktorGriff griff, float distance, float rotationDX, AktorGriff andererGriff,
+			float distanceMitte) {
 		float oldDistance = distance;
 		float newDistanceGriffRotate = 0;
 		float newDistanceAndererGriff = 0;

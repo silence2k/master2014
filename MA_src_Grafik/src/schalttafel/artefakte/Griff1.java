@@ -9,8 +9,8 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
-public class Griff1 extends Artefakt{
-	
+public class Griff1 extends Artefakt {
+
 	protected float translationDX = 0.01f;
 
 	protected float translation = 0;
@@ -67,15 +67,15 @@ public class Griff1 extends Artefakt{
 
 			float distance = griff1.distanceToActor();
 
-			graficObject.move(0,0, translationDX);
+			graficObject.move(0, 0, translationDX);
 
 			float distanceRechts = griff1.distanceToActor();
 
-			graficObject.move(0, 0,-2f * translationDX);
+			graficObject.move(0, 0, -2f * translationDX);
 
 			float distanceLinks = griff1.distanceToActor();
 
-			graficObject.move(0, 0,translationDX);
+			graficObject.move(0, 0, translationDX);
 
 			if (distance < distanceRechts) {
 				if (distance < distanceLinks) {
@@ -105,7 +105,7 @@ public class Griff1 extends Artefakt{
 
 			this.translation += translationDX;
 
-			graficObject.move(0, 0,translationDX);
+			graficObject.move(0, 0, translationDX);
 			newDistance = griff.distanceToActor();
 			if (newDistance > oldDistance) {
 				break;

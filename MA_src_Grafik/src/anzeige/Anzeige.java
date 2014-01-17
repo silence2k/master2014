@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import schalttafel.anzeige.Anzeiger;
-import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.AktorGriff;
+import schalttafel.artefakte.Artefakt;
 import aktor.Aktor;
 
 import com.jme3.app.SimpleApplication;

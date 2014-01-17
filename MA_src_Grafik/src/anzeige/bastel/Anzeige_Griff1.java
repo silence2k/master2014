@@ -12,10 +12,10 @@ import com.jme3.math.Vector3f;
 public class Anzeige_Griff1 extends Anzeige {
 
 	Griff1 griff1 = new Griff1();
-	
+
 	Griff1 griff2 = new Griff1();
 
-//	AnzeigerLampe lampe = new AnzeigerLampe();
+	// AnzeigerLampe lampe = new AnzeigerLampe();
 
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
@@ -35,11 +35,12 @@ public class Anzeige_Griff1 extends Anzeige {
 		setupKeys();
 
 		rootNode.attachChild(griff1.init(physic, assetManager, new Vector3f(1, 0, 0)));
-//		rootNode.attachChild(lampe.init(physic, assetManager, new Vector3f(0, 1, 0)));
-		
+		// rootNode.attachChild(lampe.init(physic, assetManager, new Vector3f(0,
+		// 1, 0)));
+
 		rootNode.attachChild(griff2.init(physic, assetManager, new Vector3f(-1, 0, 0)));
 
-//		griff1.setAnzeiger(lampe);
+		// griff1.setAnzeiger(lampe);
 
 		handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
 		// rootNode.attachChild(handLinks.init(physic, assetManager, new
@@ -47,7 +48,7 @@ public class Anzeige_Griff1 extends Anzeige {
 
 		artefakte.add(griff1);
 		artefakte.add(griff2);
-		
+
 		/** You must add a light to make the model visible */
 		DirectionalLight sun = new DirectionalLight();
 		sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f).normalizeLocal());
@@ -73,7 +74,6 @@ public class Anzeige_Griff1 extends Anzeige {
 
 	private void setupKeys() {
 
-
 		inputManager.addMapping("ra_hoch", new KeyTrigger(KeyInput.KEY_I));
 		inputManager.addMapping("ra_runter", new KeyTrigger(KeyInput.KEY_K));
 		inputManager.addMapping("ra_links", new KeyTrigger(KeyInput.KEY_J));
@@ -82,7 +82,8 @@ public class Anzeige_Griff1 extends Anzeige {
 		inputManager.addMapping("ra_rein", new KeyTrigger(KeyInput.KEY_U));
 		inputManager.addMapping("ra_raus", new KeyTrigger(KeyInput.KEY_O));
 
-		inputManager.addListener(this, "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein", "ra_raus");
+		inputManager.addListener(this, "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein",
+				"ra_raus");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {
