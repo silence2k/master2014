@@ -27,7 +27,7 @@ public class Rad2 extends Rad {
 
 		g = (Geometry) graficObject.getChild("rad2-geom-1");
 		m = new MyMaterial(g.getMaterial());
-		m.setColor(new ColorRGBA(0f, 1f, 1f, 1f));
+		m.setColor(new ColorRGBA(0f, 1f, 0f, 1f));
 		buildGriff2(new Vector3f(-0.2f, 0, 0), m, assetManager);
 
 		graficObject.setLocalTranslation(position);

@@ -14,9 +14,13 @@ import com.jme3.util.TangentBinormalGenerator;
 
 public abstract class Artefakt implements Greifbar {
 
+//	protected final ColorRGBA Greifbar = new ColorRGBA(0f, 1f, 0f, 1f);
 	protected final ColorRGBA Greifbar = new ColorRGBA(0f, 1f, 0f, 1f);
 	protected final ColorRGBA Gegriffen = new ColorRGBA(1f, 0f, 0f, 1f);
 	protected final ColorRGBA Inaktiv = new ColorRGBA(1f, 1f, 1f, 1f);
+	
+//	final float size = 0.05f;
+	final float size = 0.001f;
 
 	// grenze min rotation
 	float minRot;
@@ -55,7 +59,7 @@ public abstract class Artefakt implements Greifbar {
 	}
 
 	protected Geometry buildGriff(String name, Vector3f position, AssetManager assetManager) {
-		Sphere rock = new Sphere(6, 6, 0.05f);
+		Sphere rock = new Sphere(6, 6, size);
 		Geometry geo = new Geometry(name, rock);
 		rock.setTextureMode(Sphere.TextureMode.Projected); // better quality on
 															// spheres

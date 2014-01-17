@@ -27,7 +27,7 @@ public class Aktor {
 	final float speed = 1f;
 
 	// entfernung ab wann ein objekt von der hand gegriffen werden kann
-	final float maxgreifen = 0.2f;
+	final float maxgreifen = 0.3f;
 
 	// nach welcher zeit kann man den zustand der hand aendern
 	final long toggleTime = 400;
