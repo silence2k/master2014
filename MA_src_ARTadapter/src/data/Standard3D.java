@@ -58,6 +58,13 @@ public class Standard3D {
 		double tz = z - s3d.z;
 		return Math.sqrt(tx*tx+ty*ty+tz*tz);
 	}
+	
+	public double abstandOhneY(Standard3D s3d){
+		double tx = x - s3d.x;
+		double ty = y - s3d.y;
+		double tz = z - s3d.z;
+		return Math.sqrt(tx*tx+tz*tz);
+	}
 
 
 	@Override

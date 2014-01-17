@@ -16,8 +16,9 @@ public class AMQ_Sender {
 	
 	private static final long sleeptime = 100;
 	
-	private String server = "tcp://localhost:61616";
+//	private String server = "tcp://localhost:61616";
 	//private String server = "tcp://192.168.0.112:61616"; // PC3
+	private String server = "tcp://192.168.14.100:61616"; // Powerwall
 
 	private Connection connection;
 	private Session session;

@@ -9,14 +9,20 @@ import java.util.Set;
 
 public class HandART2 {
 	
-	public static final double scale = 0.001;
+	public static final double scale = 0.0015;
+	
+	public static final double dx = 0;
+	public static final double dy = -2;
+	public static final double dz = 0;
+	
 
 	public static final double maxAbstand = 120;
 
-	private static final double maxGreifen = 25;
+	private static final double maxGreifen = 40;
 	private static final double minNichtGreifen = 80;
-	private static final int minAnzahlFingerGreifen = 8;
-	private static final int switchCounterMax = 5;
+	private static final int minAnzahlFingerGreifen = 5;
+	private static final int switchCounterMaxZu = 3;
+	private static final int switchCounterMaxOffen = 5;
 	
 	private int switchCounter = 0;
 
@@ -84,7 +90,7 @@ public class HandART2 {
 		}
 		finger.add(cleanList);
 		internUpdate();
-
+		System.out.println(ausdehnung);
 		if (finger.size() > minAnzahlFingerGreifen) {
 			if (grab && ausdehnung > minNichtGreifen) {
 				swich();
@@ -100,10 +106,18 @@ public class HandART2 {
 	
 	private void swich(){
 		switchCounter++;
-		if(switchCounter > switchCounterMax){
-			grab = !grab;
-			switchCounter = 0;
+		if(!grab){
+			if(switchCounter > switchCounterMaxZu){
+				grab = !grab;
+				switchCounter = 0;
+			}
+		}else{
+			if(switchCounter > switchCounterMaxOffen){
+				grab = !grab;
+				switchCounter = 0;
+			}
 		}
+		
 	}
 
 	private Standard3DExtented getStartPunkt(List<Standard3DExtented> list) {
@@ -112,7 +126,7 @@ public class HandART2 {
 		for (Standard3DExtented s3d : list) {
 			double tmp = 0;
 			for (Standard3DExtented s3d2 : list) {
-				tmp += s3d.abstand(s3d2);
+				tmp += s3d.abstandOhneY(s3d2);
 			}
 			if (tmp < abstand) {
 				abstand = tmp;
@@ -131,7 +145,7 @@ public class HandART2 {
 		double tmp = 0;
 		double tmpAbstand = 0;
 		for (Standard3D s3d : finger.getAll()) {
-			tmpAbstand = s3d.abstand(mittelPunkt);
+			tmpAbstand = s3d.abstandOhneY(mittelPunkt);
 			if (tmpAbstand < maxAbstand) {
 				if (tmpAbstand > tmp) {
 					tmp = tmpAbstand;
@@ -206,9 +220,15 @@ public class HandART2 {
 		return false;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "Hand[x=" + mittelPunkt.getX()*scale + ";y=" + mittelPunkt.getY()*scale + ";z=" + mittelPunkt.getZ()*scale + ";grab="
+//				+ grab + "]";
+//	}
+	
 	@Override
 	public String toString() {
-		return "Hand[x=" + mittelPunkt.getX()*scale + ";y=" + mittelPunkt.getY()*scale + ";z=" + mittelPunkt.getZ()*scale + ";grab="
+		return "Hand[x=" + (mittelPunkt.getX()*scale+dx) + ";y=" + (mittelPunkt.getZ()*scale+dy) + ";z=" + (mittelPunkt.getY()*scale+dz) + ";grab="
 				+ grab + "]";
 	}
 

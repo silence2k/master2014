@@ -100,6 +100,11 @@ public class HandAnzeigeART extends JPanel {
 		g.setColor(Color.cyan);
 		g.fillRect(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), 2, 2);
 		int tmp = (int) hand.getAusdehnung();
+		if(hand.isGrab()){
+			g.setColor(Color.yellow);
+			g.fillOval(getX(hand.getMittelPunkt()) - tmp / 2, getZ(hand.getMittelPunkt()) - tmp / 2, tmp, tmp);
+		}
+		
 		g.drawOval(getX(hand.getMittelPunkt()) - tmp / 2, getZ(hand.getMittelPunkt()) - tmp / 2, tmp, tmp);
 		tmp = (int) hand.maxAbstand;
 		g.setColor(Color.orange);
