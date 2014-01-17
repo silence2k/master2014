@@ -72,7 +72,7 @@ public class Hebel2 extends Hebel {
 				rotateWahl(distanceGriff2, distanceRechtsGriff2, distanceLinksGriff2, griff2, griff1, distanceMitte);
 			}
 		}
-
+		updateAnzeige(zielwert(), deltaTime);
 	}
 
 	private void rotateWahl(float distance, float distanceRechts, float distanceLinks, AktorGriff rotateGriff,

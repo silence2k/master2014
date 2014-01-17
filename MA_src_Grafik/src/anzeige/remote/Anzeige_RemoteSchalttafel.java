@@ -273,7 +273,7 @@ public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
 	private void knopfTafel(float x1, float y1, float x2, float y2) {
 		Button1 button = new Button1();
 		AnzeigerLampe lampe1 = new AnzeigerLampe();
-		node.attachChild(button.init(physic, assetManager, new Vector3f(x1, y1, -0.1f)));
+		node.attachChild(button.init(physic, assetManager, new Vector3f(x1, y1, -0.05f)));
 		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		button.setAnzeiger(lampe1);
 		artefakte.add(button);

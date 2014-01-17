@@ -26,7 +26,7 @@ public class Griff1 extends Artefakt {
 		minTrans = 0f;
 
 		// Heben unten max
-		maxTrans = 0.5f;
+		maxTrans = 0.3f;
 	}
 
 	@Override

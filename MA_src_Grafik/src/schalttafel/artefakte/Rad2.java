@@ -64,7 +64,7 @@ public class Rad2 extends Rad {
 			}
 
 		}
-
+		updateAnzeige(zielwert(), deltaTime);
 	}
 
 	private void rotateWahl(float distance, float distanceRechts, float distanceLinks, AktorGriff rotateGriff,

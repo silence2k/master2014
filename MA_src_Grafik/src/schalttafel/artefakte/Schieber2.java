@@ -43,7 +43,7 @@ public class Schieber2 extends Schieber {
 				}
 			}
 		}
-
+		updateAnzeige(zielwert(), deltaTime);
 	}
 
 	private void myTranslate(AktorGriff griff, float distance, float translationDX) {
