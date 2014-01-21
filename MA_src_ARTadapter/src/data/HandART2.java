@@ -17,9 +17,15 @@ public class HandART2 {
 	
 
 	public static final double maxAbstand = 120;
+	
+	public static final double maxAbstandXY = 120;
+	
+	public static final double maxAbstandZ = 120;
+	
+	
 
-	private static final double maxGreifen = 40;
-	private static final double minNichtGreifen = 80;
+	private static final double maxGreifen = 60;
+	private static final double minNichtGreifen = 100;
 	private static final int minAnzahlFingerGreifen = 5;
 	private static final int switchCounterMaxZu = 3;
 	private static final int switchCounterMaxOffen = 5;
@@ -29,6 +35,7 @@ public class HandART2 {
 	private Ringpuffer<Standard3DExtented> finger = new Ringpuffer<Standard3DExtented>(5);
 	private Set<String> fingerID;
 	private double ausdehnung;
+	private double ausdehnung2;
 
 	private Standard3D mittelPunkt = new Standard3D("", 0, 0, 0);
 	private Standard3D entferntesterPunkt = new Standard3D("", 0, 0, 0);
@@ -82,7 +89,7 @@ public class HandART2 {
 			for (Standard3DExtented s3d : list) {
 				if (enthaeltID(s3d.getId())) {
 					cleanList.add(s3d);
-				} else if (mittelPunkt.abstand(s3d) < maxAbstand) {
+				} else if (mittelPunkt.abstand(s3d) < maxAbstand || mittelPunkt.abstandTiefe(s3d) < maxAbstandZ) {
 					cleanList.add(s3d);
 				}
 
@@ -90,11 +97,11 @@ public class HandART2 {
 		}
 		finger.add(cleanList);
 		internUpdate();
-		System.out.println(ausdehnung);
+		System.out.println("ausdehnung: "+ausdehnung+"  ausdehnung2: "+ausdehnung2);
 		if (finger.size() > minAnzahlFingerGreifen) {
-			if (grab && ausdehnung > minNichtGreifen) {
+			if (grab && ausdehnung2 > minNichtGreifen) {
 				swich();
-			} else if (!grab && ausdehnung < maxGreifen) {
+			} else if (!grab && ausdehnung2 < maxGreifen) {
 				swich();
 			}else{
 				switchCounter = 0;
@@ -159,6 +166,16 @@ public class HandART2 {
 		ausdehnung = tmp;
 		fingerID = set;
 		berechneSchwerpunkt();
+		tmp = 0;
+		if(entferntesterPunkt != null){
+		for (Standard3D s3d : finger.getAll()) {
+			tmpAbstand = entferntesterPunkt.abstandBreiteHoehe(s3d);
+			if(tmp < tmpAbstand){
+				tmp = tmpAbstand;
+			}
+		}
+		ausdehnung2 = tmp;
+		}
 	}
 
 	public void berechneSchwerpunkt() {
@@ -228,7 +245,7 @@ public class HandART2 {
 	
 	@Override
 	public String toString() {
-		return "Hand[x=" + (mittelPunkt.getX()*scale+dx) + ";y=" + (mittelPunkt.getZ()*scale+dy) + ";z=" + (mittelPunkt.getY()*scale+dz) + ";grab="
+		return "Hand[x=" + (mittelPunkt.getX()*scale+dx) + ";y=" + (mittelPunkt.getZ()*scale+dy) + ";z=" + -(mittelPunkt.getY()*scale+dz) + ";grab="
 				+ grab + "]";
 	}
 

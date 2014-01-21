@@ -59,6 +59,17 @@ public class Standard3D {
 		return Math.sqrt(tx*tx+ty*ty+tz*tz);
 	}
 	
+	public double abstandBreiteHoehe(Standard3D s3d){
+		double tx = x - s3d.x;
+		double tz = z - s3d.z;
+		return Math.sqrt(tx*tx+tz*tz);
+	}
+	
+	public double abstandTiefe(Standard3D s3d){
+		
+		return (y - s3d.y) > 0?(y - s3d.y):-(y - s3d.y);
+	}
+	
 	public double abstandOhneY(Standard3D s3d){
 		double tx = x - s3d.x;
 		double ty = y - s3d.y;

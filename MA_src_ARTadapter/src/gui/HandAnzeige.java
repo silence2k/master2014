@@ -44,7 +44,7 @@ public class HandAnzeige extends JPanel {
 		super();
 		this.ds = ds;
 
-		berechne = new Berechne(ds);
+		berechne = new Berechne(ds,false);
 	}
 
 	@Override
@@ -98,6 +98,10 @@ public class HandAnzeige extends JPanel {
 	private void printHand(HandART2 hand, Graphics g, boolean rechts) {
 
 		g.setColor(Color.cyan);
+		
+		for (Standard3D s3d : hand.getFingerListe()) {
+			g.fillRect(getX(s3d), getZ(s3d), 2, 2);
+		}
 
 		g.fillRect(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), 2, 2);
 		int tmp = (int) hand.getAusdehnung();
@@ -146,7 +150,7 @@ public class HandAnzeige extends JPanel {
 		 //Reader data = Reader.instance(new File(Verzeichnis+"Hand_eins.txt"));
 //		Reader data = Reader.instance(new File(Verzeichnis + "ZweiHand_winken.txt"));
 //		Reader data = Reader.instance(new File(Verzeichnis + "Greifen.txt"));
-		Reader data = Reader.instance(new File(Verzeichnis + "GreifenZiehen.txt"));
+		Reader data = Reader.instance(new File(Verzeichnis + "Greifen2.txt"));
 
 //		 ARTDataSource data = new ARTDataSource();
 //		 UdpReciver reciver = new UdpReciver();

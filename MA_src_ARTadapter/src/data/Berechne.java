@@ -28,15 +28,16 @@ public class Berechne {
 
 	Ringpuffer<Standard3DExtented> puffer = new Ringpuffer<>(5);
 
-	public Berechne(DataSource dataSource) {
+	public Berechne(DataSource dataSource, boolean remote) {
 		super();
 		this.dataSource = dataSource;
-
+		if(remote){
 		try {
 			sender = new AMQ_Sender(rechteHand, linkeHand);
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
 		}
 	}
 

@@ -25,6 +25,7 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
+import com.jme3.system.AppSettings;
 
 public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
 
@@ -42,6 +43,9 @@ public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
 
 	public static void main(String[] args) {
 		Anzeige_RemoteSchalttafel app = new Anzeige_RemoteSchalttafel();
+		AppSettings newSetting = new AppSettings(true);
+		newSetting.setFrameRate(50);
+		app.setSettings(newSetting);
 		app.start();
 	}
 

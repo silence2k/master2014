@@ -60,7 +60,6 @@ public class ARTDataSource implements DataSource, DataParser {
 	//
 	// }
 	// reader.close();
-	// System.out.println("Anzahl Listen: "+r.list.size());
 	// return r;
 	// }
 
