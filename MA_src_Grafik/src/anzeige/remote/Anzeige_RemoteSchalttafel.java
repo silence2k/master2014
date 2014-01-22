@@ -304,12 +304,17 @@ public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
 	private void komplettesSchaltpultTafel() {
 		float yhebel = -0.8f;
 		float yhebellampe = -0.1f;
-		hebelTafel(-0.5f, yhebel, -0.5f, yhebellampe);
-		hebelTafel(-1.1f, yhebel, -1.1f, yhebellampe);
-		hebel2Tafel(-1.8f, yhebel, -1.8f, yhebellampe);
+//		hebelTafel(-0.5f, yhebel, -0.5f, yhebellampe);
+//		hebelTafel(-1.1f, yhebel, -1.1f, yhebellampe);
+//		hebel2Tafel(-1.8f, yhebel, -1.8f, yhebellampe);
 
-		schieberTafel(0.4f, -1.25f, 0.4f, -0.3f);
-		schieber2Tafel(0.8f, -0.7f, 1, -0.3f);
+		hebelTafel(0.3f, yhebel, 0.3f, yhebellampe);
+		hebelTafel(-0.3f, yhebel, -0.3f, yhebellampe);
+		hebel2Tafel(-1.0f, yhebel, -1.0f, yhebellampe);
+		
+		
+		schieberTafel(0.8f, -1.25f, 0.8f, -0.3f);
+		schieber2Tafel(1.2f, -0.7f, 1.4f, -0.3f);
 
 		float yRad = 0.5f;
 		float yRadStab = 1.0f;

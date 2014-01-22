@@ -90,7 +90,16 @@ public class Button1 extends Artefakt {
 				}
 			}
 		}
-
+		updateAnzeige(zielwert(), deltaTime);
+	}
+	
+	protected float zielwert() {
+		float tmp = maxTrans - minTrans;
+		float tmp2 = translation / tmp * 100f;
+		
+		tmp2 = 100f + tmp2;
+		System.out.println(tmp2);
+		return tmp2;
 	}
 
 	private void myTranslate(AktorGriff griff, float distance, float translationDX) {

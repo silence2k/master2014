@@ -95,7 +95,7 @@ public class HandART2 {
 		}
 		finger.add(cleanList);
 		internUpdate();
-		System.out.println("ausdehnung: "+ausdehnung+"  ausdehnung2: "+ausdehnung2);
+		//System.out.println("ausdehnung: "+ausdehnung+"  ausdehnung2: "+ausdehnung2);
 		if (finger.size() > minAnzahlFingerGreifen) {
 			if (grab && ausdehnung2 > minNichtGreifen) {
 				swich();
