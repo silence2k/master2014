@@ -3,6 +3,7 @@ package schalttafel.artefakte;
 import java.util.List;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.audio.AudioNode;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
@@ -12,6 +13,13 @@ import com.jme3.scene.Spatial;
 public class Rad2 extends Rad {
 
 	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
+		init();
+		
+		audioRaddreh = new AudioNode(assetManager, "sound/raddreh.wav", false);
+		audioRaddreh.setLooping(false);
+
+		audioRadende = new AudioNode(assetManager, "sound/radende.wav", false);
+		audioRadende.setLooping(false);
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/rad2/rad2.obj");
 
@@ -84,18 +92,26 @@ public class Rad2 extends Rad {
 		}
 	}
 
-	private void myRotate(AktorGriff griff, float distance, float rotation, AktorGriff andererGriff, float distanceMitte) {
+	private void myRotate(AktorGriff griff, float distance, float rotationDX, AktorGriff andererGriff, float distanceMitte) {
 		float oldDistance = distance;
 		float newDistanceGriffRotate = 0;
 		float newDistanceAndererGriff = 0;
 		while (true) {
-			graficObject.rotate(0, 0, rotation);
+			if (!isBeweglichRotation(rotationDX, rotation)) {
+				audioRadende.play();
+				break;
+			}
+			this.rotation += rotationDX;
+			System.out.println("Rotation: "+rotation);
+			graficObject.rotate(0, 0, rotationDX);
 			newDistanceGriffRotate = griff.distanceToActor();
 			newDistanceAndererGriff = andererGriff.distanceToActor();
 			if (newDistanceGriffRotate > oldDistance || newDistanceAndererGriff > distanceMitte) {
 				break;
 			}
+			
 			oldDistance = newDistanceGriffRotate;
+			audioRaddreh.play();
 		}
 
 	}

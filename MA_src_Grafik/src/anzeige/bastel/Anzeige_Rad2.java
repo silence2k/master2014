@@ -1,5 +1,6 @@
 package anzeige.bastel;
 
+import schalttafel.anzeige.AnzeigerStab;
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Rad2;
 import anzeige.Anzeige;
@@ -12,6 +13,7 @@ import com.jme3.math.Vector3f;
 public class Anzeige_Rad2 extends Anzeige {
 
 	Rad2 rad2 = new Rad2();
+	AnzeigerStab as = new AnzeigerStab();
 
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
@@ -31,6 +33,8 @@ public class Anzeige_Rad2 extends Anzeige {
 		setupKeys();
 
 		rootNode.attachChild(rad2.init(physic, assetManager, new Vector3f(0, 0, 0)));
+		rootNode.attachChild(as.init(physic, assetManager, new Vector3f(0, 1, 0)));
+		rad2.setAnzeiger(as);
 
 		handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
 		handLinks.init(physic, assetManager, new Vector3f(-1, 0, 0.2f));

@@ -56,7 +56,7 @@ public class AnzeigerStab extends Anzeiger {
 	@Override
 	public void setZielWert(float zielwert) {
 		if (zielwert < 0f || zielwert > 100f) {
-			throw new RuntimeException("Der Zzielwert liegt ausserhalb von 0 und 100, zielwert: " + zielwert);
+			throw new RuntimeException("Der Zielwert liegt ausserhalb von 0 und 100, zielwert: " + zielwert);
 		}
 		this.zielWert = zielwert;
 	}

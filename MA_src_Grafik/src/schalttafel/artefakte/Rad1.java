@@ -11,8 +11,7 @@ import com.jme3.scene.Spatial;
 
 public class Rad1 extends Rad {
 
-	private AudioNode audioRaddreh;
-	private AudioNode audioRadende;
+
 
 	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
 		init();
@@ -22,6 +21,7 @@ public class Rad1 extends Rad {
 
 		audioRadende = new AudioNode(assetManager, "sound/radende.wav", false);
 		audioRadende.setLooping(false);
+		
 
 		graficObject = (Node) assetManager.loadModel("obj/rad1/rad1.obj");
 

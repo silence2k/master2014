@@ -1,5 +1,6 @@
 package anzeige.bastel;
 
+import schalttafel.anzeige.AnzeigerLampe;
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Hebel2;
 import anzeige.Anzeige;
@@ -12,6 +13,8 @@ import com.jme3.math.Vector3f;
 public class Anzeige_Hebel2 extends Anzeige {
 
 	Hebel2 hebel = new Hebel2();
+	
+	AnzeigerLampe lampe = new AnzeigerLampe();
 
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
@@ -31,6 +34,9 @@ public class Anzeige_Hebel2 extends Anzeige {
 		setupKeys();
 
 		rootNode.attachChild(hebel.init(physic, assetManager, new Vector3f(0, 0, 0)));
+		rootNode.attachChild(lampe.init(physic, assetManager, new Vector3f(0, 1, 0)));
+
+		hebel.setAnzeiger(lampe);
 
 		handRechts.init(physic, assetManager, new Vector3f(1, 0, 0.2f));
 		handLinks.init(physic, assetManager, new Vector3f(-1, 0, 0.2f));
