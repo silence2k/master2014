@@ -17,9 +17,7 @@ public class HandART2 {
 	
 
 	public static final double maxAbstand = 120;
-	
 	public static final double maxAbstandXY = 120;
-	
 	public static final double maxAbstandZ = 120;
 	
 	
