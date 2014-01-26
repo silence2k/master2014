@@ -93,7 +93,12 @@ public class Schalter2 extends Artefakt {
 				}
 			}
 		}
-
+		updateAnzeige(zielwert(), deltaTime);
+	}
+	
+	protected float zielwert() {
+		float tmp = maxRot - minRot;
+		return rotation / tmp * 100f;
 	}
 
 	private void myRotate(AktorGriff griff, float distance, float rotationDx) {
