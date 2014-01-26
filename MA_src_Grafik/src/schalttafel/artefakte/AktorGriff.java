@@ -64,6 +64,9 @@ public class AktorGriff {
 	}
 
 	public float distance(Aktor aktor) {
+		if(aktor == null){
+			return Float.MAX_VALUE;
+		}
 		return geo.getWorldTranslation().distance(aktor.getLocalTranslation());
 	}
 
