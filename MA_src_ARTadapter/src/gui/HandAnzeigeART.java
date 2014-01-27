@@ -44,7 +44,7 @@ public class HandAnzeigeART extends JPanel {
 		super();
 		this.ds = ds;
 
-		berechne = new Berechne(ds, true);
+		berechne = new Berechne(ds, true,true,false);
 	}
 
 	@Override

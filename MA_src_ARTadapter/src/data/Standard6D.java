@@ -13,21 +13,21 @@ public class Standard6D extends ARTartefakt implements DataParser {
 	
 	
 	//6d 1 [12 1.000][-1654.938 -1470.036 1295.103 -170.9444 22.1562 61.4650][0.442421 -0.895931 0.039636 -0.813655 -0.419593 -0.402378 0.377133 0.145771 -0.914615]
-	private double x;
-	private double y;
-	private double z;
+	protected double x;
+	protected double y;
+	protected double z;
 	
-	private double eta;
-	private double theta;
-	private double phi;
+	protected double eta;
+	protected double theta;
+	protected double phi;
 	
 //	private double rot[];
 	
-	private float[] etaM = new float[3];
-	private float[] thetaM = new float[3];
-	private float[] phiM = new float[3];
+	protected float[] etaM = new float[3];
+	protected float[] thetaM = new float[3];
+	protected float[] phiM = new float[3];
 	
-	Rotationmatrix rotM = Rotationmatrix.instanceOf();
+	protected Rotationmatrix rotM = Rotationmatrix.instanceOf();
 	
 	
 	public Standard6D(){

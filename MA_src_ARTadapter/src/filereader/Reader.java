@@ -14,6 +14,7 @@ import reciver.parser.Standard3D_Parser;
 import data.DataSource;
 import data.Standard3D;
 import data.Standard3DExtented;
+import data.Standard6D;
 
 public class Reader implements DataSource{
 	
@@ -49,6 +50,15 @@ public class Reader implements DataSource{
 		return result;
 	}
 	
+	
+	
+	@Override
+	public Standard6D getStandard6d() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	public static Reader instance(File dataFile) throws FileNotFoundException, IOException {
 		Reader r = new Reader();
         BufferedReader reader = new BufferedReader(new FileReader(dataFile));

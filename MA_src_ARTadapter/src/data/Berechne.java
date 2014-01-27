@@ -11,15 +11,17 @@ public class Berechne {
 
 	private double grenze_xPlus = 2000;
 	private double grenze_xMinus = -2000;
-	private double grenze_yPlus = 2000;
-	private double grenze_yMinus = -2000;
+	private double grenze_yPlus = 1000;
+	private double grenze_yMinus = -1000;
 	private double grenze_zPlus = 2000;
-	private double grenze_zMinus = -2000;
+	private double grenze_zMinus = 0000;
 
 	private DataSource dataSource;
 
-	private HandART2 rechteHand = new HandART2(1000, 0, 0);
-	private HandART2 linkeHand = new HandART2(-1000, 0, 0);
+	private HandART2 rechteHand = new HandART2(1000, 0, 500);
+	private HandART2 linkeHand = new HandART2(-1000, 0, 500);
+	
+	private KopfART kopf = new KopfART();
 
 	AMQ_Sender sender;
 
@@ -28,12 +30,17 @@ public class Berechne {
 
 	Ringpuffer<Standard3DExtented> puffer = new Ringpuffer<>(5);
 
-	public Berechne(DataSource dataSource, boolean remote) {
+	public Berechne(DataSource dataSource, boolean remote, boolean mitHaenden, boolean mitKopf) {
 		super();
 		this.dataSource = dataSource;
 		if(remote){
 		try {
-			sender = new AMQ_Sender(rechteHand, linkeHand);
+			if(mitHaenden && !mitKopf){
+				sender = new AMQ_Sender(rechteHand, linkeHand);
+			}else if(!mitHaenden && mitKopf){
+				sender = new AMQ_Sender(kopf);
+			}
+			
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

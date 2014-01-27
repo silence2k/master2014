@@ -14,6 +14,7 @@ import reciver.parser.Standard3D_Parser;
 
 import data.DataSource;
 import data.Standard3DExtented;
+import data.Standard6D;
 import filereader.Reader;
 
 public class ARTDataSource implements DataSource, DataParser {
@@ -27,6 +28,8 @@ public class ARTDataSource implements DataSource, DataParser {
 	protected long warteZeit = 50; // 50ms
 
 	private List<Standard3DExtented> standard3dList = new ArrayList<>();
+	
+	Standard6D st6d = new Standard6D();
 
 	public ARTDataSource() {
 		super();
@@ -38,6 +41,8 @@ public class ARTDataSource implements DataSource, DataParser {
 	public List<Standard3DExtented> getStandard3dList() {
 		return standard3dList;
 	}
+	
+	
 
 	// public static Reader instance(File dataFile) throws
 	// FileNotFoundException, IOException {
@@ -64,6 +69,12 @@ public class ARTDataSource implements DataSource, DataParser {
 	// }
 
 	@Override
+	public Standard6D getStandard6d() {
+		// TODO Auto-generated method stub
+		return st6d;
+	}
+
+	@Override
 	public void parse(String _data) {
 		String[] data = _data.split("\n");
 		int frameNr = 0;
@@ -73,6 +84,9 @@ public class ARTDataSource implements DataSource, DataParser {
 				frameNr = Parser.parseFrame(line);
 			} else if (line.startsWith("3d ")) {
 				tmpList = Standard3D_Parser.parseList(line, frameNr);
+			}else if(line.startsWith("6d ") && line.contains("["))
+			{
+				st6d.update(line.substring(line.indexOf("[")));
 			}
 		}
 		standard3dList = tmpList;

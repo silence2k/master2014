@@ -11,6 +11,7 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import data.HandART2;
+import data.KopfART;
 
 public class AMQ_Sender {
 	
@@ -25,10 +26,14 @@ public class AMQ_Sender {
 	private MessageProducer producerRechts;
 	private MessageProducer producerLinks;
 	
+	private MessageProducer producerKopf;
+	
 	private volatile boolean weiter = true;
 	
 	private HandART2 rechts;
 	private HandART2 links;
+	
+	private KopfART kopf;
 
 
 
@@ -43,6 +48,12 @@ public class AMQ_Sender {
 		
 	}
 
+	public AMQ_Sender(KopfART kopf) throws JMSException{
+		this.kopf = kopf;
+		
+		initActiveMQ();
+		initSenderThread();
+	}
 
 
 
@@ -58,18 +69,23 @@ public class AMQ_Sender {
 
 		// Create a Session
 		session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+		Destination destination = null;
 
-		// Create the destination (Topic or Queue)
-		Destination destination = session.createQueue("Hand.Rechts");
-
-		// Create a MessageProducer from the Session to the Topic or Queue
+		if(rechts != null){
+		destination = session.createQueue("Hand.Rechts");
 		producerRechts = session.createProducer(destination);
 		producerRechts.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-		
+		}
+		if(links != null){
 		destination = session.createQueue("Hand.Links");
-		
 		producerLinks = session.createProducer(destination);
 		producerLinks.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+		}
+		if(kopf != null){
+		destination = session.createQueue("Kopf");
+		producerKopf = session.createProducer(destination);
+		producerKopf.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+		}
 	}
 	
 	
@@ -110,11 +126,18 @@ public class AMQ_Sender {
 	private void send(){
 		TextMessage message;
 		try {
+			if(rechts !=null){
 			message = session.createTextMessage(rechts.toString());
 			producerRechts.send(message);
-			
-			message = session.createTextMessage(links.toString());
-			producerLinks.send(message);
+			}
+			if(links != null){
+				message = session.createTextMessage(links.toString());
+				producerLinks.send(message);
+			}
+			if(kopf != null){
+				message = session.createTextMessage(kopf.toString());
+				producerKopf.send(message);
+			}
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}

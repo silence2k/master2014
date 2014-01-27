@@ -12,6 +12,7 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import amqdata.Hand;
+import amqdata.Kopf;
 
 public class RemoteEmpfaenger {
 
@@ -22,7 +23,10 @@ public class RemoteEmpfaenger {
 	private Session session;
 	private MessageConsumer consumerLinks;
 	private MessageConsumer consumerRechts;
-	private MyConsumer myConsumer;
+	
+	private MessageConsumer consumerKopf;
+	
+	private MyHandConsumer myConsumer;
 
 	private Hand links = new Hand();
 	private Hand rechts = new Hand();
@@ -69,11 +73,11 @@ public class RemoteEmpfaenger {
 
 		// Create a MessageConsumer from the Session to the Topic or Queue
 		consumerLinks = session.createConsumer(destination);
-		new Thread(new MyConsumer(consumerLinks, links)).start();
+		new Thread(new MyHandConsumer(consumerLinks, links)).start();
 
 		destination = session.createQueue("Hand.Rechts");
 		consumerRechts = session.createConsumer(destination);
-		new Thread(new MyConsumer(consumerRechts, rechts)).start();
+		new Thread(new MyHandConsumer(consumerRechts, rechts)).start();
 
 	}
 
@@ -86,12 +90,12 @@ public class RemoteEmpfaenger {
 
 	}
 
-	public class MyConsumer implements Runnable, ExceptionListener {
+	public class MyHandConsumer implements Runnable, ExceptionListener {
 		private MessageConsumer consumer;
 
 		Hand hand;
 
-		public MyConsumer(MessageConsumer consumer, Hand hand) {
+		public MyHandConsumer(MessageConsumer consumer, Hand hand) {
 			super();
 			this.consumer = consumer;
 			this.hand = hand;
@@ -109,6 +113,46 @@ public class RemoteEmpfaenger {
 						TextMessage textMessage = (TextMessage) message;
 						String text = textMessage.getText();
 						this.hand.update(new Hand(text));
+
+					} else {
+						System.out.println("Received2: " + message);
+					}
+				}
+
+			} catch (Exception e) {
+				System.out.println("Caught: " + e);
+				e.printStackTrace();
+			}
+		}
+
+		public synchronized void onException(JMSException ex) {
+			System.out.println("JMS Exception occured.  Shutting down client.");
+		}
+	}
+	
+	public class MyKopfConsumer implements Runnable, ExceptionListener {
+		private MessageConsumer consumer;
+
+		Kopf kopf;
+
+		public MyKopfConsumer(MessageConsumer consumer, Kopf kopf) {
+			super();
+			this.consumer = consumer;
+			this.kopf = kopf;
+		}
+
+		public void run() {
+			System.out.println("Consumer started!!!");
+			try {
+				while (isWeiter()) {
+
+					// Wait for a message
+					Message message = consumer.receive(1000);
+
+					if (message instanceof TextMessage) {
+						TextMessage textMessage = (TextMessage) message;
+						String text = textMessage.getText();
+						this.kopf.update(new Kopf(text));
 
 					} else {
 						System.out.println("Received2: " + message);

@@ -116,6 +116,12 @@ public class Standard3D {
 			return false;
 		return true;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Standard3D [id=" + id + ", x=" + x + ", y=" + y + ", z=" + z + "]";
+	}
 	
 	
 	
