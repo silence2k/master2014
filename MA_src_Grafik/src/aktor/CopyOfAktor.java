@@ -15,7 +15,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.util.TangentBinormalGenerator;
 
-public class Aktor {
+public class CopyOfAktor {
 
 	private enum Zustand {
 		offen, gegriffen, nichtsgegriffen
@@ -60,7 +60,7 @@ public class Aktor {
 
 	private boolean physic;
 
-	public Aktor(Anzeige anzeige, boolean links) {
+	public CopyOfAktor(Anzeige anzeige, boolean links) {
 		super();
 		this.anzeige = anzeige;
 		this.links = links;
@@ -181,7 +181,7 @@ public class Aktor {
 		if (System.currentTimeMillis() - toggleTime > lastToggle) {
 			lastToggle = System.currentTimeMillis();
 
-			if (zustand == Zustand.offen) {
+			if (tmpGriff!= null &&zustand == Zustand.offen) {
 				if (tmpGriff.isGreifbar() && tmpGriff.distance(this) < maxgreifen) {
 					graHand.greifen();
 
@@ -198,21 +198,17 @@ public class Aktor {
 				}
 
 			} else {
-				handOeffnen();
+				graHand.oeffnen();
+
+				zustand = Zustand.offen;
+				if (this.griff != null) {
+					this.griff.loslassen();
+					this.griff = null;
+				}
 
 			}
 		}
 
-	}
-	
-	public void handOeffnen(){
-		graHand.oeffnen();
-
-		zustand = Zustand.offen;
-		if (this.griff != null) {
-			this.griff.loslassen();
-			this.griff = null;
-		}
 	}
 
 	private void greifen(boolean greifen) {

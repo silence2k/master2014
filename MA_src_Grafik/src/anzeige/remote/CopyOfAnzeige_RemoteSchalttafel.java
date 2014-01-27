@@ -27,7 +27,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
-public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
+public class CopyOfAnzeige_RemoteSchalttafel extends RemoteAnzeige {
 
 	Schalttafel schalttafel = new Schalttafel();
 
@@ -42,7 +42,7 @@ public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
 	boolean toggle = false;
 
 	public static void main(String[] args) {
-		Anzeige_RemoteSchalttafel app = new Anzeige_RemoteSchalttafel();
+		CopyOfAnzeige_RemoteSchalttafel app = new CopyOfAnzeige_RemoteSchalttafel();
 		AppSettings newSetting = new AppSettings(false);
 		newSetting.setFrameRate(50);
 		app.setSettings(newSetting);
@@ -56,9 +56,9 @@ public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
 
 		warteZeit = System.currentTimeMillis();
 
-		if (stateManager.getState(StatsAppState.class) != null) {
-			stateManager.getState(StatsAppState.class).toggleStats();
-		}
+//		if (stateManager.getState(StatsAppState.class) != null) {
+//			stateManager.getState(StatsAppState.class).toggleStats();
+//		}
 
 		this.flyCam.setEnabled(false);
 
@@ -304,17 +304,12 @@ public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
 	private void komplettesSchaltpultTafel() {
 		float yhebel = -0.8f;
 		float yhebellampe = -0.1f;
-//		hebelTafel(-0.5f, yhebel, -0.5f, yhebellampe);
-//		hebelTafel(-1.1f, yhebel, -1.1f, yhebellampe);
-//		hebel2Tafel(-1.8f, yhebel, -1.8f, yhebellampe);
+		hebelTafel(-0.5f, yhebel, -0.5f, yhebellampe);
+		hebelTafel(-1.1f, yhebel, -1.1f, yhebellampe);
+		hebel2Tafel(-1.8f, yhebel, -1.8f, yhebellampe);
 
-		hebelTafel(0.3f, yhebel, 0.3f, yhebellampe);
-		hebelTafel(-0.3f, yhebel, -0.3f, yhebellampe);
-		hebel2Tafel(-1.0f, yhebel, -1.0f, yhebellampe);
-		
-		
-		schieberTafel(0.8f, -1.25f, 0.8f, -0.3f);
-		schieber2Tafel(1.2f, -0.7f, 1.4f, -0.3f);
+		schieberTafel(0.4f, -1.25f, 0.4f, -0.3f);
+		schieber2Tafel(0.8f, -0.7f, 1, -0.3f);
 
 		float yRad = 0.5f;
 		float yRadStab = 1.0f;
