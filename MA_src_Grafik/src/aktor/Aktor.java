@@ -214,6 +214,16 @@ public class Aktor {
 			this.griff = null;
 		}
 	}
+	
+	public void handOeffnen2(){
+		graHand.oeffnen();
+		zustand = Zustand.nichtsgegriffen;
+		graHand.nichtGreifen();
+		if (this.griff != null) {
+			this.griff.loslassen();
+			this.griff = null;
+		}
+	}
 
 	private void greifen(boolean greifen) {
 		if (greifen == false && zustand != Zustand.offen) {

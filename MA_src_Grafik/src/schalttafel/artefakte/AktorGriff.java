@@ -53,7 +53,7 @@ public class AktorGriff {
 	
 	public void handloesen(){
 		if(aktor!=null){
-			aktor.handOeffnen();
+			aktor.handOeffnen2();
 		}
 	}
 
