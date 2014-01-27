@@ -1,6 +1,7 @@
 package steuerung;
 
-import data.Hand;
+import spacecore.Hand;
+
 
 public class Joystick {
 	
@@ -10,7 +11,7 @@ public class Joystick {
 	float positionY = -50;
 	
 	public void update(long timeDelta){
-		hand.
+//		hand.
 	}
 	
 	

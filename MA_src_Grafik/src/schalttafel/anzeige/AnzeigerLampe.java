@@ -12,6 +12,18 @@ public class AnzeigerLampe extends Anzeiger {
 	private boolean an;
 
 	private MyMaterial myMaterial;
+	
+	public AnzeigerLampe(){
+		
+	}
+	
+	public AnzeigerLampe(float schwellMin, float schwellMax){
+		this();
+		this.schwellWertMin = schwellMin;
+		this.schwellWertMax = schwellMax;
+	}
+	
+	
 
 	@Override
 	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
@@ -36,12 +48,13 @@ public class AnzeigerLampe extends Anzeiger {
 
 	@Override
 	public void setZielWert(float zielwert) {
+		//System.out.println("zielwert: "+zielwert);
 		if (!an) {
-			if (zielwert < 20) {
+			if (zielwert < schwellWertMin) {
 				setAn(true);
 			}
 		} else {
-			if (zielwert > 80) {
+			if (zielwert > schwellWertMax) {
 				setAn(false);
 			}
 		}

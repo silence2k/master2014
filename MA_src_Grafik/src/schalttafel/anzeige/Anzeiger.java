@@ -13,6 +13,10 @@ public abstract class Anzeiger {
 	
 	protected final ColorRGBA An = new ColorRGBA(1f, 1f, 0f, 1f);
 	protected final ColorRGBA Aus = new ColorRGBA(0.05f, 0.05f, 0.05f, 1f);
+	
+	protected float schwellWertMin = 20;
+	
+	protected float schwellWertMax = 80;
 
 	protected float zielWert = 0;
 

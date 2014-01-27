@@ -43,7 +43,18 @@ public class AktorGriff {
 
 	public void loslassen() {
 		this.aktor = null;
-		griffmaterial.setColor(Greifbar);
+		if(aktive){
+			griffmaterial.setColor(Greifbar);
+		}else{
+			griffmaterial.setColor(Inaktiv);
+		}
+		
+	}
+	
+	public void handloesen(){
+		if(aktor!=null){
+			aktor.handOeffnen();
+		}
 	}
 
 	public void setAktive(boolean aktive) {

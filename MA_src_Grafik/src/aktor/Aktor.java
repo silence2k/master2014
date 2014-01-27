@@ -190,17 +190,21 @@ public class Aktor {
 				}
 
 			} else {
-				graHand.oeffnen();
-
-				zustand = Zustand.offen;
-				if (this.griff != null) {
-					this.griff.loslassen();
-					this.griff = null;
-				}
+				handOeffnen();
 
 			}
 		}
 
+	}
+	
+	public void handOeffnen(){
+		graHand.oeffnen();
+
+		zustand = Zustand.offen;
+		if (this.griff != null) {
+			this.griff.loslassen();
+			this.griff = null;
+		}
 	}
 
 	private void greifen(boolean greifen) {

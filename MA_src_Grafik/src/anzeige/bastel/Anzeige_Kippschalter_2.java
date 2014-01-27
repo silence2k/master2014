@@ -14,7 +14,7 @@ public class Anzeige_Kippschalter_2 extends Anzeige {
 
 	Schalter2 schalter = new Schalter2();
 
-	AnzeigerLampe lampe = new AnzeigerLampe();
+	AnzeigerLampe lampe = new AnzeigerLampe(1,99);
 
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
