@@ -1,6 +1,7 @@
 package schalttafel.artefakte;
 
 import schalttafel.anzeige.Anzeiger;
+import schalttafel.anzeige.IF_Anzeiger;
 import aktor.Aktor;
 
 import com.jme3.asset.AssetManager;
@@ -42,7 +43,7 @@ public abstract class Artefakt implements Greifbar {
 
 	protected AktorGriff griff2 = null;
 
-	protected Anzeiger anzeiger;
+	protected IF_Anzeiger anzeiger;
 
 	public abstract Node init(boolean physic, AssetManager assetManager, Vector3f position);
 
@@ -140,7 +141,7 @@ public abstract class Artefakt implements Greifbar {
 		return (aktuelleTranslation + dx) >= minTrans;
 	}
 
-	public void setAnzeiger(Anzeiger anzeiger) {
+	public void setAnzeiger(IF_Anzeiger anzeiger) {
 		this.anzeiger = anzeiger;
 	}
 
