@@ -51,14 +51,14 @@ public class CopyOfAnzeige_RemoteSchalttafel extends RemoteAnzeige {
 
 	@Override
 	public void simpleInitApp() {
-		
+
 		super.simpleInitApp();
 
 		warteZeit = System.currentTimeMillis();
 
-//		if (stateManager.getState(StatsAppState.class) != null) {
-//			stateManager.getState(StatsAppState.class).toggleStats();
-//		}
+		// if (stateManager.getState(StatsAppState.class) != null) {
+		// stateManager.getState(StatsAppState.class).toggleStats();
+		// }
 
 		this.flyCam.setEnabled(false);
 
@@ -89,16 +89,16 @@ public class CopyOfAnzeige_RemoteSchalttafel extends RemoteAnzeige {
 		rootNode.addLight(sun);
 	}
 
-//	@Override
-//	public void simpleUpdate(float tpf) {
-//		// TODO Auto-generated method stub
-//		super.simpleUpdate(tpf);
-//		refreshTime();
-//
-//		for (Artefakt arte : artefakte) {
-//			arte.update(deltaTime);
-//		}
-//	}
+	// @Override
+	// public void simpleUpdate(float tpf) {
+	// // TODO Auto-generated method stub
+	// super.simpleUpdate(tpf);
+	// refreshTime();
+	//
+	// for (Artefakt arte : artefakte) {
+	// arte.update(deltaTime);
+	// }
+	// }
 
 	private void refreshTime() {
 		long time = System.currentTimeMillis();
@@ -323,7 +323,7 @@ public class CopyOfAnzeige_RemoteSchalttafel extends RemoteAnzeige {
 		knopfTafel(1, yKnopf, 1, yKnopfLampe);
 		kippschalterTafel(1.5f, yKnopf, 1.5f, yKnopfLampe);
 
-		griffTafel(2,yKnopf, 2, yKnopfLampe);
+		griffTafel(2, yKnopf, 2, yKnopfLampe);
 
 	}
 

@@ -14,7 +14,7 @@ public class Anzeige_Kippschalter_2 extends Anzeige {
 
 	Schalter2 schalter = new Schalter2();
 
-	AnzeigerLampe lampe = new AnzeigerLampe(1,99);
+	AnzeigerLampe lampe = new AnzeigerLampe(1, 99);
 
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
@@ -77,7 +77,8 @@ public class Anzeige_Kippschalter_2 extends Anzeige {
 		inputManager.addMapping("ra_rein", new KeyTrigger(KeyInput.KEY_U));
 		inputManager.addMapping("ra_raus", new KeyTrigger(KeyInput.KEY_O));
 
-		inputManager.addListener(this, "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein", "ra_raus");
+		inputManager.addListener(this, "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein",
+				"ra_raus");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {

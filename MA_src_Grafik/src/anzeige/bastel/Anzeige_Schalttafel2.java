@@ -319,7 +319,7 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		knopfTafel(1, yKnopf, 1, yKnopfLampe);
 		kippschalterTafel(1.5f, yKnopf, 1.5f, yKnopfLampe);
 
-		griffTafel(2,yKnopf, 2, yKnopfLampe);
+		griffTafel(2, yKnopf, 2, yKnopfLampe);
 
 	}
 

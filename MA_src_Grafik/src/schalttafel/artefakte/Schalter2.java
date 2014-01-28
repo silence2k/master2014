@@ -44,19 +44,18 @@ public class Schalter2 extends Artefakt {
 
 		Geometry g = (Geometry) graficObject.getChild("schalter2-geom-0");
 		MyMaterial m = new MyMaterial(g.getMaterial());
-		//m.setColor(Greifbar);
+		// m.setColor(Greifbar);
 
 		buildGriff1(new Vector3f(-0.1f, 0, 0.05f), m, assetManager);
 		griff1.setAktive(true);
 
 		g = (Geometry) graficObject.getChild("schalter2-geom-2");
 		m = new MyMaterial(g.getMaterial());
-		//m.setColor(Inaktiv);
+		// m.setColor(Inaktiv);
 
 		buildGriff2(new Vector3f(0.1f, 0, 0.05f), m, assetManager);
-		
+
 		griff2.setAktive(false);
-		
 
 		graficObject.setLocalTranslation(position);
 
@@ -99,11 +98,10 @@ public class Schalter2 extends Artefakt {
 		}
 		updateAnzeige(zielwert(), deltaTime);
 	}
-	
-	
+
 	protected float zielwert() {
 		float tmp = maxRot - minRot;
-		return (rotation / tmp * 100f)+50;
+		return (rotation / tmp * 100f) + 50;
 	}
 
 	private void myRotate(AktorGriff griff, float distance, float rotationDx) {

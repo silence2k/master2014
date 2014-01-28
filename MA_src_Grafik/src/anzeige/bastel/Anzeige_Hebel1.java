@@ -69,14 +69,6 @@ public class Anzeige_Hebel1 extends Anzeige {
 
 	private void setupKeys() {
 
-		inputManager.addMapping("la_hoch", new KeyTrigger(KeyInput.KEY_T));
-		inputManager.addMapping("la_runter", new KeyTrigger(KeyInput.KEY_G));
-		inputManager.addMapping("la_links", new KeyTrigger(KeyInput.KEY_F));
-		inputManager.addMapping("la_rechts", new KeyTrigger(KeyInput.KEY_H));
-		inputManager.addMapping("la_greifen", new KeyTrigger(KeyInput.KEY_B));
-		inputManager.addMapping("la_rein", new KeyTrigger(KeyInput.KEY_R));
-		inputManager.addMapping("la_raus", new KeyTrigger(KeyInput.KEY_Z));
-
 		inputManager.addMapping("ra_hoch", new KeyTrigger(KeyInput.KEY_I));
 		inputManager.addMapping("ra_runter", new KeyTrigger(KeyInput.KEY_K));
 		inputManager.addMapping("ra_links", new KeyTrigger(KeyInput.KEY_J));
@@ -85,8 +77,8 @@ public class Anzeige_Hebel1 extends Anzeige {
 		inputManager.addMapping("ra_rein", new KeyTrigger(KeyInput.KEY_U));
 		inputManager.addMapping("ra_raus", new KeyTrigger(KeyInput.KEY_O));
 
-		inputManager.addListener(this, "la_hoch", "la_runter", "la_links", "la_rechts", "la_greifen", "la_rein",
-				"la_raus", "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein", "ra_raus");
+		inputManager.addListener(this, "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen", "ra_rein",
+				"ra_raus");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {

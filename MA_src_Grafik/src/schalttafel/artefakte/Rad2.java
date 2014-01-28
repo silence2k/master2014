@@ -14,7 +14,7 @@ public class Rad2 extends Rad {
 
 	public Node init(boolean physic, AssetManager assetManager, Vector3f position) {
 		init();
-		
+
 		audioRaddreh = new AudioNode(assetManager, "sound/raddreh.wav", false);
 		audioRaddreh.setLooping(false);
 
@@ -92,7 +92,8 @@ public class Rad2 extends Rad {
 		}
 	}
 
-	private void myRotate(AktorGriff griff, float distance, float rotationDX, AktorGriff andererGriff, float distanceMitte) {
+	private void myRotate(AktorGriff griff, float distance, float rotationDX, AktorGriff andererGriff,
+			float distanceMitte) {
 		float oldDistance = distance;
 		float newDistanceGriffRotate = 0;
 		float newDistanceAndererGriff = 0;
@@ -102,14 +103,14 @@ public class Rad2 extends Rad {
 				break;
 			}
 			this.rotation += rotationDX;
-			System.out.println("Rotation: "+rotation);
+			System.out.println("Rotation: " + rotation);
 			graficObject.rotate(0, 0, rotationDX);
 			newDistanceGriffRotate = griff.distanceToActor();
 			newDistanceAndererGriff = andererGriff.distanceToActor();
 			if (newDistanceGriffRotate > oldDistance || newDistanceAndererGriff > distanceMitte) {
 				break;
 			}
-			
+
 			oldDistance = newDistanceGriffRotate;
 			audioRaddreh.play();
 		}

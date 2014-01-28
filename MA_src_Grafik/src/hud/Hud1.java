@@ -69,10 +69,10 @@ public class Hud1 extends SimpleApplication {
 	public static void main(final String[] args) {
 		Kopf kopf = new Kopf();
 
-//		UdpReciver reciver = new UdpReciver();
-//		reciver.addDataParser(new ParserSimple(kopf));
-//		Thread t = new Thread(reciver);
-//		t.start();
+		// UdpReciver reciver = new UdpReciver();
+		// reciver.addDataParser(new ParserSimple(kopf));
+		// Thread t = new Thread(reciver);
+		// t.start();
 
 		Hud1 app = new Hud1(kopf);
 		app.start();

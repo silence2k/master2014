@@ -38,12 +38,9 @@ public class Anzeige_Knopf extends Anzeige {
 		rootNode.attachChild(lampe.init(physic, assetManager, new Vector3f(0, 1, 0)));
 
 		button1.setAnzeiger(lampe);
-		
-		
+
 		// rootNode.attachChild(lampe.init(physic, assetManager, new Vector3f(0,
 		// 1, 0)));
-
-
 
 		// griff1.setAnzeiger(lampe);
 
@@ -52,7 +49,6 @@ public class Anzeige_Knopf extends Anzeige {
 		// Vector3f(-1, 0, 0.2f)));
 
 		artefakte.add(button1);
-
 
 		/** You must add a light to make the model visible */
 		DirectionalLight sun = new DirectionalLight();

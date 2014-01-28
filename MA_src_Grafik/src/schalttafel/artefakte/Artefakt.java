@@ -14,13 +14,13 @@ import com.jme3.util.TangentBinormalGenerator;
 
 public abstract class Artefakt implements Greifbar {
 
-//	protected final ColorRGBA Greifbar = new ColorRGBA(0f, 1f, 0f, 1f);
+	// protected final ColorRGBA Greifbar = new ColorRGBA(0f, 1f, 0f, 1f);
 	protected final ColorRGBA Greifbar = new ColorRGBA(0f, 1f, 0f, 1f);
 	protected final ColorRGBA Gegriffen = new ColorRGBA(1f, 0f, 0f, 1f);
 	protected final ColorRGBA Inaktiv = new ColorRGBA(1f, 1f, 1f, 1f);
-	
-//	final float size = 0.05f;
-	final float size = 0.001f;
+
+	final float size = 0.05f;
+	// final float size = 0.001f;
 
 	// grenze min rotation
 	float minRot;
@@ -107,7 +107,8 @@ public abstract class Artefakt implements Greifbar {
 	}
 
 	protected boolean isBeweglichRotation(float dx, float aktuelleRotation) {
-		//System.out.println("dx: "+dx + " aktuelleRotation: "+aktuelleRotation);
+		// System.out.println("dx: "+dx +
+		// " aktuelleRotation: "+aktuelleRotation);
 		return isBeweglichMaxRot(dx, aktuelleRotation) && isBeweglichMinRot(dx, aktuelleRotation);
 	}
 
@@ -130,12 +131,12 @@ public abstract class Artefakt implements Greifbar {
 	}
 
 	protected boolean isBeweglichMaxTrans(float dx, float aktuelleTranslation) {
-		//System.out.println(aktuelleTranslation + dx +" : "+maxTrans);
+		// System.out.println(aktuelleTranslation + dx +" : "+maxTrans);
 		return (aktuelleTranslation + dx) <= maxTrans;
 	}
 
 	protected boolean isBeweglichMinTrans(float dx, float aktuelleTranslation) {
-		//System.out.println(aktuelleTranslation + dx +" : "+minTrans);
+		// System.out.println(aktuelleTranslation + dx +" : "+minTrans);
 		return (aktuelleTranslation + dx) >= minTrans;
 	}
 

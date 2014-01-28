@@ -39,7 +39,7 @@ public class Joystick extends Artefakt {
 		MyMaterial m = new MyMaterial(g.getMaterial());
 		m.setColor(Greifbar);
 
-		buildGriff1(new Vector3f(0, 0.40f, 0), m, assetManager);
+		buildGriff1(new Vector3f(0, 0.5f, 0), m, assetManager);
 
 		graficObject.setLocalTranslation(position);
 

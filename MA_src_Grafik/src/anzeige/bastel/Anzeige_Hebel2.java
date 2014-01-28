@@ -13,7 +13,7 @@ import com.jme3.math.Vector3f;
 public class Anzeige_Hebel2 extends Anzeige {
 
 	Hebel2 hebel = new Hebel2();
-	
+
 	AnzeigerLampe lampe = new AnzeigerLampe();
 
 	long lasttime = System.currentTimeMillis();

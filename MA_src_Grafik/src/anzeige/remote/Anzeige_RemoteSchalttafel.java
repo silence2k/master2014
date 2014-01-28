@@ -51,7 +51,7 @@ public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
 
 	@Override
 	public void simpleInitApp() {
-		
+
 		super.simpleInitApp();
 
 		warteZeit = System.currentTimeMillis();
@@ -89,16 +89,16 @@ public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
 		rootNode.addLight(sun);
 	}
 
-//	@Override
-//	public void simpleUpdate(float tpf) {
-//		// TODO Auto-generated method stub
-//		super.simpleUpdate(tpf);
-//		refreshTime();
-//
-//		for (Artefakt arte : artefakte) {
-//			arte.update(deltaTime);
-//		}
-//	}
+	// @Override
+	// public void simpleUpdate(float tpf) {
+	// // TODO Auto-generated method stub
+	// super.simpleUpdate(tpf);
+	// refreshTime();
+	//
+	// for (Artefakt arte : artefakte) {
+	// arte.update(deltaTime);
+	// }
+	// }
 
 	private void refreshTime() {
 		long time = System.currentTimeMillis();
@@ -304,15 +304,14 @@ public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
 	private void komplettesSchaltpultTafel() {
 		float yhebel = -0.8f;
 		float yhebellampe = -0.1f;
-//		hebelTafel(-0.5f, yhebel, -0.5f, yhebellampe);
-//		hebelTafel(-1.1f, yhebel, -1.1f, yhebellampe);
-//		hebel2Tafel(-1.8f, yhebel, -1.8f, yhebellampe);
+		// hebelTafel(-0.5f, yhebel, -0.5f, yhebellampe);
+		// hebelTafel(-1.1f, yhebel, -1.1f, yhebellampe);
+		// hebel2Tafel(-1.8f, yhebel, -1.8f, yhebellampe);
 
 		hebelTafel(0.3f, yhebel, 0.3f, yhebellampe);
 		hebelTafel(-0.3f, yhebel, -0.3f, yhebellampe);
 		hebel2Tafel(-1.0f, yhebel, -1.0f, yhebellampe);
-		
-		
+
 		schieberTafel(0.8f, -1.25f, 0.8f, -0.3f);
 		schieber2Tafel(1.2f, -0.7f, 1.4f, -0.3f);
 
@@ -328,7 +327,7 @@ public class Anzeige_RemoteSchalttafel extends RemoteAnzeige {
 		knopfTafel(1, yKnopf, 1, yKnopfLampe);
 		kippschalterTafel(1.5f, yKnopf, 1.5f, yKnopfLampe);
 
-		griffTafel(2,yKnopf, 2, yKnopfLampe);
+		griffTafel(2, yKnopf, 2, yKnopfLampe);
 
 	}
 

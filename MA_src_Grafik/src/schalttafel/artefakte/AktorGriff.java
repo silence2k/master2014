@@ -43,16 +43,16 @@ public class AktorGriff {
 
 	public void loslassen() {
 		this.aktor = null;
-		if(aktive){
+		if (aktive) {
 			griffmaterial.setColor(Greifbar);
-		}else{
+		} else {
 			griffmaterial.setColor(Inaktiv);
 		}
-		
+
 	}
-	
-	public void handloesen(){
-		if(aktor!=null){
+
+	public void handloesen() {
+		if (aktor != null) {
 			aktor.handOeffnen2();
 		}
 	}
@@ -75,7 +75,7 @@ public class AktorGriff {
 	}
 
 	public float distance(Aktor aktor) {
-		if(aktor == null){
+		if (aktor == null) {
 			return Float.MAX_VALUE;
 		}
 		return geo.getWorldTranslation().distance(aktor.getLocalTranslation());

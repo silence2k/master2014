@@ -133,6 +133,10 @@ public class Aktor {
 		graHand.setLocalTranslation(x, y, z);
 		greifen(greifen);
 	}
+	
+	public void rotate(float xAngle, float yAngle, float zAngle) {
+		graHand.rotate(xAngle, yAngle, zAngle);
+	}
 
 	private float delta(long deltaTime) {
 		return (float) (deltaTime / 1000.0 * speed);
@@ -338,6 +342,11 @@ public class Aktor {
 		private void setColor(ColorRGBA color) {
 			mat.setColor("Specular", color);
 			mat.setColor("Diffuse", color);
+		}
+		
+		public void rotate(float xAngle, float yAngle, float zAngle) {
+			graOffen.rotate(xAngle, yAngle, zAngle);
+			graGegriffen.rotate(xAngle, yAngle, zAngle);
 		}
 
 	}

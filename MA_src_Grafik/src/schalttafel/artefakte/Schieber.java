@@ -19,9 +19,7 @@ public abstract class Schieber extends Artefakt {
 
 	float grenzeOben = 0.6f;
 
-
 	float grenzeUnten = 2.6f;
-
 
 	protected void init() {
 		// Heben oben max
