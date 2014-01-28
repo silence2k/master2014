@@ -27,7 +27,7 @@ public class SpaceCoreSteuerungImpl extends SpaceCoreSteuerung{
 	}
 
 	protected String getSchub(){
-		return "50.0";
+		return Float.toString(schub);
 	}
 	
 //	String hoch = "s";
@@ -100,8 +100,7 @@ public class SpaceCoreSteuerungImpl extends SpaceCoreSteuerung{
 
 		@Override
 		public void setZielWert(float zielwert) {
-			// TODO Auto-generated method stub
-			
+			schub = zielwert;
 		}
 
 		@Override
