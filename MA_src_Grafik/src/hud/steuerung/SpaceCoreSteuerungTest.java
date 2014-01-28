@@ -1,19 +1,12 @@
 package hud.steuerung;
 
-import schalttafel.anzeige.IF_Anzeiger;
 
 public class SpaceCoreSteuerungTest extends SpaceCoreSteuerung{
 	
-	private float schub;
-	
-	private boolean links;
-	private boolean rechts;
-	private boolean hoch;
-	private boolean runter;
-	private boolean fahrwerkEingezogen;
+
 	
 	
-	public void setSchub(float dx){
+	public void setSchub(double dx){
 		schub += dx;
 		if(schub < 0){
 			schub = 0;
@@ -58,24 +51,25 @@ public class SpaceCoreSteuerungTest extends SpaceCoreSteuerung{
 		return Float.toString(schub);
 	}
 	
+	
 	protected String getFahrgestell(){
 		return fahrwerkEingezogen?"-h":"h";
 	}
 	
 	protected String getLinks(){
-		return links?"l":"-l";
+		return links?"a":"-a";
 	}
 	
 	protected String getRechts(){
-		return rechts?"r":"-u";
+		return rechts?"d":"-d";
 	}
 	
 	protected String getHoch(){
-		return hoch?"h":"-h";
+		return hoch?"s":"-s";
 	}
 	
 	protected String getRunter(){
-		return runter?"u":"-u";
+		return runter?"w":"-w";
 	}
 	
 

@@ -46,6 +46,12 @@ public class KeyboardSteuerung implements Steuerung {
 	public boolean isSchubWegnehmen() {
 		return Keyboard.isKeyDown(Keyboard.KEY_F);
 	}
+	
+	@Override
+	public float getSchub() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public void cleanUp() {

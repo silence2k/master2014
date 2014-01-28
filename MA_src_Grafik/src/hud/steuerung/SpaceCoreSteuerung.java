@@ -16,6 +16,15 @@ public abstract class SpaceCoreSteuerung {
 	protected abstract String getHoch();
 	
 	protected abstract String getRunter();
+	
+	
+	protected float schub;
+	
+	protected boolean links;
+	protected boolean rechts;
+	protected boolean hoch;
+	protected boolean runter;
+	protected boolean fahrwerkEingezogen;
 
 
 	

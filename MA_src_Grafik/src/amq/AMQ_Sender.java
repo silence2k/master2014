@@ -1,5 +1,7 @@
 package amq;
 
+import hud.steuerung.SpaceCoreSteuerung;
+
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
@@ -10,16 +12,13 @@ import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import data.HandART2;
-import data.KopfART;
-
 public class AMQ_Sender {
 	
 	private static final long sleeptime = 100;
 	
 //	private String server = "tcp://localhost:61616";
-	//private String server = "tcp://192.168.0.112:61616"; // PC3
-	private String server = "tcp://192.168.14.100:61616"; // Powerwall
+	private String server = "tcp://192.168.0.112:61616"; // PC3
+	//private String server = "tcp://192.168.14.100:61616"; // Powerwall
 
 	private Connection connection;
 	private Session session;
@@ -27,31 +26,18 @@ public class AMQ_Sender {
 	
 	private volatile boolean weiter = true;
 	
-	private HandART2 rechts;
-	private HandART2 links;
-	
-	private KopfART kopf;
+	private SpaceCoreSteuerung steuerung;
 
 
 
-
-	public AMQ_Sender(HandART2 rechts, HandART2 links) throws JMSException{
+	public AMQ_Sender(SpaceCoreSteuerung steuerung) throws JMSException{
 		super();
-		this.rechts = rechts;
-		this.links = links;
+		this.steuerung = steuerung;
 		
 		initActiveMQ();
 		initSenderThread();
 		
 	}
-
-	public AMQ_Sender(KopfART kopf) throws JMSException{
-		this.kopf = kopf;
-		
-		initActiveMQ();
-		initSenderThread();
-	}
-
 
 
 
@@ -115,7 +101,7 @@ public class AMQ_Sender {
 		TextMessage message;
 		try {
 
-			message = session.createTextMessage(rechts.toString());
+			message = session.createTextMessage(steuerung.getAMQMessage());
 			producerSteuerung.send(message);
 
 		} catch (JMSException e) {

@@ -105,10 +105,16 @@ public class PlayerShip {
 			dRollen -= 0.05;
 
 		// Update velocities
-		if (steuerung.isSchubGeben())
-			TargetVelocity += VEL_dMAX;
-		if (steuerung.isSchubWegnehmen())
-			TargetVelocity -= VEL_dMAX;
+		
+		if(steuerung.getSchub() < 0){
+			if (steuerung.isSchubGeben())
+				TargetVelocity += VEL_dMAX;
+			if (steuerung.isSchubWegnehmen())
+				TargetVelocity -= VEL_dMAX;
+		}else{
+			TargetVelocity = VEL_MAX * steuerung.getSchub() / 100f;
+		}
+
 
 		if (steuerung.isSeitenruderLinks())
 			dQuer += 0.05;

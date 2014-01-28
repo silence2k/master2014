@@ -11,11 +11,7 @@ import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-public class RemoteSteuerung implements Steuerung {
-	
-//	private String server = "tcp://localhost:61616";
-	private String server = "tcp://192.168.0.112:61616"; // PC3
-	//private String server = "tcp://192.168.14.100:61616"; // Powerwall
+public class RemoteSteuerung_alt implements Steuerung {
 
 	private Connection connection;
 	private Session session;
@@ -23,18 +19,11 @@ public class RemoteSteuerung implements Steuerung {
 	private MyConsumer myConsumer;
 	
 
-	private float schub = 0;
 	
 	boolean schubGeben = false;
 	
-	boolean fahrwerkEingezogen;
-	boolean links;
-	boolean rechts;
-	boolean hoch;
-	boolean runter;
-	
 
-	public RemoteSteuerung(){
+	public RemoteSteuerung_alt(){
 		super();
 		try {
 			initActiveMq();
@@ -45,14 +34,14 @@ public class RemoteSteuerung implements Steuerung {
 	}
 
 	private void initActiveMq() throws JMSException {
-		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(server);
+		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
 		connection = connectionFactory.createConnection();
 		connection.start();
 
 		// Create a Session
 		session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-		Destination destination = session.createQueue("SpaceCore.Steuerung");
+		Destination destination = session.createQueue("TEST.FOO");
 
 		// Create a MessageConsumer from the Session to the Topic or Queue
 		consumer = session.createConsumer(destination);
@@ -131,46 +120,29 @@ public class RemoteSteuerung implements Steuerung {
 			System.out.println("JMS Exception occured.  Shutting down client.");
 		}
 	}
-	
-	private void parse(String s){
-		String[] arr = s.split(";");
-		schub = Float.parseFloat(arr[0]);
-		
-		// arr[1] fahrgestell
-		
-
-//			 fahrwerkEingezogen?"-h":"h";
-//			 links?"a":"-a";
-//			 rechts?"d":"-d";
-//			 hoch?"s":"-s";
-//			 runter?"w":"-w";
-		
-		
-		fahrwerkEingezogen = "h".equals(arr[1]);
-		links = "a".equals(arr[2]);
-		rechts = "d".equals(arr[3]);
-		hoch = "s".equals(arr[4]);
-		runter = "w".equals(arr[5]);
-	}
 
 	@Override
 	public boolean isNaseHoch() {
-		return hoch;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public boolean isNaseRunter() {
-		return runter;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public boolean isRollenLinks() {
-		return links;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public boolean isRollenRechts() {
-		return rechts;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -196,8 +168,12 @@ public class RemoteSteuerung implements Steuerung {
 		return false;
 	}
 	
-	public float getSchub(){
-		return schub;
+	
+
+	@Override
+	public float getSchub() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override

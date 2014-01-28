@@ -30,24 +30,29 @@ public class SpaceCoreSteuerungImpl extends SpaceCoreSteuerung{
 		return "50.0";
 	}
 	
+//	String hoch = "s";
+//	String runter = "w";
+//	String links = "a";
+//	String rechts = "d";
+	
 	protected String getFahrgestell(){
-		return "h";
+		return fahrwerkEingezogen?"-h":"h";
 	}
 	
 	protected String getLinks(){
-		return "l";
+		return links?"a":"-a";
 	}
 	
 	protected String getRechts(){
-		return "r";
+		return rechts?"d":"-d";
 	}
 	
 	protected String getHoch(){
-		return "h";
+		return hoch?"s":"-s";
 	}
 	
 	protected String getRunter(){
-		return "u";
+		return runter?"w":"-w";
 	}
 	
 	

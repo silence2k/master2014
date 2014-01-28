@@ -18,6 +18,8 @@ public interface Steuerung {
 	
 	public boolean isSchubWegnehmen();
 	
+	public float getSchub();
+	
 	public void cleanUp();
 
 }

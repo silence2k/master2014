@@ -1,21 +1,42 @@
 package hud;
 
+import javax.jms.JMSException;
+
+import hud.steuerung.SpaceCoreSteuerungTest;
 import schalttafel.artefakte.Artefakt;
+import amq.AMQ_Sender;
 import anzeige.Anzeige;
 
+import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.AppState;
 import com.jme3.input.KeyInput;
+import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 
-public class KeyboardSteuerungSpacecore extends Anzeige {
-
+public class KeyboardSteuerungSpacecore extends SimpleApplication implements AnalogListener {
+	
+	SpaceCoreSteuerungTest scs = new SpaceCoreSteuerungTest();
+	
+	AMQ_Sender sender;
+	
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
+	
+	double dx = 10;
 
 	boolean toggle = false;
+	
+	
 
-	public static void main(String[] args) {
+	public KeyboardSteuerungSpacecore() throws JMSException {
+		super();
+		sender = new AMQ_Sender(scs);
+	}
+
+
+	public static void main(String[] args) throws JMSException {
 		KeyboardSteuerungSpacecore app = new KeyboardSteuerungSpacecore();
 		app.start();
 	}
@@ -36,13 +57,13 @@ public class KeyboardSteuerungSpacecore extends Anzeige {
 
 	@Override
 	public void simpleUpdate(float tpf) {
-		// TODO Auto-generated method stub
 		super.simpleUpdate(tpf);
 		refreshTime();
 
-		for (Artefakt arte : artefakte) {
-			arte.update(deltaTime);
-		}
+		scs.setHoch(false);
+		scs.setRunter(false);
+		scs.setLinks(false);
+		scs.setRechts(false);
 	}
 
 	private void refreshTime() {
@@ -82,31 +103,28 @@ public class KeyboardSteuerungSpacecore extends Anzeige {
 
 		switch (binding) {
 		case "hoch":
-			
+			scs.setHoch(true);
 			break;
 		case "runter":
-			
+			scs.setRunter(true);
 			break;
-		case "ra_links":
-			
+		case "links":
+			scs.setLinks(true);
 			break;
 		case "rechts":
-			
-			break;
-		case "rein":
-
+			scs.setRechts(true);
 			break;
 		case "gas":
-		
+			scs.setSchub(dx*deltaTime);
 			break;
 		case "gas_weg":
-			
+			scs.setSchub(-dx*deltaTime);
 			break;
 		case "fahrgestellRein":
-			
+			scs.setFahrwerkEingezogen(true);
 			break;
 		case "fahrgestellRaus":
-	
+			scs.setFahrwerkEingezogen(false);
 			break;
 
 		default:
