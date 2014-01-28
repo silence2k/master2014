@@ -111,7 +111,7 @@ public class Main {
 		Display.setDisplayMode(new DisplayMode(DISPLAY_WIDTH, DISPLAY_HEIGHT));
 		Display.setVSyncEnabled(true);
 		Display.setFullscreen(false);
-		Display.setTitle("SpaceCore 0.1 - CoreS2 Software Solutions");
+		Display.setTitle("Masterarbeit - Olaf Potratz");
 		Display.create();
 
 		// Keyboard

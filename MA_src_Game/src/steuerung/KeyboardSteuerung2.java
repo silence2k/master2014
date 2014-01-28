@@ -57,6 +57,18 @@ public class KeyboardSteuerung2 implements Steuerung {
 	public void cleanUp() {
 		// nichts tun
 	}
+
+	@Override
+	public boolean isFahrwerkHoch() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isFahrwerkRunter() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	
 

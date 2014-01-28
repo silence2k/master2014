@@ -186,4 +186,16 @@ public class RemoteSteuerung_alt implements Steuerung {
 		}
 	}
 
+	@Override
+	public boolean isFahrwerkHoch() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isFahrwerkRunter() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

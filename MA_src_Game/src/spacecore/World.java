@@ -98,16 +98,16 @@ public class World {
 
 		// load Bennys Cube
 
-		WorldObject newModel = new WorldObject(Boolean.TRUE,
-				WorldObjectType.CUBE);
-		newModel.model = OBJLoader.loadModel("src/object1");
-		newModel.Yaw = (float) (0);
-
-		newModel.Pt.x = 0f;
-		newModel.Pt.z = 0f;
-		newModel.Pt.y = 8f;
-
-		modelList.add(newModel);
+//		WorldObject newModel = new WorldObject(Boolean.TRUE,
+//				WorldObjectType.CUBE);
+//		newModel.model = OBJLoader.loadModel("src/object1");
+//		newModel.Yaw = (float) (0);
+//
+//		newModel.Pt.x = 0f;
+//		newModel.Pt.z = 0f;
+//		newModel.Pt.y = 8f;
+//
+//		modelList.add(newModel);
 	}
 
 	// Render the ship

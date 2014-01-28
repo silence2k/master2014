@@ -208,4 +208,14 @@ public class RemoteSteuerung implements Steuerung {
 		}
 	}
 
+	@Override
+	public boolean isFahrwerkHoch() {
+		return fahrwerkEingezogen;
+	}
+
+	@Override
+	public boolean isFahrwerkRunter() {
+		return !fahrwerkEingezogen;
+	}
+
 }

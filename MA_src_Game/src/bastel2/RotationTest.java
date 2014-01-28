@@ -105,12 +105,10 @@ public class RotationTest extends JPanel{
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				rt.myUpdate(System.currentTimeMillis()-firstTime);
 			}
-			// TODO Auto-generated method stub
 			
 		}
 		
