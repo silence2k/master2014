@@ -1,11 +1,15 @@
 package hud;
 
+import javax.jms.JMSException;
+
+import hud.steuerung.SpaceCoreSteuerungImpl;
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Hebel1;
 import schalttafel.artefakte.Joystick;
 import schalttafel.artefakte.Schieber1;
 import schalttafel.artefakte.Schieber3;
 import schalttafel.verkleidung.Schiebere3Verkleidung;
+import amq.AMQ_Sender;
 import anzeige.Anzeige;
 
 import com.jme3.input.KeyInput;
@@ -14,21 +18,29 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 
 public class Anzeige_Aufbau1 extends Anzeige {
+	
+	AMQ_Sender sender;
 
 	Hebel1 hebel = new Hebel1();
 	Schieber3 schieber = new Schieber3();
 	Schiebere3Verkleidung verkleidung = new Schiebere3Verkleidung();
 
 	Joystick joystick = new Joystick();
+	
+	SpaceCoreSteuerungImpl scsI = new SpaceCoreSteuerungImpl();
 
 	long lasttime = System.currentTimeMillis();
 	long deltaTime = 0;
 
 	boolean toggle = false;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JMSException {
 		Anzeige_Aufbau1 app = new Anzeige_Aufbau1();
 		app.start();
+	}
+	
+	public Anzeige_Aufbau1() throws JMSException{
+		sender = new AMQ_Sender(scsI);
 	}
 
 	@Override
@@ -54,6 +66,11 @@ public class Anzeige_Aufbau1 extends Anzeige {
 		artefakte.add(hebel);
 		artefakte.add(schieber);
 		artefakte.add(joystick);
+		
+		
+		hebel.setAnzeiger(scsI.getHebelAnzeiger());
+		schieber.setAnzeiger(scsI.getSchieberAnzeiger());
+		joystick.setAnzeiger(scsI.getJoyStickAnzeiger());
 
 		/** You must add a light to make the model visible */
 		DirectionalLight sun = new DirectionalLight();

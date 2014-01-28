@@ -14,15 +14,15 @@ public class SpaceCoreSteuerungImpl extends SpaceCoreSteuerung{
 	
 	
 	
-	public JoyStickAnzeiger getJsa() {
+	public JoyStickAnzeiger getJoyStickAnzeiger() {
 		return jsa;
 	}
 
-	public SchieberAnzeiger getSa() {
+	public SchieberAnzeiger getSchieberAnzeiger() {
 		return sa;
 	}
 
-	public HebelAnzeiger getHa() {
+	public HebelAnzeiger getHebelAnzeiger() {
 		return ha;
 	}
 
