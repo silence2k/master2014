@@ -106,14 +106,12 @@ public class RemoteSteuerung implements Steuerung {
 				if (message instanceof TextMessage) {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
-					System.out.println("Received1: " + text);
+					//System.out.println("Received1: " + text);
 					if(text.toString() == "p"){
 						weiter = false;
 					}
 					
-					if(gas.equalsIgnoreCase(text.toString())){
-						schubGeben = true;
-					}
+					parse(text.toString());
 					
 					
 				} else {

@@ -50,7 +50,7 @@ public class KeyboardSteuerung implements Steuerung {
 	@Override
 	public float getSchub() {
 		// TODO Auto-generated method stub
-		return 0;
+		return -1;
 	}
 
 	@Override

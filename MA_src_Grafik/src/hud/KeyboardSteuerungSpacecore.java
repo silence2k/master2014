@@ -60,10 +60,7 @@ public class KeyboardSteuerungSpacecore extends SimpleApplication implements Ana
 		super.simpleUpdate(tpf);
 		refreshTime();
 
-		scs.setHoch(false);
-		scs.setRunter(false);
-		scs.setLinks(false);
-		scs.setRechts(false);
+
 	}
 
 	private void refreshTime() {
@@ -115,10 +112,10 @@ public class KeyboardSteuerungSpacecore extends SimpleApplication implements Ana
 			scs.setRechts(true);
 			break;
 		case "gas":
-			scs.setSchub(dx*deltaTime);
+			scs.setSchub(dx*deltaTime/1000);
 			break;
 		case "gas_weg":
-			scs.setSchub(-dx*deltaTime);
+			scs.setSchub(-dx*deltaTime/1000);
 			break;
 		case "fahrgestellRein":
 			scs.setFahrwerkEingezogen(true);

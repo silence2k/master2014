@@ -43,6 +43,11 @@ public abstract class SpaceCoreSteuerung {
 		sb.append(";");
 		sb.append(getRunter());
 		
+		links = false;
+		rechts = false;
+		hoch = false;
+		runter = false;
+		
 		return sb.toString();
 	}
 	
