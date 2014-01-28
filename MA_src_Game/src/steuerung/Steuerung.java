@@ -20,6 +20,10 @@ public interface Steuerung {
 	
 	public float getSchub();
 	
+	public boolean isFahrwerkHoch();
+	
+	public boolean isFahrwerkRunter();
+	
 	public void cleanUp();
 
 }

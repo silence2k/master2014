@@ -1,8 +1,5 @@
 package spacecore;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +26,14 @@ public class PlayerShip {
 
 	// TEST VARIABLE
 	Quaternion QResult;
+	
+	private float fahrwerkPostion = 0;
+	private float fahrwerkDX = 0.01f;
+	private float fahrwerkMax = 0.12f;
 
 	// Ship variable
 	Model model = null;
+	Model fahrgestell = null;
 
 	// Player ship has a current velocity and target velocity
 	float RealVelocity, TargetVelocity;
@@ -50,6 +52,7 @@ public class PlayerShip {
 		// Default data
 		InitShip();
 		model = OBJLoader.loadModel("src/Fighter2");
+		fahrgestell = OBJLoader.loadModel("src/fahrgestell");
 	}
 
 	public void InitShip() {
@@ -72,6 +75,14 @@ public class PlayerShip {
 		// No nown states
 		Bounced = false;
 		Crashed = false;
+	}
+	
+	private void fahrgestellBewegen(float dx){
+		for (Vector3f v : fahrgestell.vertices) {
+			v.y+=dx;
+		}
+		
+
 	}
 
 	// Check for user events
@@ -113,6 +124,16 @@ public class PlayerShip {
 				TargetVelocity -= VEL_dMAX;
 		}else{
 			TargetVelocity = VEL_MAX * steuerung.getSchub() / 100f;
+		}
+		
+		if(steuerung.isFahrwerkHoch() && fahrwerkPostion < fahrwerkMax){
+			fahrwerkPostion += fahrwerkDX;
+			fahrgestellBewegen(fahrwerkDX);
+		}
+		
+		if(steuerung.isFahrwerkRunter() && fahrwerkPostion > 0){
+			fahrwerkPostion -= fahrwerkDX;
+			fahrgestellBewegen(-fahrwerkDX);
 		}
 
 
@@ -251,14 +272,6 @@ public class PlayerShip {
 
 			GL11.glBegin(GL11.GL_TRIANGLES);
 			for (Face face : model.faces) {
-				// Always make black when in line mode)
-//				if (i == 0)
-//					GL11.glColor3f(0.8f, 0.8f,
-//							0.5f + 0.5f * (SurfaceRand.nextFloat()));
-//				else
-//					GL11.glColor3f(0.4f, 0.4f,
-//							0.2f + 0.2f * (SurfaceRand.nextFloat()));
-				// GL11.glColor3f(0.7f, 0.7f, 0.7f);
 
 				GL11.glColor3f(face.mtl.getRed(), face.mtl.getGreen(), face.mtl.getBlue());
 				
@@ -268,6 +281,21 @@ public class PlayerShip {
 				Vector3f v2 = model.vertices.get((int) face.vertex.y - 1);
 				GL11.glVertex3f(v2.x, v2.y, v2.z);
 				Vector3f v3 = model.vertices.get((int) face.vertex.z - 1);
+				GL11.glVertex3f(v3.x, v3.y, v3.z);
+			}
+			GL11.glEnd();
+			
+			GL11.glBegin(GL11.GL_TRIANGLES);
+			for (Face face : fahrgestell.faces) {
+
+				GL11.glColor3f(face.mtl.getRed(), face.mtl.getGreen(), face.mtl.getBlue());
+				
+				// Randomize the color a tiny bit
+				Vector3f v1 = fahrgestell.vertices.get((int) face.vertex.x - 1);
+				GL11.glVertex3f(v1.x, v1.y, v1.z);
+				Vector3f v2 = fahrgestell.vertices.get((int) face.vertex.y - 1);
+				GL11.glVertex3f(v2.x, v2.y, v2.z);
+				Vector3f v3 = fahrgestell.vertices.get((int) face.vertex.z - 1);
 				GL11.glVertex3f(v3.x, v3.y, v3.z);
 			}
 			GL11.glEnd();

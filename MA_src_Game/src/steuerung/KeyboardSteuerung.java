@@ -3,7 +3,6 @@ package steuerung;
 import org.lwjgl.input.Keyboard;
 
 public class KeyboardSteuerung implements Steuerung {
-	
 
 	@Override
 	public boolean isNaseHoch() {
@@ -57,6 +56,17 @@ public class KeyboardSteuerung implements Steuerung {
 	public void cleanUp() {
 		// nichts tun
 	}
+
+	@Override
+	public boolean isFahrwerkHoch() {
+		return Keyboard.isKeyDown(Keyboard.KEY_T);
+	}
+
+	@Override
+	public boolean isFahrwerkRunter() {
+		return Keyboard.isKeyDown(Keyboard.KEY_G);
+	}
+	
 	
 	
 
