@@ -112,10 +112,10 @@ public class KeyboardSteuerungSpacecore extends SimpleApplication implements Ana
 			scs.setRechts(true);
 			break;
 		case "gas":
-			scs.setSchub(dx*deltaTime/1000);
+			scs.setSchub(dx*deltaTime/500);
 			break;
 		case "gas_weg":
-			scs.setSchub(-dx*deltaTime/1000);
+			scs.setSchub(-dx*deltaTime/500);
 			break;
 		case "fahrgestellRein":
 			scs.setFahrwerkEingezogen(true);
