@@ -49,12 +49,12 @@ public class PlayerShip {
 		this.steuerung = steuerung;
 		// Default data
 		InitShip();
-		model = OBJLoader.loadModel("src/Fighter1");
+		model = OBJLoader.loadModel("src/Fighter2");
 	}
 
 	public void InitShip() {
 		// Default position slight above ground
-		Position = new Vector3f(0, 0.5f, 0);
+		Position = new Vector3f(0, 0.2f, 0);
 
 		// Set forward to Z+
 		Forward = new Vector3f(0, 0, 1);
