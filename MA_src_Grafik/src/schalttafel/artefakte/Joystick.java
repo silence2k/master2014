@@ -72,7 +72,11 @@ public class Joystick extends Artefakt {
 
 	private List<MyRotate> messen() {
 		/*
-		 * - 1 2 3 + 4 5 - 6 7 8 +
+		 *     - 
+		 *   1 2 3 
+		 * + 4   5 - 
+		 *   6 7 8 
+		 *     +
 		 */
 
 		graficObject.rotate(rotationDX, 0, -rotationDX);

@@ -56,13 +56,35 @@ public class SpaceCoreSteuerungImpl extends SpaceCoreSteuerung{
 	}
 	
 	
-	
+	/*
+	 *     - 
+	 *   1 2 3 
+	 * + 4   5 - 
+	 *   6 7 8 
+	 *     +
+	 */
 	
 	class JoyStickAnzeiger implements IF_Anzeiger{
 
 		@Override
 		public void setZielWert(float zielwert) {
-			// TODO Auto-generated method stub
+			runter = false;
+			links = false;
+			rechts = false;
+			hoch = false;
+			
+			if(zielwert == 1f || zielwert == 2f || zielwert == 3f){
+				runter = true;
+			}
+			if(zielwert == 1f || zielwert == 4f || zielwert == 6f){
+				links = true;
+			}
+			if(zielwert == 3f || zielwert == 5f || zielwert == 8f){
+				rechts = true;
+			}
+			if(zielwert == 6f || zielwert == 7f || zielwert == 8f){
+				hoch = true;
+			}
 			
 		}
 
