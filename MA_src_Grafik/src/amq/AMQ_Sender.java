@@ -14,7 +14,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class AMQ_Sender {
 	
-	private static final long sleeptime = 100;
+	private static final long sleeptime = 50;
 	
 //	private String server = "tcp://localhost:61616";
 	private String server = "tcp://192.168.0.112:61616"; // PC3
