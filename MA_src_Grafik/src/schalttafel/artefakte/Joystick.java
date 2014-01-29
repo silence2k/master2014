@@ -67,7 +67,50 @@ public class Joystick extends Artefakt {
 			list.get(0).myRotate(griff1);
 
 		}
-
+		updateAnzeige(zielwert(), deltaTime);
+	}
+	
+	protected float zielwert() {
+		float result = 0;
+		
+		/*
+		 *     - 
+		 *   1 2 3 
+		 * + 4   5 - 
+		 *   6 7 8 
+		 *     +
+		 */
+		
+		if(zRotation < -1){
+			// 1 2 3
+			if(xRotation < -1){
+				result = 3;
+			}else if(xRotation > 1){
+				result = 1;
+			}else{
+				result = 2;
+			}
+		}else if(zRotation > 1){
+			// 6 7 8
+			if(xRotation < -1){
+				result = 8;
+			}else if(xRotation > 1){
+				result = 6;
+			}else{
+				result = 7;
+			}
+		}else if(xRotation < -1){
+			// 5
+			result = 5;
+		}else if(xRotation > 1){
+			// 4
+			result = 4;
+		}
+		
+		
+		
+		
+		return result;
 	}
 
 	private List<MyRotate> messen() {

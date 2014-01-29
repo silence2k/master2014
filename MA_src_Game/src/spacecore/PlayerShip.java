@@ -57,8 +57,10 @@ public class PlayerShip {
 
 	public void InitShip() {
 		// Default position slight above ground
-		Position = new Vector3f(0, 0.2f, 0);
+		Position = new Vector3f(0, 0.1f, 0);
 
+		fahrgestellAusfahren();
+		
 		// Set forward to Z+
 		Forward = new Vector3f(0, 0, 1);
 		vNeigung = new Vector3f(0, 1, 0);
@@ -78,11 +80,16 @@ public class PlayerShip {
 	}
 	
 	private void fahrgestellBewegen(float dx){
+		if(fahrgestell!=null){
 		for (Vector3f v : fahrgestell.vertices) {
 			v.y+=dx;
 		}
-		
-
+		}
+	}
+	
+	private void fahrgestellAusfahren(){
+		fahrgestellBewegen(-fahrwerkPostion);
+		fahrwerkPostion = 0;
 	}
 
 	// Check for user events

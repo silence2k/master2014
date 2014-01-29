@@ -24,7 +24,7 @@ public class UserInterface
 	Hand leftHand;
     Hand rightHand;
     
-    JoystickUI jui = new JoystickUI();
+  //  JoystickUI jui = new JoystickUI();
     
     // Render
     public void Render(float RealVelocity, float TargetVelocity, float MaxVelocity)
@@ -64,7 +64,7 @@ public class UserInterface
                 glVertex2f(50f, 37f + 158f * TScale);
             glEnd();
             
-            jui.draw();
+           // jui.draw();
         
         // Pop off the matrix
         glPopMatrix();

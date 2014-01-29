@@ -77,7 +77,7 @@ public class World {
 		WorldObject model = new WorldObject(Boolean.TRUE,
 				WorldObjectType.AIRSTRIP);
 		model.model = OBJLoader.loadModel("src/Road2");
-		model.Pt = new Vector3f(0f,0.01f,0f);
+		model.Pt = new Vector3f(0f,0.01f,9f);
 		model.Yaw = 0f;
 		modelList.add(model);
 

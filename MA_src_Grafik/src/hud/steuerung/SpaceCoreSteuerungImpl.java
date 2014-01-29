@@ -105,11 +105,43 @@ public class SpaceCoreSteuerungImpl extends SpaceCoreSteuerung {
 	}
 
 	class HebelAnzeiger implements IF_Anzeiger {
+		
+		private boolean an;
+		
+		protected float schwellWertMin = 20;
+		
+		protected float schwellWertMax = 80;
+		
+		public HebelAnzeiger(){
+			
+		}
+		
+		public HebelAnzeiger(float schwellMin, float schwellMax){
+			this();
+			this.schwellWertMin = schwellMin;
+			this.schwellWertMax = schwellMax;
+		}
 
 		@Override
 		public void setZielWert(float zielwert) {
-			// TODO Auto-generated method stub
+			if (!an) {
+				if (zielwert < schwellWertMin) {
+					setAn(true);
+					fahrwerkEingezogen = true;
+				}
+			} else {
+				if (zielwert > schwellWertMax) {
+					setAn(false);
+					fahrwerkEingezogen = false;
+				}
+			}
 
+		}
+		
+		
+
+		public void setAn(boolean an) {
+			this.an = an;
 		}
 
 		@Override
