@@ -29,12 +29,6 @@ public class Joystick extends Artefakt {
 			System.out.println(spatial);
 		}
 
-		// Geometry g = (Geometry) graficObject.getChild("hebel1-geom-1");
-		// Material mat_default = new Material(assetManager,
-		// "Common/MatDefs/Misc/Unshaded.j3md");
-		// mat_default.setColor("Color", new ColorRGBA(0.5f, 0.5f, 0.5f, 1f));
-		// g.setMaterial(mat_default);
-
 		Geometry g = (Geometry) graficObject.getChild("joystick-geom-1");
 		MyMaterial m = new MyMaterial(g.getMaterial());
 		m.setColor(Greifbar);
