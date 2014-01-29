@@ -92,6 +92,17 @@ public class Joystick extends Artefakt {
 		float grenzwert = 0.4f;
 		float grenzwertHalb = grenzwert/2f;
 		
+//		if(xRotation < -grenzwertHalb){
+//			if(zRotation < -grenzwertHalb){
+//				result = 3;
+//			}else if(zRotation > grenzwertHalb){
+//				result = 1;
+//			}
+//		}else if(xRotation < -grenzwert){
+//			result = 2;
+//		}
+		
+
 		
 		if(xRotation < -grenzwert){
 			// 1 2 3
