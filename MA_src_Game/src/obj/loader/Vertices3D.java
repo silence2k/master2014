@@ -1,8 +1,5 @@
 package obj.loader;
 
-import alt.Interface.BoundPoint;
-import alt.impl.BoundPoint_Impl;
-import alt.impl.CenterPoint;
 
 public class Vertices3D 
 {

@@ -1,6 +1,5 @@
 package ui;
 
-import steuerung.Steuerung;
 import data.Hand_alt;
 
 public class HandUI_Local implements SteuerungHaende{

@@ -4,7 +4,6 @@ import schalttafel.Schalttafel;
 import schalttafel.anzeige.AnzeigerLampe;
 import schalttafel.anzeige.AnzeigerPfeil;
 import schalttafel.anzeige.AnzeigerStab;
-import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Button1;
 import schalttafel.artefakte.Griff1;
 import schalttafel.artefakte.Hebel1;
@@ -19,7 +18,6 @@ import schalttafel.verkleidung.Hebel2Verkleidung;
 import schalttafel.verkleidung.Schieber1Verkleidung;
 import schalttafel.verkleidung.Schieber2Verkleidung;
 
-import com.jme3.app.StatsAppState;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;

@@ -1,6 +1,5 @@
 package obj.loader;
 
-import alt.impl.CenterPoint;
 
 public class Point_Obj extends Vertices3D 
 {

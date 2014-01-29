@@ -1,14 +1,12 @@
 package hud;
 
+import hud.steuerung.SpaceCoreSteuerungTest;
+
 import javax.jms.JMSException;
 
-import hud.steuerung.SpaceCoreSteuerungTest;
-import schalttafel.artefakte.Artefakt;
 import amq.AMQ_Sender;
-import anzeige.Anzeige;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppState;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;

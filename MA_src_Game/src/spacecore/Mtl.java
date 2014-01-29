@@ -1,6 +1,5 @@
 package spacecore;
 
-import spacecore.Color;
 
 /**
  * Material Classe fuer die .mtl Datein von WaveFront

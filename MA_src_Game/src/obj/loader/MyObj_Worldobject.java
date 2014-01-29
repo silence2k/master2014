@@ -1,8 +1,6 @@
 package obj.loader;
 
-import alt.Interface.WorldObject;
-import alt.erweitert.ABS_WorldObject;
-import alt.impl.CenterPoint;
+import spacecore.WorldObject;
 
 public class MyObj_Worldobject extends MyOBJ 
 {

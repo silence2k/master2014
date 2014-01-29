@@ -1,19 +1,5 @@
 package aktor;
 
-import schalttafel.artefakte.AktorGriff;
-import schalttafel.artefakte.Greifbar;
-import anzeige.Anzeige;
-
-import com.jme3.asset.AssetManager;
-import com.jme3.audio.AudioNode;
-import com.jme3.material.MatParam;
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Sphere;
-import com.jme3.util.TangentBinormalGenerator;
 
 public class CopyOfAktor {
 

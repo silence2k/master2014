@@ -4,11 +4,6 @@ package obj.loader;
 import java.util.ArrayList;
 import java.util.List;
 
-import alt.Interface.BoundPoint;
-import alt.Interface.Shape_WorldObject;
-import alt.impl.CenterPoint;
-import alt.impl.Shape_Impl;
-
 
 public class Util 
 {

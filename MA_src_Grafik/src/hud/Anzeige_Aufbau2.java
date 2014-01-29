@@ -1,12 +1,12 @@
 package hud;
 
+import hud.steuerung.SpaceCoreSteuerungImpl;
+
 import javax.jms.JMSException;
 
-import hud.steuerung.SpaceCoreSteuerungImpl;
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Hebel1;
 import schalttafel.artefakte.Joystick;
-import schalttafel.artefakte.Schieber1;
 import schalttafel.artefakte.Schieber3;
 import schalttafel.verkleidung.Schiebere3Verkleidung;
 import amq.AMQ_Sender;

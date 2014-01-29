@@ -16,12 +16,12 @@ import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
 import physik.RotationMatrix;
-import bastel2.Physics_old;
 import spacecore.Face;
 import spacecore.Model;
 import spacecore.OBJLoader;
 import spacecore.WorldObject;
 import steuerung.Steuerung;
+import bastel2.Physics_old;
 
 public class TestCube {
 

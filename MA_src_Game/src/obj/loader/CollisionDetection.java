@@ -1,12 +1,10 @@
 package obj.loader;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.lwjgl.util.vector.Vector3f;
 
 import spacecore.Face;
-import spacecore.Model;
 import spacecore.WorldObject;
 import collision.TestCube;
 

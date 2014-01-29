@@ -1,8 +1,5 @@
 package hud;
 
-import reciver.UdpReciver;
-import reciver.parser.ParserSimple;
-
 import amqdata.Kopf;
 
 import com.jme3.app.SimpleApplication;
@@ -32,8 +29,6 @@ import com.jme3.terrain.noise.modulator.NoiseModulator;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 import com.jme3.util.TangentBinormalGenerator;
-
-import data.Standard6D;
 
 public class Hud1 extends SimpleApplication {
 

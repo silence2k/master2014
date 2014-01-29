@@ -1,6 +1,5 @@
 package schalttafel.artefakte;
 
-import schalttafel.anzeige.Anzeiger;
 import schalttafel.anzeige.IF_Anzeiger;
 import aktor.Aktor;
 

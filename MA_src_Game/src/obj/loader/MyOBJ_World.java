@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import alt.erweitert.ABS_Door;
-import alt.erweitert.ABS_WorldObject;
-import alt.impl.CenterPoint;
-
 
 public class MyOBJ_World extends MyOBJ 
 {

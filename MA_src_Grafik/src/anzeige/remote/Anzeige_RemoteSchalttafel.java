@@ -4,7 +4,6 @@ import schalttafel.Schalttafel;
 import schalttafel.anzeige.AnzeigerLampe;
 import schalttafel.anzeige.AnzeigerPfeil;
 import schalttafel.anzeige.AnzeigerStab;
-import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Button1;
 import schalttafel.artefakte.Griff1;
 import schalttafel.artefakte.Hebel1;

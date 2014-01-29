@@ -28,7 +28,6 @@ import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
-import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 
