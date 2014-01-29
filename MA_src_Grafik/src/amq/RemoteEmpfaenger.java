@@ -16,8 +16,9 @@ import amqdata.Kopf;
 
 public class RemoteEmpfaenger {
 
-	private String server = "tcp://localhost:61616";
+	//private String server = "tcp://localhost:61616";
 	// private String server = "tcp://192.168.0.112:61616"; // PC3
+	private String server = "tcp://192.168.14.100:61616"; // Powerwall
 
 	private Connection connection;
 	private Session session;
@@ -30,6 +31,8 @@ public class RemoteEmpfaenger {
 
 	private Hand links = new Hand();
 	private Hand rechts = new Hand();
+	
+	private Kopf kopf = new Kopf();
 
 	boolean schubGeben = false;
 
@@ -60,6 +63,12 @@ public class RemoteEmpfaenger {
 	public Hand getRechts() {
 		return rechts;
 	}
+	
+	
+
+	public Kopf getKopf() {
+		return kopf;
+	}
 
 	private void initActiveMq() throws JMSException {
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(server);
@@ -78,6 +87,11 @@ public class RemoteEmpfaenger {
 		destination = session.createQueue("Hand.Rechts");
 		consumerRechts = session.createConsumer(destination);
 		new Thread(new MyHandConsumer(consumerRechts, rechts)).start();
+		
+		
+		destination = session.createQueue("Kopf");
+		consumerKopf = session.createConsumer(destination);
+		new Thread(new MyKopfConsumer(consumerRechts, kopf)).start();
 
 	}
 
