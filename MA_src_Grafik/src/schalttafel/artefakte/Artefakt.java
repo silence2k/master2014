@@ -49,6 +49,10 @@ public abstract class Artefakt implements Greifbar {
 	public abstract void update(long deltaTime);
 
 	protected abstract void init();
+	
+	public void reset(){
+		
+	}
 
 	protected void buildGriff1(Vector3f position, MyMaterial material, AssetManager assetManager) {
 		griff1 = new AktorGriff(this, material, buildGriff("griff1", position, assetManager));

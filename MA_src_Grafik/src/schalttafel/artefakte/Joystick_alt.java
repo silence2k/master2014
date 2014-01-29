@@ -11,7 +11,10 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
-public class Joystick extends Artefakt {
+public class Joystick_alt extends Artefakt {
+
+	private float xRotation;
+	private float zRotation;
 
 	private List<MyRotate> myRotateList;
 	
@@ -72,14 +75,14 @@ public class Joystick extends Artefakt {
 	
 	@Override
 	public void reset(){
+		xRotation = 0;
+		zRotation = 0;
+		
 		graficObject.setLocalRotation(resetPos.clone());
 	}
 	
 	protected float zielwert() {
 		float result = 0;
-		
-		float xRotation = graficObject.getLocalRotation().getX();
-		float zRotation = graficObject.getLocalRotation().getZ();
 		
 		/*
 		 *     - 
@@ -89,24 +92,22 @@ public class Joystick extends Artefakt {
 		 *     +
 		 */
 		
-		float grenzwert = 0.4f;
-		float grenzwertHalb = grenzwert/2f;
-		
+		float grenzwert = 0.8f;
 		
 		if(xRotation < -grenzwert){
 			// 1 2 3
-			if(zRotation < -grenzwertHalb){
+			if(zRotation < -grenzwert){
 				result = 3;
-			}else if(zRotation > grenzwertHalb){
+			}else if(zRotation > grenzwert){
 				result = 1;
 			}else{
 				result = 2;
 			}
 		}else if(xRotation > grenzwert){
 			// 6 7 8
-			if(zRotation < -grenzwertHalb){
+			if(zRotation < -grenzwert){
 				result = 8;
-			}else if(zRotation > grenzwertHalb){
+			}else if(zRotation > grenzwert){
 				result = 6;
 			}else{
 				result = 7;
@@ -119,6 +120,9 @@ public class Joystick extends Artefakt {
 			result = 4;
 		}
 		
+		
+		System.out.println("x: "+graficObject.getLocalRotation().getX()+" z: "+graficObject.getLocalRotation().getZ());
+		System.out.println("xRot: "+xRotation +" zRot: "+zRotation +" result: "+result);
 		return result;
 	}
 
@@ -192,10 +196,6 @@ public class Joystick extends Artefakt {
 			float newDistance = 0;
 			float tmpX = xAngle;
 			float tmpZ = zAngle;
-			
-			float xRotation = graficObject.getLocalRotation().getX();
-			float zRotation = graficObject.getLocalRotation().getZ();
-			
 			while (true) {
 				if (!isBeweglichRotation(xAngle, xRotation) && !isBeweglichRotation(zAngle, zRotation)) {
 					// audioRadende.play();
@@ -205,8 +205,8 @@ public class Joystick extends Artefakt {
 				} else if (!isBeweglichRotation(xAngle, xRotation) && isBeweglichRotation(zAngle, zRotation)) {
 					tmpX = 0;
 				}
-//				xRotation = xRotation + tmpX;
-//				zRotation = zRotation + tmpZ;
+				xRotation = xRotation + tmpX;
+				zRotation = zRotation + tmpZ;
 
 				graficObject.rotate(tmpX, 0, tmpZ);
 				newDistance = griff.distanceToActor();

@@ -45,6 +45,7 @@ public class AktorGriff {
 		this.aktor = null;
 		if (aktive) {
 			griffmaterial.setColor(Greifbar);
+			artefakt.reset();
 		} else {
 			griffmaterial.setColor(Inaktiv);
 		}
