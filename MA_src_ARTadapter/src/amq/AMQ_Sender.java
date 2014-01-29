@@ -136,6 +136,7 @@ public class AMQ_Sender {
 			}
 			if(kopf != null){
 				message = session.createTextMessage(kopf.toString());
+				//System.out.println("Kopf: "+message.getText());
 				producerKopf.send(message);
 			}
 		} catch (JMSException e) {

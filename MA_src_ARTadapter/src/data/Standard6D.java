@@ -120,7 +120,8 @@ public class Standard6D extends ARTartefakt implements DataParser {
 		
 		rotM = Rotationmatrix.instanceOf(doub);
 		
-		
+		double angleX =  Degree180.valueOf(rotM.getX().getValue()).getDouble();
+		angleX = -angleX;
 		
 		double angleY =  Degree180.valueOf(rotM.getZ().getValue()).getDouble();
 		angleY = -angleY;
@@ -130,7 +131,7 @@ public class Standard6D extends ARTartefakt implements DataParser {
 		
 //		System.out.println("vorher:  "+rotM);
 				
-		rotM = Rotationmatrix.instanceOf(rotM.getX(), Angle2D.instanceOf(Degree180.valueOf(angleY)), Angle2D.instanceOf(Degree180.valueOf(angleZ)));
+		rotM = Rotationmatrix.instanceOf(Angle2D.instanceOf(Degree180.valueOf(angleX)), Angle2D.instanceOf(Degree180.valueOf(angleY)), Angle2D.instanceOf(Degree180.valueOf(angleZ)));
 		
 //		rotM = Rotationmatrix.instanceOf(rotM.getX(), rotM.getZ(), rotM.getY());
 		
@@ -197,7 +198,7 @@ public class Standard6D extends ARTartefakt implements DataParser {
 	public static void main(String args[]){
 		String s = "[12 1.000][-1654.938 -1470.036 1295.103 -170.9444 22.1562 61.4650][0.442421 -0.895931 0.039636 -0.813655 -0.419593 -0.402378 0.377133 0.145771 -0.914615]";
 		Standard6D s6 = new Standard6D(s);
-		System.out.println("s: "+s);
+		//System.out.println("s: "+s);
 		System.out.println(s6.toString());
 	}
 

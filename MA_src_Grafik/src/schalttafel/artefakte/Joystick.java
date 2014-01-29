@@ -20,6 +20,8 @@ public class Joystick extends Artefakt {
 	@Override
 	public Node init(boolean physik, AssetManager assetManager, Vector3f position) {
 		init();
+		
+		
 
 		/** Load a teapot model (OBJ file from test-data) */
 		graficObject = (Node) assetManager.loadModel("obj/joystick/joystick.obj");
@@ -36,6 +38,8 @@ public class Joystick extends Artefakt {
 		buildGriff1(new Vector3f(0, 0.5f, 0), m, assetManager);
 
 		graficObject.setLocalTranslation(position);
+		
+		graficObject.scale(0.8f);
 
 		// graficObject.rotate(0, 0, 2);
 

@@ -15,8 +15,8 @@ public abstract class Anzeige extends SimpleApplication implements AnalogListene
 
 	protected boolean physic = false;
 
-	private boolean links = true;
-	private boolean rechts = false;
+	protected final boolean  links = true;
+	protected final boolean rechts = false;
 
 	protected Aktor handRechts = new Aktor(this, rechts);
 	protected Aktor handLinks = new Aktor(this, links);

@@ -58,7 +58,11 @@ public abstract class Schieber extends Artefakt {
 
 	protected float zielwert() {
 		float tmp = maxTrans - minTrans;
-		return translation / tmp * 100f;
+		tmp = translation / tmp * 100f;
+		if(tmp < 0){
+			tmp = tmp * -1f;
+		}
+		return tmp;
 	}
 
 }

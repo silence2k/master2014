@@ -25,6 +25,22 @@ public class KopfART extends Standard6D{
 		parseAMQ(amqString);
 	}
 	
+	public void update(Standard6D std6){
+		this.x = std6.x;
+		this.y = std6.y;
+		this.z = std6.z;
+		
+		this.eta = std6.eta;
+		this.theta = std6.theta;
+		this.phi = std6.phi;
+		
+		this.etaM = std6.etaM;
+		this.thetaM = std6.thetaM;
+		this.phiM = std6.phiM;
+		
+		this.rotM = std6.rotM;
+	}
+	
 	
 	public static void main(String args[]){
 		KopfART k = new KopfART();

@@ -53,47 +53,53 @@ public class KopfAnzeigeART extends JPanel {
 		super.update(arg0);
 		paint(arg0);
 	}
+	
+	public void update(){
+		berechne.update();
+	}
 
 	public void paint(Graphics g) {
-		printPoints(g);
-		printHands(g);
+//		printPoints(g);
+//		printHands(g);
+		
+		
 	}
 
-	private void printPoints(Graphics g) {
-		Dimension d = this.getPreferredSize();
-		g.setColor(Color.black);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+//	private void printPoints(Graphics g) {
+//		Dimension d = this.getPreferredSize();
+//		g.setColor(Color.black);
+//		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+//
+//		berechne.update();
+//
+//		g.setColor(Color.red);
+//		for (Standard3D s3d : berechne.getListAll()) {
+//			g.fillRect(getX(s3d), getZ(s3d), 2, 2);
+//		}
+//
+//		g.setColor(Color.green);
+//		// for(Standard3D s3d : berechne.getListClean()){
+//		// g.fillRect(getX(s3d), getY(s3d), 2, 2);
+//		// }
+//
+//		for (Standard3D s3d : berechne.getListPuffer()) {
+//			g.fillRect(getX(s3d), getZ(s3d), 2, 2);
+//		}
+//
+//	}
 
-		berechne.update();
-
-		g.setColor(Color.red);
-		for (Standard3D s3d : berechne.getListAll()) {
-			g.fillRect(getX(s3d), getZ(s3d), 2, 2);
-		}
-
-		g.setColor(Color.green);
-		// for(Standard3D s3d : berechne.getListClean()){
-		// g.fillRect(getX(s3d), getY(s3d), 2, 2);
-		// }
-
-		for (Standard3D s3d : berechne.getListPuffer()) {
-			g.fillRect(getX(s3d), getZ(s3d), 2, 2);
-		}
-
-	}
-
-	private void printHands(Graphics g) {
-		printHand(berechne.getRechteHand(), g);
-		printHand(berechne.getLinkeHand(), g);
-	}
-
-	private void printHand(HandART hand, Graphics g) {
-
-		g.setColor(Color.cyan);
-		g.fillRect(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), 2, 2);
-		int tmp = (int) hand.ausdehnung();
-		g.drawOval(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), tmp, tmp);
-	}
+//	private void printHands(Graphics g) {
+//		printHand(berechne.getRechteHand(), g);
+//		printHand(berechne.getLinkeHand(), g);
+//	}
+//
+//	private void printHand(HandART hand, Graphics g) {
+//
+//		g.setColor(Color.cyan);
+//		g.fillRect(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), 2, 2);
+//		int tmp = (int) hand.ausdehnung();
+//		g.drawOval(getX(hand.getMittelPunkt()), getZ(hand.getMittelPunkt()), tmp, tmp);
+//	}
 
 	private void printHand(HandART2 hand, Graphics g) {
 
@@ -148,7 +154,8 @@ public class KopfAnzeigeART extends JPanel {
 		frame.getContentPane().add(ta);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize((int) verschiebung * 2, (int) verschiebung * 2);
+//		frame.setSize((int) verschiebung * 2, (int) verschiebung * 2);
+		frame.setSize(20, 20);
 		frame.setLocation(200, 200);
 		frame.setVisible(true);
 
@@ -157,7 +164,8 @@ public class KopfAnzeigeART extends JPanel {
 				try {
 					while (true) {
 						Thread.sleep(sleepTime);
-						ta.repaint();
+//						ta.repaint();
+						ta.update();
 					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();

@@ -91,7 +91,7 @@ public class RemoteEmpfaenger {
 		
 		destination = session.createQueue("Kopf");
 		consumerKopf = session.createConsumer(destination);
-		new Thread(new MyKopfConsumer(consumerRechts, kopf)).start();
+		new Thread(new MyKopfConsumer(consumerKopf, kopf)).start();
 
 	}
 
@@ -99,6 +99,7 @@ public class RemoteEmpfaenger {
 
 		consumerLinks.close();
 		consumerRechts.close();
+		consumerKopf.close();
 		session.close();
 		connection.close();
 
@@ -166,6 +167,7 @@ public class RemoteEmpfaenger {
 					if (message instanceof TextMessage) {
 						TextMessage textMessage = (TextMessage) message;
 						String text = textMessage.getText();
+						//System.out.println("text: "+text);
 						this.kopf.update(new Kopf(text));
 
 					} else {

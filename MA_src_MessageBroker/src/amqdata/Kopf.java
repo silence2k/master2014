@@ -1,5 +1,7 @@
 package amqdata;
 
+import java.util.Arrays;
+
 public class Kopf {
 
 	protected float x;
@@ -45,6 +47,7 @@ public class Kopf {
 		this.phiM[0] = kopf.phiM[0];
 		this.phiM[1] = kopf.phiM[1];
 		this.phiM[2] = kopf.phiM[2];
+	
 		
 	}
 
@@ -136,6 +139,13 @@ public class Kopf {
 
 	public float[] getPhiM() {
 		return phiM;
+	}
+
+	@Override
+	public String toString() {
+		return "Kopf [x=" + x + ", y=" + y + ", z=" + z + ", eta=" + eta + ", theta=" + theta + ", phi=" + phi
+				+ ", etaM=" + Arrays.toString(etaM) + ", thetaM=" + Arrays.toString(thetaM) + ", phiM="
+				+ Arrays.toString(phiM) + "]";
 	}
 	
 	

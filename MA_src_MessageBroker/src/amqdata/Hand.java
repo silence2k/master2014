@@ -64,7 +64,7 @@ public class Hand {
 	}
 
 	private void parse(String s){
-		System.out.println("s: "+s );
+		//System.out.println("s: "+s );
 		String tmp;
 		if(s.startsWith("Hand[")&&s.endsWith("]")){
 			tmp = s.substring(5,s.length()-1);

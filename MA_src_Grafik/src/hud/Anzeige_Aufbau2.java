@@ -9,18 +9,31 @@ import schalttafel.artefakte.Hebel1;
 import schalttafel.artefakte.Joystick;
 import schalttafel.artefakte.Schieber3;
 import schalttafel.verkleidung.Schiebere3Verkleidung;
+import aktor.AktorCopit;
 import amq.AMQ_Sender;
 import amq.RemoteEmpfaenger;
+import amqdata.Hand;
 import amqdata.Kopf;
 import anzeige.Anzeige;
 
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
+import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.shape.Box;
 
 public class Anzeige_Aufbau2 extends Anzeige {
+	
+	float versatzX = 300;
+	float versatzY = 120;
+	
+	float handVersatzX = 0;
+	
+	float handScaleY = 0.5f;
 	
 	AMQ_Sender sender;
 	private RemoteEmpfaenger empfaenger;
@@ -52,22 +65,35 @@ public class Anzeige_Aufbau2 extends Anzeige {
 	@Override
 	public void simpleInitApp() {
 		
+		handRechts = new AktorCopit(this, rechts);
+		handLinks = new AktorCopit(this, links);
+		
 		empfaenger = new RemoteEmpfaenger();
 		this.flyCam.setEnabled(false);
-		cam.setLocation(new Vector3f(0f, 5f, 5f));
+		cam.setLocation(new Vector3f(0f, 1f, 1f));
 
 		setupKeys();
+		
+		float y = -0.5f;
+		float z = 0.0f;
+		
+		float zJoy = -0.2f;
+		float yJoy = -0.7f;
+		
+		float xSchieber = -0.7f;
 
-		rootNode.attachChild(hebel.init(physic, assetManager, new Vector3f(1, 0, 0)));
+		rootNode.attachChild(hebel.init(physic, assetManager, new Vector3f(-1.5f, y, 0)));
 
-		rootNode.attachChild(schieber.init(physic, assetManager, new Vector3f(-1, 0, 0)));
-		rootNode.attachChild(verkleidung.init(physic, assetManager, new Vector3f(-1, 0, 0)));
+		rootNode.attachChild(schieber.init(physic, assetManager, new Vector3f(xSchieber, y, z)));
+		rootNode.attachChild(verkleidung.init(physic, assetManager, new Vector3f(xSchieber, y, z)));
 
-		rootNode.attachChild(joystick.init(physic, assetManager, new Vector3f(0, 0, 0)));
+		rootNode.attachChild(joystick.init(physic, assetManager, new Vector3f(1, yJoy, zJoy)));
 
-		handRechts.init(physic, assetManager, new Vector3f(0, 0.5f, 0.1f));
+		handRechts.init(physic, assetManager, new Vector3f(1, 0.5f, 0.1f));
+		handLinks.init(physic, assetManager, new Vector3f(-1, 0.5f, 0.1f));
 
 		handRechts.rotate((float) (3 * Math.PI / 2.0), 0, 0);
+		handLinks.rotate((float) (3 * Math.PI / 2.0), 0, 0);
 		// rootNode.attachChild(handLinks.init(physic, assetManager, new
 		// Vector3f(-1, 0, 0.2f)));
 
@@ -84,6 +110,10 @@ public class Anzeige_Aufbau2 extends Anzeige {
 		DirectionalLight sun = new DirectionalLight();
 		sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f).normalizeLocal());
 		rootNode.addLight(sun);
+		
+		
+		//buildPowerwall();
+		//buildWand();
 	}
 
 	@Override
@@ -95,7 +125,12 @@ public class Anzeige_Aufbau2 extends Anzeige {
 		for (Artefakt arte : artefakte) {
 			arte.update(deltaTime);
 		}
-		
+		Hand h = empfaenger.getLinks();
+
+		handLinks.update(h.getX(), h.getY()*handScaleY, h.getZ(), h.isGrab());
+
+		h = empfaenger.getRechts();
+		handRechts.update(h.getX(), h.getY()*handScaleY, h.getZ(), h.isGrab());
 		
 		updateCamera();
 	}
@@ -105,7 +140,12 @@ public class Anzeige_Aufbau2 extends Anzeige {
 		kopf = empfaenger.getKopf();
 		float scale = 20;
 
-		this.getCamera().setLocation(new Vector3f((float) kopf.getX() / scale, 20, -(float) kopf.getY() / scale));
+//		this.getCamera().setLocation(new Vector3f((float) kopf.getX() / scale, 0, -(float) kopf.getY() / scale));
+		
+		
+		
+	//	System.out.println("CamPos x:" + kopf.getX() + " y: " + kopf.getY() + " z: "+ kopf.getZ());
+		//System.out.println("CamPos: "+this.getCamera().getLocation());
 
 		Quaternion q = new Quaternion();
 
@@ -113,7 +153,7 @@ public class Anzeige_Aufbau2 extends Anzeige {
 		Vector3f vY = new Vector3f(kopf.getThetaM()[0], kopf.getThetaM()[1], kopf.getThetaM()[2]);
 		Vector3f vZ = new Vector3f(kopf.getPhiM()[0], kopf.getPhiM()[1], kopf.getPhiM()[2]);
 
-		System.out.println("CamPos x:" + kopf.getX() + " y: " + kopf.getY());
+//		System.out.println("CamPos x:" + kopf.getX() + " y: " + kopf.getY() + " z: "+ kopf.getZ());
 
 		q.fromAxes(vX, vY, vZ);
 		q.normalizeLocal();
@@ -169,6 +209,29 @@ public class Anzeige_Aufbau2 extends Anzeige {
 		default:
 			break;
 		}
+	}
+	
+	
+	private void buildPowerwall() {
+		Box pwBox = new Box(100, 20, 1);
+		Geometry pw = new Geometry("powerwall", pwBox);
+		Material mat_tl = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		mat_tl.setColor("Color", new ColorRGBA(1f, 0f, 0f, 1f));
+		pw.setMaterial(mat_tl);
+		rootNode.attachChild(pw);
+
+		pw.setLocalTranslation(0, 10, -100);
+	}
+	
+	private void buildWand() {
+		Box pwBox = new Box(100, 20, 1);
+		Geometry pw = new Geometry("powerwall", pwBox);
+		Material mat_tl = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		mat_tl.setColor("Color", new ColorRGBA(1f, 1f, 1f, 1f));
+		pw.setMaterial(mat_tl);
+		rootNode.attachChild(pw);
+
+		pw.setLocalTranslation(0, 10, 100);
 	}
 
 }

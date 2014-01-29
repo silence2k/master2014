@@ -22,6 +22,9 @@ public class Berechne {
 	private HandART2 linkeHand = new HandART2(-1000, 0, 500);
 	
 	private KopfART kopf = new KopfART();
+	
+	boolean mitHaenden;
+	boolean mitKopf;
 
 	AMQ_Sender sender;
 
@@ -32,6 +35,9 @@ public class Berechne {
 
 	public Berechne(DataSource dataSource, boolean remote, boolean mitHaenden, boolean mitKopf) {
 		super();
+		this.mitHaenden = mitHaenden;
+		this.mitKopf = mitKopf;
+		
 		this.dataSource = dataSource;
 		if(remote){
 		try {
@@ -69,6 +75,7 @@ public class Berechne {
 	}
 
 	public void update() {
+		if(mitHaenden){
 		List<Standard3DExtented> list = new ArrayList<>();
 		List<Standard3DExtented> source = dataSource.getStandard3dList();
 
@@ -81,6 +88,10 @@ public class Berechne {
 		listClean = list;
 		puffer.add(listClean);
 		updateHand(listClean);
+		}
+		if(mitKopf){
+			kopf.update(dataSource.getStandard6d());
+		}
 	}
 
 	private boolean match(Standard3DExtented s3d) {
