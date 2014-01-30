@@ -30,7 +30,7 @@ public class SpaceCoreSteuerungImpl extends SpaceCoreSteuerung {
 	// String rechts = "d";
 
 	protected String getFahrgestell() {
-		return fahrwerkEingezogen ? "-h" : "h";
+		return fahrwerkEingezogen ? "h" : "-h";
 	}
 
 	protected String getLinks() {
@@ -124,6 +124,7 @@ public class SpaceCoreSteuerungImpl extends SpaceCoreSteuerung {
 
 		@Override
 		public void setZielWert(float zielwert) {
+			//System.out.println("zielwert: "+zielwert);
 			if (!an) {
 				if (zielwert < schwellWertMin) {
 					setAn(true);
