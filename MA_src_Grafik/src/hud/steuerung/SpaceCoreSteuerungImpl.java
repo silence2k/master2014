@@ -108,9 +108,9 @@ public class SpaceCoreSteuerungImpl extends SpaceCoreSteuerung {
 		
 		private boolean an;
 		
-		protected float schwellWertMin = 20;
+		protected float schwellWertMin = 0;
 		
-		protected float schwellWertMax = 80;
+		protected float schwellWertMax = 60;
 		
 		public HebelAnzeiger(){
 			

@@ -89,7 +89,7 @@ public class Joystick extends Artefakt {
 		 *     +
 		 */
 		
-		float grenzwert = 0.4f;
+		float grenzwert = 0.3f;
 		float grenzwertHalb = grenzwert/2f;
 		
 //		if(xRotation < -grenzwertHalb){
@@ -104,29 +104,41 @@ public class Joystick extends Artefakt {
 		
 
 		
+//		if(xRotation < -grenzwert){
+//			// 1 2 3
+//			if(zRotation < -grenzwertHalb){
+//				result = 3;
+//			}else if(zRotation > grenzwertHalb){
+//				result = 1;
+//			}else{
+//				result = 2;
+//			}
+//		}else if(xRotation > grenzwert){
+//			// 6 7 8
+//			if(zRotation < -grenzwertHalb){
+//				result = 8;
+//			}else if(zRotation > grenzwertHalb){
+//				result = 6;
+//			}else{
+//				result = 7;
+//			}
+//		}else if(zRotation < -grenzwert){
+//			// 5
+//			result = 5;
+//		}else if(zRotation > grenzwert){
+//			// 4
+//			result = 4;
+//		}
+		
+		
+		
 		if(xRotation < -grenzwert){
-			// 1 2 3
-			if(zRotation < -grenzwertHalb){
-				result = 3;
-			}else if(zRotation > grenzwertHalb){
-				result = 1;
-			}else{
 				result = 2;
-			}
 		}else if(xRotation > grenzwert){
-			// 6 7 8
-			if(zRotation < -grenzwertHalb){
-				result = 8;
-			}else if(zRotation > grenzwertHalb){
-				result = 6;
-			}else{
 				result = 7;
-			}
 		}else if(zRotation < -grenzwert){
-			// 5
 			result = 5;
 		}else if(zRotation > grenzwert){
-			// 4
 			result = 4;
 		}
 		

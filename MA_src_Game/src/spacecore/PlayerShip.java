@@ -22,7 +22,9 @@ public class PlayerShip {
 	private Vector3f Forward, vNeigung, vRollen, vQuer;
 
 	// Pitch and rolls
-	private float neigung, rollen, quer;
+	private float neigung = 0.01f; // 0.03
+	private float rollen = 0.01f; // 0.05
+	private float quer;
 
 	// TEST VARIABLE
 	Quaternion QResult;
@@ -112,15 +114,15 @@ public class PlayerShip {
 		// Changing pitch and roll (Pitch is on Z axis)
 
 		if (steuerung.isNaseRunter())
-			dNeigen -= 0.03;
+			dNeigen -= neigung;
 		if (steuerung.isNaseHoch())
-			dNeigen += 0.03;
+			dNeigen += neigung;
 
 		// Roll is on post-pitch X acis
 		if (steuerung.isRollenLinks())
-			dRollen += 0.05;
+			dRollen += rollen;
 		if (steuerung.isRollenRechts())
-			dRollen -= 0.05;
+			dRollen -= rollen;
 
 		// Update velocities
 		

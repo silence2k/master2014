@@ -6,6 +6,7 @@ import javax.jms.JMSException;
 
 import schalttafel.artefakte.Artefakt;
 import schalttafel.artefakte.Hebel1;
+import schalttafel.artefakte.Hebel3;
 import schalttafel.artefakte.Joystick;
 import schalttafel.artefakte.Schieber3;
 import schalttafel.verkleidung.Schiebere3Verkleidung;
@@ -16,6 +17,7 @@ import amqdata.Hand;
 import amqdata.Kopf;
 import anzeige.Anzeige;
 
+import com.jme3.app.StatsAppState;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
@@ -38,7 +40,7 @@ public class Anzeige_Aufbau2 extends Anzeige {
 	AMQ_Sender sender;
 	private RemoteEmpfaenger empfaenger;
 
-	Hebel1 hebel = new Hebel1();
+	Hebel3 hebel = new Hebel3();
 	Schieber3 schieber = new Schieber3();
 	Schiebere3Verkleidung verkleidung = new Schiebere3Verkleidung();
 
@@ -65,6 +67,10 @@ public class Anzeige_Aufbau2 extends Anzeige {
 	@Override
 	public void simpleInitApp() {
 		
+		if (stateManager.getState(StatsAppState.class) != null) {
+			stateManager.getState(StatsAppState.class).toggleStats();
+		}
+		
 		handRechts = new AktorCopit(this, rechts);
 		handLinks = new AktorCopit(this, links);
 		
@@ -77,12 +83,12 @@ public class Anzeige_Aufbau2 extends Anzeige {
 		float y = -0.5f;
 		float z = 0.0f;
 		
-		float zJoy = -0.2f;
+		float zJoy = -0.4f;
 		float yJoy = -0.7f;
 		
 		float xSchieber = -0.7f;
 
-		rootNode.attachChild(hebel.init(physic, assetManager, new Vector3f(-1.5f, y, 0)));
+		rootNode.attachChild(hebel.init(physic, assetManager, new Vector3f(-1.2f, y, -0.5f)));
 
 		rootNode.attachChild(schieber.init(physic, assetManager, new Vector3f(xSchieber, y, z)));
 		rootNode.attachChild(verkleidung.init(physic, assetManager, new Vector3f(xSchieber, y, z)));
