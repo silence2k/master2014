@@ -86,14 +86,18 @@ public class Anzeige_Aufbau2 extends Anzeige {
 		float zJoy = -0.4f;
 		float yJoy = -0.7f;
 		
-		float xSchieber = -0.7f;
+		float xHebel = -1.3f;
+		float xSchieber = -0.9f;
+		float xJoystick = 1f;
+		
+		float zSchieber = -0.2f;
 
-		rootNode.attachChild(hebel.init(physic, assetManager, new Vector3f(-1.2f, y, -0.5f)));
+		rootNode.attachChild(hebel.init(physic, assetManager, new Vector3f(xHebel, y, -0.7f)));
 
-		rootNode.attachChild(schieber.init(physic, assetManager, new Vector3f(xSchieber, y, z)));
-		rootNode.attachChild(verkleidung.init(physic, assetManager, new Vector3f(xSchieber, y, z)));
+		rootNode.attachChild(schieber.init(physic, assetManager, new Vector3f(xSchieber, y, zSchieber)));
+		rootNode.attachChild(verkleidung.init(physic, assetManager, new Vector3f(xSchieber, y, zSchieber)));
 
-		rootNode.attachChild(joystick.init(physic, assetManager, new Vector3f(1, yJoy, zJoy)));
+		rootNode.attachChild(joystick.init(physic, assetManager, new Vector3f(xJoystick, yJoy, zJoy)));
 
 		handRechts.init(physic, assetManager, new Vector3f(1, 0.5f, 0.1f));
 		handLinks.init(physic, assetManager, new Vector3f(-1, 0.5f, 0.1f));

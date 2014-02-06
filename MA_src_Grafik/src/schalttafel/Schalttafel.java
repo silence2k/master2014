@@ -5,6 +5,7 @@ import java.util.List;
 import schalttafel.artefakte.MyMaterial;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -34,8 +35,13 @@ public class Schalttafel {
 
 		Geometry g = (Geometry) graficObject.getChild("schalttafel1-geom-0");
 		material = new MyMaterial(g.getMaterial());
+		
+		Material m = g.getMaterial();
 
 		graficObject.setLocalTranslation(position);
+		
+		Geometry g2 = (Geometry) graficObject.getChild("schalttafel1-geom-1");
+		g2.setMaterial(m);
 
 		return graficObject;
 	}

@@ -30,6 +30,9 @@ import com.jme3.scene.Node;
 public class Anzeige_Schalttafel2 extends Anzeige {
 
 	Schalttafel schalttafel = new Schalttafel();
+	
+	Vector3f cameraPos1 = new Vector3f(0,0,0);
+	Vector3f cameraRot1 = new Vector3f(0,0,0);
 
 	Node node = new Node();
 	int state = 9;
@@ -114,9 +117,11 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		inputManager.addMapping("ra_greifen", new KeyTrigger(KeyInput.KEY_M));
 		inputManager.addMapping("ra_rein", new KeyTrigger(KeyInput.KEY_U));
 		inputManager.addMapping("ra_raus", new KeyTrigger(KeyInput.KEY_O));
+		inputManager.addMapping("cam", new KeyTrigger(KeyInput.KEY_C));
+		inputManager.addMapping("camSyso", new KeyTrigger(KeyInput.KEY_V));
 
 		inputManager.addListener(this, "next", "prev", "ra_hoch", "ra_runter", "ra_links", "ra_rechts", "ra_greifen",
-				"ra_rein", "ra_raus");
+				"ra_rein", "ra_raus","cam","camSyso");
 	}
 
 	public void onAnalog(String binding, float value, float tpf) {
@@ -148,6 +153,13 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 			break;
 		case "prev":
 			switchState(-1);
+			break;
+		case "cam":
+			cam.setLocation(cameraPos1);
+			break;
+		case "camSyso":
+			System.out.println("cam tras: "+cam.getLocation());
+			System.out.println("cam  rot: "+cam.getRotation());
 			break;
 		default:
 			break;
@@ -224,7 +236,7 @@ public class Anzeige_Schalttafel2 extends Anzeige {
 		Hebel2Verkleidung verkleidung = new Hebel2Verkleidung();
 		node.attachChild(hebel2.init(physic, assetManager, new Vector3f(x1, y1, 0)));
 		node.attachChild(verkleidung.init(physic, assetManager, new Vector3f(x1, y1, 0)));
-
+		
 		node.attachChild(lampe1.init(physic, assetManager, new Vector3f(x2, y2, 0)));
 		hebel2.setAnzeiger(lampe1);
 		artefakte.add(hebel2);

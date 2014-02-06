@@ -115,15 +115,16 @@ public class AktorCopit extends Aktor {
 	public void update(float x, float y, float z, boolean greifen) {
 		// System.out.println("x: "+x+" y: "+y+" z: "+z);
 		
-		z = z * 2f;
+		z = z * 2.2f;
 		
 		if(z > 0){
 			z = 0;
 		}
-		if(z < -0.7f){
-			z = -0.7f;
+		if(z < -1f){
+			z = -1f;
 		}
 		
+		x = x * 2;
 		
 		
 		//System.out.println("z: "+z);
