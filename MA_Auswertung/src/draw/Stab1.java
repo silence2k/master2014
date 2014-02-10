@@ -2,8 +2,10 @@ package draw;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.List;
 
 import util.Mathe;
+import util.Paar;
 
 
 public class Stab1 extends Stab{
@@ -16,6 +18,8 @@ public class Stab1 extends Stab{
 	
 	int breite_MW = 3;
 	int hoehe_MW = 6;
+	
+	int hoehe_Staw = 6;
 	
 	// position mittelWERT
 	int fixIT = 80;
@@ -48,8 +52,13 @@ public class Stab1 extends Stab{
 			
 			drawBalken(yOffset, g, tmpX1, i);
 		}
+		List<Paar> paare = Mathe.paare(gewichte,values);
+		double mittelwert = Mathe.mittelWert(paare);
+		double standartAbweichung = Mathe.standardabweichung(paare, mittelwert);
 		
-		drawMittelwert(g, xStart);
+		drawStandardabweichung(mittelwert, standartAbweichung, xStart, g);
+		
+		drawMittelwert(mittelwert, xStart,g);
 		
 //		Draw start und ende
 //		g.setColor(Color.YELLOW);
@@ -73,12 +82,21 @@ public class Stab1 extends Stab{
 		g.fillPolygon(new int[]{tmpX1,tmpX1,tmpX2,tmpX2}, new int[]{tmpY1,tmpY2,tmpY2,tmpY1}, 4);
 	}
 
-	private void drawMittelwert(Graphics g, int xStart) {
-		double mittelwert = Mathe.mittelWert(gewichte,values);
-		System.out.println(mittelwert);
-		int xMittel = (int)((mittelwert-1)*breite+xStart);
+	private void drawMittelwert(double mittelwert, int xStart, Graphics g) {
+		int xMittel = (int)((mittelwert-1)*abstand+xStart);
 		g.setColor(Color.CYAN);
 		g.fillRect(xMittel-breite_MW/2, fixIT, breite_MW, hoehe_MW);
+	}
+	
+	private void drawStandardabweichung(double mittelwert, double standartAbweichung, int xStart, Graphics g){
+		int xSt1 = (int)((mittelwert-1-standartAbweichung)*abstand+xStart);
+		int xSt2 = (int)((mittelwert-1+standartAbweichung)*abstand+xStart);
+		
+		g.setColor(Color.BLACK);
+		
+		g.drawLine(xSt1, fixIT, xSt2, fixIT);
+		g.drawLine(xSt1, fixIT-hoehe_Staw/2, xSt1, fixIT+hoehe_Staw/2);
+		g.drawLine(xSt2, fixIT-hoehe_Staw/2, xSt2, fixIT+hoehe_Staw/2);
 	}
 	
 	

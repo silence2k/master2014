@@ -8,8 +8,8 @@ public class MyPanel1 extends JPanel {
 	
 	String[] names = {"eins", "zwei", "drei", "vier", "fünf"};
 	int[] gewichte = {1,2,3,4,5};
-//	int[] values = {5,3,10,2,1};
-	int[] values = {5,0,0,0,0};
+	int[] values = {0,1,5,1,0};
+//	int[] values = {5,0,0,0,0};
 	
 	
 	Stab stab = new Stab1(names, gewichte, values);
