@@ -2,6 +2,9 @@ package draw;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import util.Mathe;
@@ -24,6 +27,8 @@ public class Stab1 extends Stab{
 	// position mittelWERT
 	int fixIT = 80;
 	
+	Color hintergrund = Color.WHITE;
+	
 	
 	public Stab1(String[] names, int[] gewichte, int[] values) {
 		super(names,gewichte,values);
@@ -32,10 +37,14 @@ public class Stab1 extends Stab{
 	@Override
 	public void draw(int xOffset, int yOffset, Graphics g) {
 		
+		
 		int tmpX1 = 0;
 		
 		int xStart = Integer.MAX_VALUE;
 		int xEnde = Integer.MIN_VALUE;
+		
+		g.setColor(hintergrund);
+		g.fillRect(0, 0, 400, 400);
 		
 		
 		
@@ -49,6 +58,10 @@ public class Stab1 extends Stab{
 			xEnde = Math.max(xEnde, tmpX1);
 			
 			g.drawLine(tmpX1, yOffset+4, tmpX1, yOffset);
+			
+			//drawString(names[i], tmpX1, yOffset,g);
+			
+			g.drawImage(imageString(names[i]), tmpX1, yOffset, null);
 			
 			drawBalken(yOffset, g, tmpX1, i);
 		}
@@ -65,6 +78,7 @@ public class Stab1 extends Stab{
 //		g.drawLine(xStart, yOffset+8, xStart, yOffset+4);
 //		g.setColor(Color.CYAN);
 //		g.drawLine(xEnde, yOffset+8, xEnde, yOffset+4);
+		
 		
 	}
 
@@ -99,7 +113,30 @@ public class Stab1 extends Stab{
 		g.drawLine(xSt2, fixIT-hoehe_Staw/2, xSt2, fixIT+hoehe_Staw/2);
 	}
 	
-	
+	private Image imageString(String s){
+		
+		int width = 50;
+		int height = 14;
+		
+		Image img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		
+		Graphics2D g2d = (Graphics2D)img.getGraphics();
+		g2d.setColor(hintergrund);
+		g2d.fillRect(0, 0, width, height);
+		g2d.setColor(Color.BLACK);
+	    // clockwise 90 degrees
+	    
+//	    AffineTransform at = new AffineTransform();
+//	    at.setToRotation(-Math.PI/2.0, width/2.0, height/2.0);
+//	    g2d.setTransform(at);
+	    
+	    g2d.drawString(s, 5, 10);
+	    
+	    
+	    //g.drawImage(img, x, y, null);
+	    return img;
+	}
+	 
 	
 
 	
