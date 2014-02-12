@@ -2,7 +2,9 @@ package draw;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import util.Mathe;
 import util.Paar;
@@ -15,6 +17,8 @@ public abstract class Stab {
 	protected int[] values;
 	
 	protected double mittelwert;
+	
+	protected Map<String, Integer> xMap;
 	
 	
 	protected Stab(String[] names, int[] gewichte, int[] values) {
@@ -40,6 +44,14 @@ public abstract class Stab {
 		}
 		
 	mittelwert = Mathe.mittelWert(paare);
+	
+	
+	
+	initxMap();
+	}
+	
+	protected void initxMap(){
+		xMap = new HashMap<String, Integer>();
 	}
 	
 	

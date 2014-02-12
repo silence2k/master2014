@@ -1,11 +1,15 @@
 package draw;
 
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 import util.Mathe;
 import util.Paar;
@@ -37,6 +41,7 @@ public class Stab1 extends Stab{
 	@Override
 	public void draw(int xOffset, int yOffset, Graphics g) {
 		
+		final FontMetrics fm = g.getFontMetrics();
 		
 		int tmpX1 = 0;
 		
@@ -61,10 +66,15 @@ public class Stab1 extends Stab{
 			
 			//drawString(names[i], tmpX1, yOffset,g);
 			
-			g.drawImage(imageString(names[i]), tmpX1, yOffset, null);
+//			g.drawImage(imageString(names[i]), tmpX1, yOffset, null);
 			
 			drawBalken(yOffset, g, tmpX1, i);
+			
+			
 		}
+		
+		g.drawImage(imageString(names[1]), tmpX1, yOffset, null);
+		
 		List<Paar> paare = Mathe.paare(gewichte,values);
 		double mittelwert = Mathe.mittelWert(paare);
 		double standartAbweichung = Mathe.standardabweichung(paare, mittelwert);
@@ -115,25 +125,34 @@ public class Stab1 extends Stab{
 	
 	private Image imageString(String s){
 		
-		int width = 50;
-		int height = 14;
+		int width = 14;
+		int height = 70;
 		
 		Image img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		
 		Graphics2D g2d = (Graphics2D)img.getGraphics();
-		g2d.setColor(hintergrund);
+//		g2d.setColor(hintergrund);
+		
+	    g2d.setColor(Color.PINK);
 		g2d.fillRect(0, 0, width, height);
 		g2d.setColor(Color.BLACK);
+		
+		
 	    // clockwise 90 degrees
+	    AffineTransform at = new AffineTransform();
+	   // at.setToRotation(-Math.PI/2.0, width/2.0, height/2.0);
+	    at.setToRotation(-Math.PI/2.0, 30, 25);
+	    g2d.setTransform(at);
+	    final FontMetrics fm = g2d.getFontMetrics();
+	    int x = SwingUtilities.computeStringWidth(fm, s);
+	    System.out.println("x: "+x);
 	    
-//	    AffineTransform at = new AffineTransform();
-//	    at.setToRotation(-Math.PI/2.0, width/2.0, height/2.0);
-//	    g2d.setTransform(at);
-	    
-	    g2d.drawString(s, 5, 10);
 	    
 	    
-	    //g.drawImage(img, x, y, null);
+	    g2d.drawString("sehr schlecht", x-25, 5);
+	    
+	    
+	    
 	    return img;
 	}
 	 
