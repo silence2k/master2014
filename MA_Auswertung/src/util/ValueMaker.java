@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class ValueMaker {
 	
-	public static int[] makeValues(int[] daten, int[] gewichte){
-		int[] values = new int[gewichte.length];
-		Map<Integer,Integer> gMap = buildMap(gewichte);
+	public static int[] werteZaehlen(int[] daten, int[] werte){
+		int[] values = new int[werte.length];
+		Map<Integer,Integer> gMap = buildMap(werte);
 		Integer index = null;
 		for(int d : daten){
 			index = gMap.get(d);
@@ -32,10 +32,10 @@ public class ValueMaker {
 	
 	public static void main(String args[]){
 		
-		int[] daten = {1,1,2,2,3,3,3,4,4,4,4,5,5,5,5,5};
+		int[] daten = {2,2,2,2,3,3,3,4,4,4,4,5,5,5,5,5};
 		int[] gewichte = {1,2,3,4,5};
 		
-		int[] values = makeValues(daten, gewichte);
+		int[] values = werteZaehlen(daten, gewichte);
 		System.out.println(Arrays.toString(values));
 	}
 

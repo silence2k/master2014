@@ -52,7 +52,7 @@ public class RemoteSteuerung implements Steuerung {
 		// Create a Session
 		session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-		Destination destination = session.createQueue("SpaceCore.Steuerung");
+		Destination destination = session.createQueue("SpaceSim.Steuerung");
 
 		// Create a MessageConsumer from the Session to the Topic or Queue
 		consumer = session.createConsumer(destination);

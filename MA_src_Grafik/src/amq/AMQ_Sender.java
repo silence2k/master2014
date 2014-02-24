@@ -55,7 +55,7 @@ public class AMQ_Sender {
 		Destination destination = null;
 
 		
-		destination = session.createQueue("SpaceCore.Steuerung");
+		destination = session.createQueue("SpaceSim.Steuerung");
 		producerSteuerung = session.createProducer(destination);
 		producerSteuerung.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 		
