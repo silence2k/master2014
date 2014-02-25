@@ -3,6 +3,9 @@ package util;
 public class StringHelper {
 	
 	public static String doubleToString(double wert, int nachkommaStellen){
+		if(wert == 0.0){
+			return "0";
+		}
 		StringBuilder sb = new StringBuilder();
 		
 		double d = wert;
@@ -13,6 +16,9 @@ public class StringHelper {
 		String tmp = Math.round(d)+"";
 		
 		sb.append(tmp.substring(0,tmp.length()-nachkommaStellen));
+		if(wert < 1.0){
+			sb.append("0");
+		}
 		sb.append(",");
 		sb.append(tmp.substring(tmp.length()-nachkommaStellen));
 		

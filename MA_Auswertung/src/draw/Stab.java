@@ -13,6 +13,7 @@ import util.Paar;
 public abstract class Stab {
 	
 	protected String name;
+	protected String name2;
 	protected String[] names;
 	
 	protected int[] werte;
@@ -25,9 +26,11 @@ public abstract class Stab {
 	protected Map<String, Integer> xMap = Abstand.getAbstandsMap();
 	
 	
-	protected Stab(String name, String[] names, int[] werte, int[] anzahl,int anzahlAntworten) {
+	
+	protected Stab(String name, String name2, String[] names, int[] werte, int[] anzahl,int anzahlAntworten) {
 		super();
 		this.name = name;
+		this.name2 = name2;
 		this.names = names;
 		this.werte = werte;
 		this.anzahl = anzahl;
@@ -35,7 +38,7 @@ public abstract class Stab {
 		
 		
 		if(names.length != werte.length || werte.length != anzahl.length){
-			throw new RuntimeException("Längen sind ungleich!!!! name: " + name +" werte: "+werte.length+" anzahl: "+anzahl.length);
+			throw new RuntimeException("Längen sind ungleich!!!! name: " + name +"name länge: "+names.length+" werte: "+werte.length+" anzahl: "+anzahl.length);
 		}
 		
 		init();

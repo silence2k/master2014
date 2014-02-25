@@ -41,17 +41,21 @@ public class MyPanel1 extends JPanel {
 
 	//	stab.draw(100, 150, g);
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, 5000, 300);
+		g.fillRect(0, 0, 1000, 1500);
 		
 		int x = 100;
 		int y = 150;
 		
 		int dx = 400;
 		int dy = 300;
+		int j = 0;
 		
 		for(int i = 0; i < stabs.size(); i = i+2){
-			stabs.get(i).draw(x+i*dx,0,x+i*dx, y, g);
-			stabs.get(i+1).draw(x+i*dx,0,x+(i+1)*dx, y, g);
+			j = i%2;
+			System.out.println("i: "+i+" j:"+j);
+			stabs.get(i).draw(0,i/2*dy,x+j*dx, y, g);
+			if(i+1 < stabs.size())
+			stabs.get(i+1).draw(0,i/2*dy,x+(j+1)*dx, y, g);
 		}
 		
 	}

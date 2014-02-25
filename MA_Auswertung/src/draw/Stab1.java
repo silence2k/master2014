@@ -35,7 +35,7 @@ public class Stab1 extends Stab{
 	// position mittelWERT
 	
 	int xAussenRahmen1 = -100;
-	int yAussenRahmen1 = 10;
+	int yAussenRahmen1 = 0;
 	
 	int xAussenRahmen2 = 300;
 	int yAussenRahmen2 = 300;
@@ -50,7 +50,11 @@ public class Stab1 extends Stab{
 	
 	
 	public Stab1(String name, String[] names, int[] werte, int[] daten) {
-		super(name,names,werte,ValueMaker.werteZaehlen(daten, werte),daten.length);
+		super(name,null,names,werte,ValueMaker.werteZaehlen(daten, werte),daten.length);
+	}
+	
+	public Stab1(String name,String name2, String[] names, int[] werte, int[] daten) {
+		super(name,name2,names,werte,ValueMaker.werteZaehlen(daten, werte),daten.length);
 	}
 
 	@Override
@@ -67,9 +71,15 @@ public class Stab1 extends Stab{
 //		g.fillRect(xStart, yStart, xStart+xAussenRahmen2, yStart+yAussenRahmen2);
 		
 		g.setColor(Color.BLACK);
-		g.drawString(this.name, xOffset-60, yOffset-110);
+		if(name2 != null){
+			g.drawString(this.name, xOffset-60, yOffset+yStart-116);
+			g.drawString(this.name2, xOffset-60, yOffset+yStart-104);
+		}else{
+			g.drawString(this.name, xOffset-60, yOffset+yStart-110);
+		}
 		
-		drawAussenRahmen(xOffset,g);
+		
+		drawAussenRahmen(xOffset,yStart,g);
 		
 		for(int i = 0; i < anzahl.length; i++){
 			
@@ -80,15 +90,15 @@ public class Stab1 extends Stab{
 			xStartTmp = Math.min(xStartTmp, tmpX1);
 			xEnde = Math.max(xEnde, tmpX1);
 			
-			g.drawLine(tmpX1, yOffset+4, tmpX1, yOffset);
+			g.drawLine(tmpX1, yOffset+4+yStart, tmpX1, yOffset+yStart);
 			
 			//drawString(names[i], tmpX1, yOffset,g);
 			
 //			g.drawImage(imageString(names[i]), tmpX1, yOffset, null);
 			
-			drawBalken(yOffset, g, tmpX1, i);
+			drawBalken(yOffset+yStart, yStart,g, tmpX1, i);
 			
-			drawName(names[i], tmpX1, yOffset+5, g);
+			drawName(names[i], tmpX1, yOffset+5+yStart, g);
 		}
 		
 		
@@ -98,12 +108,12 @@ public class Stab1 extends Stab{
 		double standartAbweichung = Mathe.standardabweichung(paare, mittelwert);
 		
 		
-		drawRahmen(xOffset,yOffset,g);
+		drawRahmen(xOffset,yOffset,yStart,g);
 		
-		drawStandardabweichung(mittelwert, standartAbweichung, xStartTmp, g);
-		drawMittelwert(mittelwert, xStartTmp,g);
+		drawStandardabweichung(mittelwert, standartAbweichung, xStartTmp,yStart, g);
+		drawMittelwert(mittelwert, xStartTmp,yStart,g);
 		
-		drawSchriften(xOffset, yPosition2, mittelwert, standartAbweichung, g);
+		drawSchriften(xOffset, yPosition2+yStart, mittelwert, standartAbweichung, g);
 		
 //		Draw start und ende
 //		g.setColor(Color.YELLOW);
@@ -137,7 +147,7 @@ public class Stab1 extends Stab{
 		g.drawString(e, x, y);
 	}
 
-	private void drawBalken(int yOffset, Graphics g, int tmpX1, int i) {
+	private void drawBalken(int yOffset,int yStart, Graphics g, int tmpX1, int i) {
 		int tmpX2;
 		int tmpY1;
 		int tmpY2;
@@ -147,13 +157,13 @@ public class Stab1 extends Stab{
 		tmpY1 = yOffset;
 		tmpY2 = tmpY1 - anzahl[i]*yPro;
 		
-		drawProzent(tmpX1, anzahl[i], g);
+		drawProzent(tmpX1,yStart, anzahl[i], g);
 		
 		g.setColor(color_balken);
 		g.fillPolygon(new int[]{tmpX1,tmpX1,tmpX2,tmpX2}, new int[]{tmpY1,tmpY2,tmpY2,tmpY1}, 4);
 	}
 	
-	private void drawProzent(int x, int anzahl, Graphics g){
+	private void drawProzent(int x, int yStart, int anzahl, Graphics g){
 		
 		double d =  (100.0 / anzahlAntworten)*anzahl;
 		
@@ -162,50 +172,50 @@ public class Stab1 extends Stab{
 		String s = StringHelper.doubleToString(d, 1)+"%";
 		g.setColor(Color.BLACK);
 		g.setFont(new Font(tmpFont.getName(), tmpFont.getStyle(), 10));
-		g.drawString(s, x, yPosition1-2);
+		g.drawString(s, x, yPosition1+yStart-2);
 		g.setFont(tmpFont);
 	}
 	
 	
-	private void drawRahmen(int xOffset,int yOffset,Graphics g){
+	private void drawRahmen(int xOffset,int yOffset,int yStart, Graphics g){
 		
 		int x1 = xOffset-25;
 		
 		g.setColor(Color.BLACK);
-		g.drawLine(x1, yPosition1, x1+anzahl.length*abstandBalken, yPosition1);
-		g.drawLine(x1, yOffset, x1+anzahl.length*abstandBalken, yOffset);
+		g.drawLine(x1, yPosition1+yStart, x1+anzahl.length*abstandBalken, yPosition1+yStart);
+		g.drawLine(x1, yOffset+yStart, x1+anzahl.length*abstandBalken, yOffset+yStart);
 		
-		g.drawLine(x1, yPosition1, x1, yOffset);
-		g.drawLine(x1+anzahl.length*abstandBalken, yPosition1, x1+anzahl.length*abstandBalken, yOffset);
+		g.drawLine(x1, yPosition1+yStart, x1, yOffset+yStart);
+		g.drawLine(x1+anzahl.length*abstandBalken, yPosition1+yStart, x1+anzahl.length*abstandBalken, yOffset+yStart);
 	}
 	
-	private void drawAussenRahmen(int xOffset, Graphics g){
+	private void drawAussenRahmen(int xOffset,int yStart, Graphics g){
 		
 		
 		g.setColor(Color.BLACK);
-		g.drawLine(xAussenRahmen1+xOffset, yAussenRahmen1, xAussenRahmen2+xOffset, yAussenRahmen1);
-		g.drawLine(xAussenRahmen1+xOffset, yAussenRahmen2, xAussenRahmen2+xOffset, yAussenRahmen2);
+		g.drawLine(xAussenRahmen1+xOffset, yAussenRahmen1+yStart, xAussenRahmen2+xOffset, yAussenRahmen1+yStart);
+		g.drawLine(xAussenRahmen1+xOffset, yAussenRahmen2+yStart, xAussenRahmen2+xOffset, yAussenRahmen2+yStart);
 		
-		g.drawLine(xAussenRahmen1+xOffset, yAussenRahmen1, xAussenRahmen1+xOffset, yAussenRahmen2);
-		g.drawLine(xAussenRahmen2+xOffset, yAussenRahmen1, xAussenRahmen2+xOffset, yAussenRahmen2);
+		g.drawLine(xAussenRahmen1+xOffset, yAussenRahmen1+yStart, xAussenRahmen1+xOffset, yAussenRahmen2+yStart);
+		g.drawLine(xAussenRahmen2+xOffset, yAussenRahmen1+yStart, xAussenRahmen2+xOffset, yAussenRahmen2+yStart);
 		
 	}
 
-	private void drawMittelwert(double mittelwert, int xStart, Graphics g) {
+	private void drawMittelwert(double mittelwert, int xStart, int yStart,Graphics g) {
 		int xMittel = (int)((mittelwert-1)*abstandBalken+xStart);
 		g.setColor(this.color_mittelwert);
-		g.fillRect(xMittel-breite_MW/2, yPosition2, breite_MW, hoehe_MW);
+		g.fillRect(xMittel-breite_MW/2, yPosition2+yStart, breite_MW, hoehe_MW);
 	}
 	
-	private void drawStandardabweichung(double mittelwert, double standartAbweichung, int xStart, Graphics g){
+	private void drawStandardabweichung(double mittelwert, double standartAbweichung, int xStart, int yStart,Graphics g){
 		int xSt1 = (int)((mittelwert-1-standartAbweichung)*abstandBalken+xStart);
 		int xSt2 = (int)((mittelwert-1+standartAbweichung)*abstandBalken+xStart);
 		
 		g.setColor(Color.BLACK);
 		
-		g.drawLine(xSt1, yPosition2, xSt2, yPosition2);
-		g.drawLine(xSt1, yPosition2-hoehe_Staw/2, xSt1, yPosition2+hoehe_Staw/2);
-		g.drawLine(xSt2, yPosition2-hoehe_Staw/2, xSt2, yPosition2+hoehe_Staw/2);
+		g.drawLine(xSt1, yPosition2+yStart, xSt2, yPosition2+yStart);
+		g.drawLine(xSt1, yPosition2+yStart-hoehe_Staw/2, xSt1, yPosition2+yStart+hoehe_Staw/2);
+		g.drawLine(xSt2, yPosition2+yStart-hoehe_Staw/2, xSt2, yPosition2+yStart+hoehe_Staw/2);
 	}
 	
 	private Image imageString(String s){
@@ -233,7 +243,9 @@ public class Stab1 extends Stab{
 //	    int x = SwingUtilities.computeStringWidth(fm, s);
 //	    System.out.println("x: "+x);
 	    
-	    
+	    if(xMap.get(s) == null){
+	    	System.out.println("gibs noch nicht: "+s);
+	    }
 	    
 	    g2d.drawString(s, xMap.get(s)-55, 5);
 	    
